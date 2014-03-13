@@ -10,5 +10,8 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "benchmark": "~1.0.0"
+  },
+  "dependencies": {
+    "inherit": "~2.2.0"
   }
 }
