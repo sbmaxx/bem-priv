@@ -1,5 +1,21 @@
 var inherit = require('inherit');
-var extend = require('./extend');
+
+var hasOwnProp = Object.prototype.hasOwnProperty;
+
+function extend(target, source) {
+    typeof target !== 'object' && (target = {});
+
+    for(var i = 1, len = arguments.length; i < len; i++) {
+        var obj = arguments[i];
+        if(obj) {
+            for(var key in obj) {
+                hasOwnProp.call(obj, key) && (target[key] = obj[key]);
+            }
+        }
+    }
+
+    return target;
+}
 
 /**
  * Storage for block declarations (hash by block name)
@@ -27,7 +43,6 @@ var BEM = inherit(/** @lends BEM.prototype */ {
          * @readonly
          */
         this.params = extend(this.getDefaultParams(), params);
-
     },
 
     /**
@@ -40,6 +55,8 @@ var BEM = inherit(/** @lends BEM.prototype */ {
     },
 
 }, /** @lends BEM */{
+
+    blocks: blocks,
 
     _name : 'i-bem',
 

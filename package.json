@@ -8,7 +8,7 @@
   },
   "author": "",
   "license": "BSD-2-Clause",
-  "dependencies": {
-    "lodash": "~2.4.1"
+  "devDependencies": {
+    "benchmark": "~1.0.0"
   }
 }

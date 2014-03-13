@@ -2,22 +2,14 @@ var BEM = require('./bem');
 
 BEM.decl('test', {
     test: function() {
-        return 'a';
+        return 'base "test"';
     }
 });
 
 BEM.decl('test', {
     test: function() {
-        return this.__base() + 'b';
+        console.log(this.__base() + '!');
     }
 });
 
-BEM.decl({ block: 'test_test', baseBlock: 'test' }, {
-    test: function() {
-        return 'test' + this.__base();
-    }
-});
-
-
-console.log((new B).test());
-console.log(BEM.create('test_test').test());
+BEM.create('test').test();
