@@ -9,4 +9,4 @@ npm install
 node index.js
 ```
 
-Examples — [index.js]
+[Examples](index.js)
