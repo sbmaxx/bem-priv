@@ -23,12 +23,15 @@ BEM.decl('testStatic', {}, {
 });
 
 var blocks = {};
-blocks['test'] = function() {
-    return {
-        block: 'test',
-        content: 'hello'
+
+blocks['test'] = {
+    getBEMJSON: function() {
+        return {
+            block: 'test',
+            content: 'hello'
+        }
     }
-};
+}
 
 // add tests
 suite
@@ -39,7 +42,7 @@ suite
         BEM.blocks['testStatic'].getBEMJSON();
     })
     .add('Plain', function() {
-        blocks['test']();
+        blocks['test'].getBEMJSON();
     });
 
 // add listeners
