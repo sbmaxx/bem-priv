@@ -7,8 +7,7 @@ var BEM = require('./bem');
 BEM.decl('testCreate', {
     getBEMJSON: function() {
         return {
-            block: 'test',
-            content: 'hello'
+            block: 'test'
         }
     }
 });
@@ -16,19 +15,20 @@ BEM.decl('testCreate', {
 BEM.decl('testStatic', {}, {
     getBEMJSON: function() {
         return {
-            block: 'test',
-            content: 'hello'
+            block: 'test'
         }
     }
 });
+
+
+BEM.decl('testHelper', {}, {});
 
 var blocks = {};
 
 blocks['test'] = {
     getBEMJSON: function() {
         return {
-            block: 'test',
-            content: 'hello'
+            block: 'test'
         }
     }
 }
@@ -40,6 +40,9 @@ suite
     })
     .add('BEM.static', function() {
         BEM.blocks['testStatic'].getBEMJSON();
+    })
+    .add('BEM.json', function() {
+        BEM.json('testHelper');
     })
     .add('Plain', function() {
         blocks['test'].getBEMJSON();
