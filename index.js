@@ -1,19 +1,29 @@
 var BEM = require('./bem');
 
 BEM.decl('test', {
+
+    _privateMethod: function() {
+        return 'private';
+    },
+
     test: function() {
-        return 'base "test"';
+        return 'base ' + this._privateMethod();
     }
+
 });
 
 BEM.decl('test', {
+
     test: function() {
         console.log(this.__base() + '!');
     }
+
 }, {
+
     staticMethod: function() {
         return 'hello';
     }
+
 });
 
 var test = BEM.create('test');
