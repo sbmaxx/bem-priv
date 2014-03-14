@@ -15,8 +15,9 @@ node index.js
 ## [benchmark](benchmark.js)'s results
 
 ```
-BEM.create x 20,826,190 ops/sec ±1.33% (89 runs sampled)
-BEM.static x 64,132,163 ops/sec ±2.33% (81 runs sampled)
-Plain x 40,980,941 ops/sec ±1.39% (90 runs sampled)
+BEM.create x 18,994,360 ops/sec ±3.13% (87 runs sampled)
+BEM.static x 55,539,260 ops/sec ±3.78% (69 runs sampled)
+BEM.json x 13,731,055 ops/sec ±2.26% (87 runs sampled)
+Plain x 37,507,918 ops/sec ±2.71% (83 runs sampled)
 Fastest is BEM.static
 ```
