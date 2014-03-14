@@ -13,3 +13,4 @@ BEM.decl('test', {
 });
 
 BEM.create('test').test();
+BEM.json('test');

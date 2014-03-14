@@ -40,6 +40,16 @@ var BEM = inherit(/** @lends BEM.prototype */ {
         return {};
     },
 
+    /**
+     * Returns block's BEMJSON
+     * @returns {Object}
+     */
+    getBEMJSON : function() {
+        return {
+            block: this.__self.getName()
+        }
+    }
+
 }, /** @lends BEM */{
 
     blocks: blocks,
@@ -124,6 +134,16 @@ var BEM = inherit(/** @lends BEM.prototype */ {
         typeof block === 'string' && (block = { block : block });
 
         return new blocks[block.block](params);
+    },
+
+    /**
+     * Factory method for getting block's bemjson
+     * @param {String|Object} block Block name or description
+     * @param {Object} [params] Block parameters
+     * @returns {String}
+    */
+    json : function(block, params) {
+        return this.create(block, params).getBEMJSON();
     },
 
     /**
