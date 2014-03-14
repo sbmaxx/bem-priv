@@ -8,3 +8,5 @@ cd bem-priv
 npm install
 node index.js
 ```
+
+Examples — [index.js]

@@ -10,7 +10,16 @@ BEM.decl('test', {
     test: function() {
         console.log(this.__base() + '!');
     }
+}, {
+    staticMethod: function() {
+        return 'hello';
+    }
 });
 
-BEM.create('test').test();
-BEM.json('test');
+var test = BEM.create('test');
+test.test();
+
+test.__self.staticMethod();
+BEM.blocks['test'].staticMethod();
+
+BEM.json('test'); // { block: 'test' }
