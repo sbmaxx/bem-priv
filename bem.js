@@ -31,6 +31,9 @@ var blocks = {};
  * @exports
  */
 var BEM = inherit(/** @lends BEM.prototype */ {
+
+    _mods: {},
+
     /**
      * Returns a block's default parameters
      * @protected
@@ -48,13 +51,22 @@ var BEM = inherit(/** @lends BEM.prototype */ {
         return {
             block: this.__self.getName()
         }
+    },
+
+    setMod : function(key, value) {
+        this._mods[key] = value;
+        return this;
+    },
+
+    getMod : function(key) {
+        return this._mods[key] || '';
     }
 
 }, /** @lends BEM */{
 
     blocks: blocks,
 
-    _name : 'i-bem',
+    _name : 'bem',
 
     /**
      * Declares blocks and creates a block class
