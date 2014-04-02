@@ -33,6 +33,19 @@ var blocks = {};
 var BEM = inherit(/** @lends BEM.prototype */ {
 
     _mods: {},
+    /**
+     * @constructor
+     * @private
+     * @param {Object} params Block parameters
+     */
+    __constructor : function(params) {
+        /**
+         * Block parameters, taking into account the defaults
+         * @member {Object}
+         * @readonly
+         */
+        this.params = extend(this.getDefaultParams(), params);
+    },
 
     /**
      * Returns a block's default parameters
