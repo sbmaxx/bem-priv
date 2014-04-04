@@ -22,7 +22,8 @@ function extend(target, source) {
  * @private
  * @type Object
  */
-var blocks = {};
+var blocks = {},
+    instances = {};
 
 /**
  * @class BEM
@@ -31,8 +32,6 @@ var blocks = {};
  * @exports
  */
 var BEM = inherit(/** @lends BEM.prototype */ {
-
-    _mods: {},
 
     /**
      * @constructor
@@ -65,15 +64,6 @@ var BEM = inherit(/** @lends BEM.prototype */ {
         return {
             block: this.__self.getName()
         }
-    },
-
-    setMod : function(key, value) {
-        this._mods[key] = value;
-        return this;
-    },
-
-    getMod : function(key) {
-        return this._mods[key] || '';
     }
 
 }, /** @lends BEM */{
@@ -157,9 +147,7 @@ var BEM = inherit(/** @lends BEM.prototype */ {
      * @returns {BEM}
      */
     create : function(block, params) {
-        typeof block === 'string' && (block = { block : block });
-
-        return new blocks[block.block](params);
+        return new blocks[block](params);
     },
 
     /**
