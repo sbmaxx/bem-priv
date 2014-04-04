@@ -22,8 +22,7 @@ function extend(target, source) {
  * @private
  * @type Object
  */
-var blocks = {},
-    instances = {};
+var blocks = {};
 
 /**
  * @class BEM
