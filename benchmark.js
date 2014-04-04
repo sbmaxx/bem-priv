@@ -25,13 +25,19 @@ BEM.decl('testHelper', {}, {});
 
 var blocks = {};
 
-blocks['test'] = {
+blocks['object'] = {
     getBEMJSON: function() {
         return {
             block: 'test'
         }
     }
 }
+
+blocks['plain'] = function() {
+    return {
+        block: 'test'
+    }
+};
 
 // add tests
 suite
@@ -44,9 +50,12 @@ suite
     .add('BEM.json', function() {
         BEM.json('testHelper');
     })
-    .add('Plain', function() {
-        blocks['test'].getBEMJSON();
-    });
+    .add('Plain Object', function() {
+        blocks['object'].getBEMJSON();
+    })
+    .add('Plain Function', function() {
+        blocks['plain']();
+    })
 
 // add listeners
 suite

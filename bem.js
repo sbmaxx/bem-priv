@@ -33,6 +33,7 @@ var blocks = {};
 var BEM = inherit(/** @lends BEM.prototype */ {
 
     _mods: {},
+
     /**
      * @constructor
      * @private
