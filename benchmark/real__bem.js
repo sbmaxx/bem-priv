@@ -37,7 +37,7 @@ BEM.decl('header', {
         return [
             this.getLogo(),
             this.getUser(),
-            this.getDefaultParams().showBadge && this.getBadge()
+            this.params.showBadge && this.getBadge()
         ]
     },
     getUser: function() {
@@ -123,15 +123,15 @@ BEM.decl('items', {
     getDefaultParams: function() {
         return {
             showAtomicNumber: true,
-            showAtomicWeight: false,
-            showAtomicRadius: true,
+            showAtomicWeight: true,
+            showAtomicRadius: false,
             showAtomicVolume: false
         }
     },
     getBEMJSON: function() {
 
         var self = this,
-            params = this.getDefaultParams();
+            params = this.params;
 
         return {
             block: 'items',

@@ -6,13 +6,6 @@ var blocks = require('./real__plain');
 var BEM = require('./real__bem');
 var objects = require('./real__object');
 
-try {
-    objects['page'].getBEMJSON();
-} catch(e) {
-    console.log(e);
-    console.log(e.stack);
-}
-
 suite
     .add('BEM-priv', function() {
         BEM.json('page');

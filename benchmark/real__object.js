@@ -151,23 +151,23 @@ blocks['items'].symbol = function(elem) {
 };
 
 blocks['items'].showAtomicNumber = function() {
-    return blocks['items__getParams'].showAtomicNumber;
+    return blocks['items__getParams']().showAtomicNumber;
 };
 blocks['items'].showAtomicWeight = function() {
-    return blocks['items__getParams'].showAtomicWeight;
+    return blocks['items__getParams']().showAtomicWeight;
 };
 blocks['items'].showAtomicRadius = function() {
-    return blocks['items__getParams'].showAtomicRadius;
+    return blocks['items__getParams']().showAtomicRadius;
 };
 blocks['items'].showAtomicVolume = function() {
-    return blocks['items__getParams'].showAtomicVolume;
+    return blocks['items__getParams']().showAtomicVolume;
 };
 
 blocks['items__getParams'] = function() {
     return {
         showAtomicNumber: true,
-        showAtomicWeight: false,
-        showAtomciRadius: true,
+        showAtomicWeight: true,
+        showAtomciRadius: false,
         showAtomicVolume: false
     };
 };

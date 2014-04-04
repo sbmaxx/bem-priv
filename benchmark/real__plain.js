@@ -139,23 +139,23 @@ blocks['items__symbol'] = function(elem) {
 };
 
 blocks['items__showAtomicNumber'] = function() {
-    return blocks['items__getParams'].showAtomicNumber;
+    return blocks['items__getParams']().showAtomicNumber;
 };
 blocks['items__showAtomicWeight'] = function() {
-    return blocks['items__getParams'].showAtomicWeight;
+    return blocks['items__getParams']().showAtomicWeight;
 };
 blocks['items__showAtomicRadius'] = function() {
-    return blocks['items__getParams'].showAtomicRadius;
+    return blocks['items__getParams']().showAtomicRadius;
 };
 blocks['items__showAtomicVolume'] = function() {
-    return blocks['items__getParams'].showAtomicVolume;
+    return blocks['items__getParams']().showAtomicVolume;
 };
 
 blocks['items__getParams'] = function() {
     return {
         showAtomicNumber: true,
-        showAtomicWeight: false,
-        showAtomciRadius: true,
+        showAtomicWeight: true,
+        showAtomciRadius: false,
         showAtomicVolume: false
     };
 };
