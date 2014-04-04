@@ -16,9 +16,9 @@ node index.js
 
 [benchmark/real.js](benchmark/real.js)
 ```
-BEM-priv x 31,419 ops/sec ±1.55% (95 runs sampled)
-Plain Function x 47,673 ops/sec ±1.08% (94 runs sampled)
-Plain Object x 45,147 ops/sec ±1.38% (97 runs sampled)
+BEM-priv x 29,837 ops/sec ±2.39% (92 runs sampled)
+Plain Function x 30,551 ops/sec ±1.63% (96 runs sampled)
+Plain Object x 29,732 ops/sec ±1.59% (96 runs sampled)
 ```
 [benchmark/simple.js](benchmark/simple.js)
 ```
