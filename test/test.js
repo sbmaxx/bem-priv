@@ -24,7 +24,7 @@ describe('BEM', function() {
     });
 
     describe('instance methods', function() {
-        
+
         var b;
 
         beforeEach(function(done) {
@@ -57,24 +57,6 @@ describe('BEM', function() {
                 expect(bemjson).to.have.keys(['block']);
                 expect(bemjson).to.have.a.property('block');
                 expect(bemjson.block).to.be.equal('bem');
-            });
-        });
-
-        describe('#setMod', function() {
-            it('should exists', function() {
-                expect(b).to.have.a.property('setMod').that.is.a('function');
-            });
-            it('should be chainable', function() {
-                expect(b.setMod()).to.be.equal(b);
-            });
-        });
-
-        describe('#getMod', function() {
-            it('should exists', function() {
-                expect(b).to.have.a.property('getMod').that.is.a('function');
-            });
-            it('should return string', function() {
-                expect(b.getMod()).to.be.a('string');
             });
         });
 
