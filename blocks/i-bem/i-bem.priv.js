@@ -1,196 +1,175 @@
 (function(global) {
 
-    var hasOwnProp = Object.prototype.hasOwnProperty;
+var hasOwnProp = Object.prototype.hasOwnProperty;
 
-    function extend(target, source) {
-        typeof target !== 'object' && (target = {});
+function extend(target, source) {
+    typeof target !== 'object' && (target = {});
 
-        for(var i = 1, len = arguments.length; i < len; i++) {
-            var obj = arguments[i];
-            if(obj) {
-                for(var key in obj) {
-                    hasOwnProp.call(obj, key) && (target[key] = obj[key]);
-                }
+    for(var i = 1, len = arguments.length; i < len; i++) {
+        var obj = arguments[i];
+        if(obj) {
+            for(var key in obj) {
+                hasOwnProp.call(obj, key) && (target[key] = obj[key]);
             }
         }
-
-        return target;
     }
 
+    return target;
+}
+
+/**
+ * Storage for block declarations (hash by block name)
+ * @private
+ * @type Object
+ */
+var blocks = {};
+
+/**
+ * @class BEM
+ * @description Base block for creating BEM blocks
+ * @augments events:Emitter
+ * @exports
+ */
+var BEM = inherit(/** @lends BEM.prototype */ {
+
     /**
-     * Storage for block declarations (hash by block name)
+     * @constructor
      * @private
-     * @type Object
+     * @param {Object} params Block parameters
      */
-    var blocks = {};
+    __constructor : function(params) {
+        /**
+         * Block parameters, taking into account the defaults
+         * @member {Object}
+         * @readonly
+         */
+        this.params = extend(this.getDefaultParams(), params);
+    },
 
     /**
-     * @class BEM
-     * @description Base block for creating BEM blocks
-     * @augments events:Emitter
-     * @exports
+     * Returns a block's default parameters
+     * @protected
+     * @returns {Object}
      */
-    var BEM = inherit(/** @lends BEM.prototype */ {
+    getDefaultParams : function() {
+        return {};
+    },
 
-        /**
-         * @constructor
-         * @private
-         * @param {Object} params Block parameters
-         */
-        __constructor : function(params) {
-            /**
-             * Block parameters, taking into account the defaults
-             * @member {Object}
-             * @readonly
-             */
-            this.params = extend(this.getDefaultParams(), params);
-        },
+    /**
+     * Returns block's BEMJSON
+     * @returns {Object}
+     */
+    getBEMJSON : function() {
+        return {
+            block: this.__self.getName()
+        }
+    }
 
-        /**
-         * Returns a block's default parameters
-         * @protected
-         * @returns {Object}
-         */
-        getDefaultParams : function() {
-            return {};
-        },
+}, /** @lends BEM */{
 
-        /**
-         * Returns block's BEMJSON
-         * @returns {Object}
-         */
-        getBEMJSON : function() {
-            return {
-                block: this.__self.getName()
-            }
+    blocks: blocks,
+
+    _name : 'bem',
+
+    /**
+     * Declares blocks and creates a block class
+     * @param {String} decl Block name (simple syntax) or description
+     * @param {String} decl.block|decl.name Block name
+     * @param {String} [decl.baseBlock] Name of the parent block
+     * @param {Array} [decl.baseMix] Mixed block names
+     * @param {Object} [props] Methods
+     * @param {Object} [staticProps] Static methods
+     * @returns {Function}
+     */
+    decl : function(decl, props, staticProps) {
+
+        // string as block
+        typeof decl === 'string' && (decl = { block : decl });
+
+        // inherit from itself
+        if(arguments.length <= 2 &&
+                typeof decl === 'object' &&
+                (!decl || (typeof decl.block !== 'string'))) {
+
+            staticProps = props;
+            props = decl;
+            decl = {};
+
         }
 
-    }, /** @lends BEM */{
+        typeof decl.block === 'undefined' && (decl.block = this.getName());
 
-        blocks: blocks,
+        var baseBlock;
 
-        _name : 'bem',
+        if(typeof decl.baseBlock === 'undefined') {
+            baseBlock = blocks[decl.block] || this;
+        } else if(typeof decl.baseBlock === 'string') {
 
-        /**
-         * Declares blocks and creates a block class
-         * @param {String} decl Block name (simple syntax) or description
-         * @param {String} decl.block|decl.name Block name
-         * @param {String} [decl.baseBlock] Name of the parent block
-         * @param {Array} [decl.baseMix] Mixed block names
-         * @param {Object} [props] Methods
-         * @param {Object} [staticProps] Static methods
-         * @returns {Function}
-         */
-        decl : function(decl, props, staticProps) {
+            baseBlock = blocks[decl.baseBlock];
 
-            // string as block
-            typeof decl === 'string' && (decl = { block : decl });
-
-            // inherit from itself
-            if(arguments.length <= 2 &&
-                    typeof decl === 'object' &&
-                    (!decl || (typeof decl.block !== 'string'))) {
-
-                staticProps = props;
-                props = decl;
-                decl = {};
-
+            if(!baseBlock) {
+                throw('baseBlock "' + decl.baseBlock + '" for "' + decl.block + '" is undefined');
             }
 
-            typeof decl.block === 'undefined' && (decl.block = this.getName());
+        } else {
+            baseBlock = decl.baseBlock;
+        }
 
-            var baseBlock;
+        var block,
+            baseBlocks = baseBlock;
 
-            if(typeof decl.baseBlock === 'undefined') {
-                baseBlock = blocks[decl.block] || this;
-            } else if(typeof decl.baseBlock === 'string') {
+        if(decl.baseMix) {
 
-                baseBlock = blocks[decl.baseBlock];
+            baseBlocks = [baseBlocks];
 
-                if(!baseBlock) {
-                    throw('baseBlock "' + decl.baseBlock + '" for "' + decl.block + '" is undefined');
+            decl.baseMix.forEach(function(mixedBlock) {
+                if(!blocks[mixedBlock]) {
+                    throw('mix block "' + mixedBlock + '" for "' + decl.block + '" is undefined');
                 }
+                baseBlocks.push(blocks[mixedBlock]);
+            });
 
-            } else {
-                baseBlock = decl.baseBlock;
-            }
-
-            var block,
-                baseBlocks = baseBlock;
-
-            if(decl.baseMix) {
-
-                baseBlocks = [baseBlocks];
-
-                decl.baseMix.forEach(function(mixedBlock) {
-                    if(!blocks[mixedBlock]) {
-                        throw('mix block "' + mixedBlock + '" for "' + decl.block + '" is undefined');
-                    }
-                    baseBlocks.push(blocks[mixedBlock]);
-                });
-
-            }
-
-            decl.block === baseBlock.getName()?
-                (block = inherit.self(baseBlocks, props, staticProps)) :
-                (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
-
-            return block;
-
-        },
-
-        /**
-         * Factory method for creating an instance of the block named
-         * @param {String|Object} block Block name or description
-         * @param {Object} [params] Block parameters
-         * @returns {BEM}
-         */
-        create : function(block, params) {
-            return new blocks[block](params);
-        },
-
-        /**
-         * Factory method for getting block's bemjson
-         * @param {String|Object} block Block name or description
-         * @param {Object} [params] Block parameters
-         * @returns {String}
-        */
-        json : function(block, params) {
-            return this.create(block, params).getBEMJSON();
-        },
-
-        /**
-         * Returns the name of the current block
-         * @returns {String}
-         */
-        getName : function() {
-            return this._name;
         }
 
-    });
+        decl.block === baseBlock.getName()?
+            (block = inherit.self(baseBlocks, props, staticProps)) :
+            (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
 
-    var defineAsGlobal = true;
+        return block;
 
-    if(typeof exports === 'object') {
-        module.exports = BEM;
-        defineAsGlobal = false;
+    },
+
+    /**
+     * Factory method for creating an instance of the block named
+     * @param {String|Object} block Block name or description
+     * @param {Object} [params] Block parameters
+     * @returns {BEM}
+     */
+    create : function(block, params) {
+        return new blocks[block](params);
+    },
+
+    /**
+     * Factory method for getting block's bemjson
+     * @param {String|Object} block Block name or description
+     * @param {Object} [params] Block parameters
+     * @returns {String}
+    */
+    json : function(block, params) {
+        return this.create(block, params).getBEMJSON();
+    },
+
+    /**
+     * Returns the name of the current block
+     * @returns {String}
+     */
+    getName : function() {
+        return this._name;
     }
 
-    if(typeof modules === 'object') {
-        modules.define('BEM', function(provide) {
-            provide(BEM);
-        });
-        defineAsGlobal = false;
-    }
+});
 
-    if(typeof define === 'function') {
-        define(function(require, exports, module) {
-            module.exports = BEM;
-        });
-        defineAsGlobal = false;
-    }
-
-    defineAsGlobal && (global.BEM = BEM);
+global.BEM = BEM;
 
 
 })(this);

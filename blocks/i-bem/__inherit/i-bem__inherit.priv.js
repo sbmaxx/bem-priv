@@ -150,26 +150,6 @@ inherit.self = function() {
     return base;
 };
 
-var defineAsGlobal = true;
-if(typeof exports === 'object') {
-    module.exports = inherit;
-    defineAsGlobal = false;
-}
-
-if(typeof modules === 'object') {
-    modules.define('inherit', function(provide) {
-        provide(inherit);
-    });
-    defineAsGlobal = false;
-}
-
-if(typeof define === 'function') {
-    define(function(require, exports, module) {
-        module.exports = inherit;
-    });
-    defineAsGlobal = false;
-}
-
-defineAsGlobal && (global.inherit = inherit);
+global.inherit = inherit;
 
 })(this);
