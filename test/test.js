@@ -3,6 +3,27 @@ var BEM = require('../bem');
 
 describe('BEM', function() {
 
+    describe('base block', function() {
+        BEM.decl('a', {
+            method: function() {
+                return 'base';
+            }
+        });
+        BEM.decl({
+            block: 'b',
+            baseBlock: 'a'
+        });
+
+        var b = BEM.create('b');
+
+        it('b should have method "method"', function() {
+            expect(b).to.have.a.property('method').that.is.a('function');
+        });
+        it('should return base', function() {
+            expect(b.method()).to.be.equal('base');
+        });
+    });
+
     describe('static methods', function() {
 
         describe('#getName', function() {
