@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var BEM = require('../bem');
+var BEM = require('../lib/bem');
 
 describe('BEM', function() {
 

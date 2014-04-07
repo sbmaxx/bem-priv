@@ -1,5 +1,5 @@
 var data = require('./elements.json');
-var BEM = require('../bem');
+var BEM = require('../lib/bem');
 
 BEM.decl('page', {
     getBEMJSON: function() {

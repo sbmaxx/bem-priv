@@ -1,0 +1,3 @@
+global.BEM = BEM;
+
+})(this);

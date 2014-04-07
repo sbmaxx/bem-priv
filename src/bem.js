@@ -1,7 +1,3 @@
-var inherit = require('inherit');
-
-(function(global) {
-
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
 function extend(target, source) {
@@ -288,29 +284,3 @@ var BEM = inherit(/** @lends BEM.prototype */ {
     }
 
 });
-
-var defineAsGlobal = true;
-
-if(typeof exports === 'object') {
-    module.exports = BEM;
-    defineAsGlobal = false;
-}
-
-if(typeof modules === 'object') {
-    modules.define('BEM', function(provide) {
-        provide(BEM);
-    });
-    defineAsGlobal = false;
-}
-
-if(typeof define === 'function') {
-    define(function(require, exports, module) {
-        module.exports = BEM;
-    });
-    defineAsGlobal = false;
-}
-
-defineAsGlobal && (global.BEM = BEM);
-
-
-})(this);

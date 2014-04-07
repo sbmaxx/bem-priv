@@ -1,5 +1,3 @@
-(function(global) {
-
 /**
  * @module inherit
  * @version 2.2.0
@@ -149,7 +147,3 @@ inherit.self = function() {
 
     return base;
 };
-
-global.inherit = inherit;
-
-})(this);

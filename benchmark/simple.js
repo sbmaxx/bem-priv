@@ -2,7 +2,7 @@ var Benchmark = require('benchmark');
 
 var suite = new Benchmark.Suite;
 
-var BEM = require('../bem');
+var BEM = require('../lib/bem');
 
 BEM.decl('testCreate', {
     getBEMJSON: function() {
