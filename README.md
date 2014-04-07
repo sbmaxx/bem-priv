@@ -6,11 +6,13 @@ basic priv.js replacement
 git clone https://github.com/sbmaxx/bem-priv.git
 cd bem-priv
 npm install
-node index.js
 ```
 
-[Examples](index.js)
+[Examples](example.js)
 
+## how to build
+* edit ```src/bem.js```;
+* run ```grunt```.
 
 ## benchmark's results
 
