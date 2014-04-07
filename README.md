@@ -1,6 +1,42 @@
 bem-priv
 ========
-basic priv.js replacement
+Basic priv.js replacement. Features:
+* inheritance;
+* block's methods;
+* fast enough.
+
+```
+BEM.decl('block', {
+    method: function() {
+        return 'hello';
+    }
+});
+BEM.decl('block', {
+    method: function() {
+        return this.__base() + ', world';
+    }
+});
+```
+
+vs
+
+```
+blocks['block'] = function() {
+    return {
+        block: 'block'
+    };
+}
+blocks['block__method'] = function() {
+    return 'hello';
+};
+(function(base) {
+    blocks['blocks__method'] = function() {
+        return base + ', world';
+    }
+}(blocks['block__method']));
+```
+
+## how to isntall
 
 ```
 git clone https://github.com/sbmaxx/bem-priv.git
