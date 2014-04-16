@@ -1,4 +1,5 @@
-(function(global) {
+var BEM;
+(function() {
 
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
@@ -30,7 +31,7 @@ var blocks = {};
  * @augments events:Emitter
  * @exports
  */
-var BEM = inherit(/** @lends BEM.prototype */ {
+var BEMPRIV = inherit(/** @lends BEM.prototype */ {
 
     /**
      * @constructor
@@ -287,6 +288,12 @@ var BEM = inherit(/** @lends BEM.prototype */ {
 
 });
 
-global.BEM = BEM;
+Object.keys(BEM).forEach(function(k) {
+    if (typeof BEMPRIV[k] === 'undefined') {
+        BEMPRIV[k] = BEM[k];
+    }
+});
 
-})(this);
+BEM = BEMPRIV;
+
+})();

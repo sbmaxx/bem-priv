@@ -7,11 +7,11 @@ module.exports = function(grunt) {
         dest: 'lib/bem.js'
       },
       blocksBEM: {
-        src: ['src/templates/blocks/blocks__header.js', 'src/bem.js', 'src/templates/blocks/blocks__bem__footer.js'],
+        src: ['src/templates/blocks/blocks__bem__header.js', 'src/bem.js', 'src/templates/blocks/blocks__bem__footer.js'],
         dest: 'blocks/i-bem/i-bem.priv.js'
       },
       blocksInherit: {
-        src: ['src/templates/blocks/blocks__header.js', 'src/inherit.js', 'src/templates/blocks/blocks__inherit__footer.js'],
+        src: ['src/templates/blocks/blocks__inherit__header.js', 'src/inherit.js', 'src/templates/blocks/blocks__inherit__footer.js'],
         dest: 'blocks/i-bem/__inherit/i-bem__inherit.priv.js'
       }
     }

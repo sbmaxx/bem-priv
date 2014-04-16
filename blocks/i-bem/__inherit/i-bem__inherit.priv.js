@@ -1,4 +1,4 @@
-(function(global) {
+(function() {
 
 /**
  * @module inherit
