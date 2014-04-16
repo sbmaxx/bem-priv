@@ -1,4 +1,3 @@
-global.BEM = BEMPRIV;
-global.BEM.I18N = BEM.I18N;
+global.BEM = BEM;
 
 })(this);

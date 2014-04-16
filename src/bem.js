@@ -28,7 +28,7 @@ var blocks = {};
  * @augments events:Emitter
  * @exports
  */
-var BEMPRIV = inherit(/** @lends BEM.prototype */ {
+var BEM = inherit(/** @lends BEM.prototype */ {
 
     /**
      * @constructor
