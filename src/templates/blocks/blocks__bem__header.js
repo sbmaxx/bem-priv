@@ -1,2 +1,1 @@
-var BEM;
-(function() {
+(function(BEM) {

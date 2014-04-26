@@ -1,15 +1,8 @@
-Object.keys(BEM).forEach(function(k) {
-    if (typeof BEMPRIV[k] === 'undefined') {
-        BEMPRIV[k] = BEM[k];
-    }
-});
+BEM.PRIV = BEMPRIV;
 
-BEM = BEMPRIV;
-
-})();
+})(typeof BEM === 'undefined' ? {} : BEM);
 
 // If run within node.js (for testing)
 if (typeof exports !== "undefined") {
     exports.BEM = BEM;
 }
-
