@@ -1,4 +1,4 @@
-(function(global) {
+var inherit = (function() {
 
 /**
  * @module inherit
@@ -150,6 +150,6 @@ inherit.self = function() {
     return base;
 };
 
-global.inherit = inherit;
+return inherit;
 
-})(this);
+})();
