@@ -1,3 +1,3 @@
-global.inherit = inherit;
+return inherit;
 
-})(this);
+})();
