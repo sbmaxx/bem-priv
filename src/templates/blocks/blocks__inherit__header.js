@@ -1,1 +1,1 @@
-(function(global) {
+var inherit = (function() {
