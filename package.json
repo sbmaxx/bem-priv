@@ -1,13 +1,13 @@
 {
-  "name": "priv.js",
-  "version": "0.0.0",
-  "description": "",
+  "name": "bem-priv",
+  "version": "0.0.1",
+  "description": "BEM.PRIV",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha"
   },
-  "author": "",
-  "license": "BSD-2-Clause",
+  "author": "Roman <sbmaxx> Rozhdestvenskiy <sbmaxx@gmail.com",
+  "license": "MIT",
   "devDependencies": {
     "benchmark": "~1.0.0",
     "mocha": "~1.18.0",
