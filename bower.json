@@ -1,0 +1,25 @@
+{
+  "name": "bem-priv",
+  "main": "index.js",
+  "version": "0.0.2",
+  "homepage": "https://github.com/sbmaxx/bem-priv",
+  "authors": [
+    "Roman <sbmaxx> Rozhdestvenskiy <sbmaxx@gmail.com"
+  ],
+  "description": "BEMPRIV",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "BEM"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

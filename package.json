@@ -1,7 +1,7 @@
 {
   "name": "bem-priv",
-  "version": "0.0.1",
-  "description": "BEM.PRIV",
+  "version": "0.0.2",
+  "description": "BEMPRIV",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha"
