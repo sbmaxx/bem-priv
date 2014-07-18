@@ -4,7 +4,7 @@ module.exports = function(grunt) {
     concat: {
       bem: {
         src: ['src/templates/lib/lib__header.js', 'src/bem.js', 'src/templates/lib/lib__footer.js'],
-        dest: 'lib/bem.js'
+        dest: 'lib/bempriv.js'
       },
       blocksBEM: {
         src: ['src/templates/blocks/blocks__bem__header.js', 'src/bem.js', 'src/templates/blocks/blocks__bem__footer.js'],

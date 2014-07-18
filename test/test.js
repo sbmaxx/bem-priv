@@ -1,20 +1,20 @@
 var expect = require('chai').expect;
-var BEM = require('../lib/bem');
+var BEMPRIV = require('../lib/bempriv');
 
-describe('BEM', function() {
+describe('BEMPRIV', function() {
 
     describe('base block', function() {
-        BEM.decl('a', {
+        BEMPRIV.decl('a', {
             method: function() {
                 return 'base';
             }
         });
-        BEM.decl({
+        BEMPRIV.decl({
             block: 'b',
             baseBlock: 'a'
         });
 
-        var b = BEM.create('b');
+        var b = BEMPRIV.create('b');
 
         it('b should have method "method"', function() {
             expect(b).to.have.a.property('method').that.is.a('function');
@@ -29,15 +29,15 @@ describe('BEM', function() {
         describe('#getName', function() {
 
             it('should exist', function() {
-                expect(BEM.getName).to.exist;
+                expect(BEMPRIV.getName).to.exist;
             });
 
             it('should return string', function() {
-                expect(BEM.getName()).to.be.a('string');
+                expect(BEMPRIV.getName()).to.be.a('string');
             });
 
             it('should return "bem"', function() {
-                expect(BEM.getName()).to.be.equal('bem');
+                expect(BEMPRIV.getName()).to.be.equal('bem');
             });
 
         });
@@ -49,7 +49,7 @@ describe('BEM', function() {
         var b;
 
         beforeEach(function(done) {
-            b = new BEM();
+            b = new BEMPRIV();
             done();
         });
 
@@ -150,7 +150,7 @@ describe('BEM', function() {
         var b;
 
         beforeEach(function(done) {
-            b = new BEM();
+            b = new BEMPRIV();
             done();
         });
 

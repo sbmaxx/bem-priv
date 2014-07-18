@@ -25,12 +25,12 @@ function extend(target, source) {
 var blocks = {};
 
 /**
- * @class BEM
- * @description Base block for creating BEM blocks
+ * @class BEMPRIV
+ * @description Base block for creating BEMPRIV blocks
  * @augments events:Emitter
  * @exports
  */
-var BEMPRIV = inherit(/** @lends BEM.prototype */ {
+var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * @constructor
