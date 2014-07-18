@@ -2,9 +2,9 @@ var Benchmark = require('benchmark');
 
 var suite = new Benchmark.Suite;
 
-var BEM = require('../lib/bem');
+var BEMPRIV = require('../lib/bempriv');
 
-BEM.decl('testCreate', {
+BEMPRIV.decl('testCreate', {
     getBEMJSON: function() {
         return {
             block: 'test'
@@ -12,7 +12,7 @@ BEM.decl('testCreate', {
     }
 });
 
-BEM.decl('testStatic', {}, {
+BEMPRIV.decl('testStatic', {}, {
     getBEMJSON: function() {
         return {
             block: 'test'
@@ -21,7 +21,7 @@ BEM.decl('testStatic', {}, {
 });
 
 
-BEM.decl('testHelper', {}, {});
+BEMPRIV.decl('testHelper', {}, {});
 
 var blocks = {};
 
@@ -41,14 +41,14 @@ blocks['plain'] = function() {
 
 // add tests
 suite
-    .add('BEM.create', function() {
-        BEM.create('testCreate').getBEMJSON();
+    .add('BEMPRIV.create', function() {
+        BEMPRIV.create('testCreate').getBEMJSON();
     })
-    .add('BEM.static', function() {
-        BEM.blocks['testStatic'].getBEMJSON();
+    .add('BEMPRIV.static', function() {
+        BEMPRIV.blocks['testStatic'].getBEMJSON();
     })
-    .add('BEM.json', function() {
-        BEM.json('testHelper');
+    .add('BEMPRIV.json', function() {
+        BEMPRIV.json('testHelper');
     })
     .add('Plain Object', function() {
         blocks['object'].getBEMJSON();

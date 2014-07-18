@@ -1,23 +1,23 @@
 var data = require('./elements.json');
-var BEM = require('../lib/bem');
+var BEMPRIV = require('../lib/bempriv');
 
-BEM.decl('page', {
+BEMPRIV.decl('page', {
     getBEMJSON: function() {
         return {
             block: 'page',
             content: [
-                BEM.json('header', {
+                BEMPRIV.json('header', {
                     showBadge: true
                 }),
-                BEM.json('content'),
-                BEM.json('footer')
+                BEMPRIV.json('content'),
+                BEMPRIV.json('footer')
             ]
         }
     }
 });
 
 
-BEM.decl('header', {
+BEMPRIV.decl('header', {
     getDefaultParams: function() {
         return {
             showBadge: false
@@ -43,7 +43,7 @@ BEM.decl('header', {
     getUser: function() {
         return {
             elem: 'user',
-            content: BEM.json('user')
+            content: BEMPRIV.json('user')
         }
     },
     getLogo: function() {
@@ -57,7 +57,7 @@ BEM.decl('header', {
     }
 });
 
-BEM.decl('user', {
+BEMPRIV.decl('user', {
     getBEMJSON: function() {
         return {
             block: 'user',
@@ -66,7 +66,7 @@ BEM.decl('user', {
     }
 });
 
-BEM.decl('header', {
+BEMPRIV.decl('header', {
     getJS: function() {
         return {
             hello: 'world'
@@ -89,7 +89,7 @@ BEM.decl('header', {
     }
 });
 
-BEM.decl('footer', {
+BEMPRIV.decl('footer', {
     getBEMJSON: function() {
         return {
             block: 'footer',
@@ -101,7 +101,7 @@ BEM.decl('footer', {
     }
 });
 
-BEM.decl('footer', {
+BEMPRIV.decl('footer', {
     getContent: function() {
         return {
             elem: 'copyright',
@@ -110,16 +110,16 @@ BEM.decl('footer', {
     }
 });
 
-BEM.decl('content', {
+BEMPRIV.decl('content', {
     getBEMJSON: function() {
         return {
             block: 'content',
-            content: BEM.json('items')
+            content: BEMPRIV.json('items')
         };
     }
 });
 
-BEM.decl('items', {
+BEMPRIV.decl('items', {
     getDefaultParams: function() {
         return {
             showAtomicNumber: true,
@@ -169,4 +169,4 @@ BEM.decl('items', {
     }
 });
 
-module.exports = BEM;
+module.exports = BEMPRIV;
