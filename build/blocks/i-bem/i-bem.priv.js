@@ -49,7 +49,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         /**
          * Per-Request data
          */
-        this._data = data;
+        this.data = data;
 
         /**
          * Block's BEMJSON
@@ -76,14 +76,6 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     getBEMJSON : function() {
         return this._bemjson;
-    },
-
-    /**
-     * Returns request data
-     * @returns {Object}
-     */
-    getData : function() {
-        return this._data;
     },
 
     /**

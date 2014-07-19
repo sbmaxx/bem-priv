@@ -36,6 +36,55 @@ blocks['block__method'] = function(data) {
 }(blocks['block__method']));
 ```
 
+## Examples
+```js
+BEMPRIV.decl('header', {
+    getBEMJSON: function() {
+        return {
+            block: 'header',
+            content: {
+                block: 'search',
+                action: this._getFormAction(),
+                content: [
+                    {
+                        elem: 'input',
+                        mix: [{
+                            block: 'suggest',
+                            js: this._getSuggest()
+                        }]
+                        content: this._getQuery()
+                    },
+                    {
+                        elem: 'button'
+                    }
+                ]
+            }
+        }
+    },
+    _getFormAction: function() {
+        return this.params.searchPage;
+    },
+    _getSuggest: function() {
+        return {
+            url: this.params.suggestURL,
+            version: 2
+        };
+    },
+    _getQuery: function() {
+        return this.data.query;
+    }
+});
+// service leve
+BEMPRIV.decl('header', {
+    _getFormAction: function() {
+        return [
+            this.params.serviceName,
+            this.params.searchPage
+        ].join('/');
+    }
+})
+```
+
 ## how to isntall
 
 ```bash
