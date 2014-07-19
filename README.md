@@ -101,7 +101,7 @@ npm install
 
 There are two differents version:
 * `build/blocks` for PERL's V8 usage;
-* `lib` for node.js usage.
+* `build/lib` for node.js usage.
 
 ## benchmark's results
 
