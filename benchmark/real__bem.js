@@ -1,5 +1,5 @@
 var data = require('./elements.json');
-var BEMPRIV = require('../lib/bempriv');
+var BEMPRIV = require('../');
 
 BEMPRIV.decl('page', {
     getBEMJSON: function() {

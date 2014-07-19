@@ -37,15 +37,21 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     /**
      * @constructor
      * @private
+     * @param {Object} data Per-Request data, shoud be provided to every block
      * @param {Object} params Block parameters
      */
-    __constructor : function(params) {
+    __constructor : function(data, params) {
         /**
          * Block parameters, taking into account the defaults
          * @member {Object}
          * @readonly
          */
         this.params = extend(this.getDefaultParams(), params);
+
+        /**
+         * Per-Request data
+         */
+        this._data = data;
 
         /**
          * Block's BEMJSON
@@ -72,6 +78,14 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     getBEMJSON : function() {
         return this._bemjson;
+    },
+
+    /**
+     * Returns request data
+     * @returns {Object}
+     */
+    getData : function() {
+        return this._data;
     },
 
     /**
@@ -185,7 +199,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     }
 
 
-}, /** @lends BEM */{
+}, /** @lends BEMPRIV */{
 
     blocks: blocks,
 
@@ -265,8 +279,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} [params] Block parameters
      * @returns {BEM}
      */
-    create : function(block, params) {
-        return new blocks[block](params);
+    create : function(block, data, params) {
+        return new blocks[block](data, params);
     },
 
     /**
@@ -275,8 +289,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} [params] Block parameters
      * @returns {Object}
     */
-    json : function(block, params) {
-        return this.create(block, params).getBEMJSON();
+    json : function(block, data, params) {
+        return this.create(block, data, params).getBEMJSON();
     },
 
     /**

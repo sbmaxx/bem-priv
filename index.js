@@ -1,1 +1,1 @@
-module.exports = require('./lib/bem');
+module.exports = require('./build/lib/bempriv');

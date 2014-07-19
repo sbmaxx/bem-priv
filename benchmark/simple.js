@@ -2,7 +2,7 @@ var Benchmark = require('benchmark');
 
 var suite = new Benchmark.Suite;
 
-var BEMPRIV = require('../lib/bempriv');
+var BEMPRIV = require('../');
 
 BEMPRIV.decl('testCreate', {
     getBEMJSON: function() {

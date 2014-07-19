@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var BEMPRIV = require('../lib/bempriv');
+var BEMPRIV = require('../');
 
 describe('BEMPRIV', function() {
 
@@ -191,9 +191,20 @@ describe('BEMPRIV', function() {
                     js: true,
                     tag: 'span'
                 });
+
             })
         });
 
+    });
+
+    describe('data checks', function() {
+        var b = new BEMPRIV({});
+        it('data should be private', function() {
+            expect(b).to.have.a.property('_data');
+        });
+        it('data should have public getter', function() {
+            expect(b).to.have.a.property('getData').that.is.a('function');
+        });
     });
 
 });
