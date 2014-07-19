@@ -37,17 +37,18 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} params Block parameters
      */
     __constructor : function(data, params) {
+
+        /**
+         * Per-Request data
+         */
+        this.data = data;
+
         /**
          * Block parameters, taking into account the defaults
          * @member {Object}
          * @readonly
          */
         this.params = extend(this.getDefaultParams(), params);
-
-        /**
-         * Per-Request data
-         */
-        this.data = data;
 
         /**
          * Block's BEMJSON
