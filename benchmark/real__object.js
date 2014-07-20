@@ -70,7 +70,11 @@ blocks['user'] = {
     };
 
     blocks['header'].getBadge = function() {
-        return 'badge';
+        return blocks['header'].isBadgeVisible() ? 'badge' : '';'badge';
+    };
+
+    blocks['header'].isBadgeVisible = function() {
+        return false;
     };
 
     blocks['header'].getLogo = function() {

@@ -31,13 +31,13 @@ BEMPRIV.decl('header', {
         }
     },
     getJS: function() {
-        return false
+        return false;
     },
     getContent: function() {
         return [
             this.getLogo(),
             this.getUser(),
-            this.params.showBadge && this.getBadge()
+            this.getBadge()
         ]
     },
     getUser: function() {
