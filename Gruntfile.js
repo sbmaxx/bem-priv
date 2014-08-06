@@ -1,24 +1,43 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
-    concat: {
-      bem: {
-        src: ['src/templates/lib/lib__header.js', 'src/bem.js', 'src/templates/lib/lib__footer.js'],
-        dest: 'build/lib/bempriv.js'
+    replace: {
+      node: {
+        options: {
+          patterns: [{
+            match: 'bempriv',
+            replacement: '<%= grunt.file.read("src/bempriv.js") %>'
+          }]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: 'src/templates/bempriv.js',
+          dest: 'build/lib/'
+        }]
       },
-      blocksBEM: {
-        src: ['src/templates/blocks/blocks__bem__header.js', 'src/bem.js', 'src/templates/blocks/blocks__bem__footer.js'],
-        dest: 'build/blocks/i-bem/i-bem.priv.js'
-      },
-      blocksInherit: {
-        src: ['src/templates/blocks/blocks__inherit__header.js', 'src/inherit.js', 'src/templates/blocks/blocks__inherit__footer.js'],
-        dest: 'build/blocks/i-bem/__inherit/i-bem__inherit.priv.js'
+      block: {
+        options: {
+          patterns: [{
+            match: 'bempriv',
+            replacement: '<%= grunt.file.read("src/bempriv.js") %>'
+          }, {
+            match: 'inherit',
+            replacement: '<%= grunt.file.read("src/inherit.js") %>'
+          }]
+        },
+        files: [{
+          expand: true,
+          flatten: true,
+          src: 'src/templates/i-bem.priv.js',
+          dest: 'build/blocks/i-bem/'
+        }]
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-replace');
 
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('default', ['replace']);
 
 };

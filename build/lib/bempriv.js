@@ -1,7 +1,6 @@
 var inherit = require('inherit');
 
 (function(global) {
-
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
 function extend(target, source) {
@@ -296,6 +295,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
 });
 
+
 var defineAsGlobal = true;
 
 if(typeof exports === 'object') {
@@ -304,7 +304,7 @@ if(typeof exports === 'object') {
 }
 
 if(typeof modules === 'object') {
-    modules.define('BEM', function(provide) {
+    modules.define('BEMPRIV', function(provide) {
         provide(BEMPRIV);
     });
     defineAsGlobal = false;
@@ -317,6 +317,6 @@ if(typeof define === 'function') {
     defineAsGlobal = false;
 }
 
-defineAsGlobal && (global.BEM = BEMPRIV);
+defineAsGlobal && (global.BEMPRIV = BEMPRIV);
 
 })(this);
