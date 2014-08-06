@@ -1,12 +1,9 @@
 var inherit = (function() {
 /**
  * @module inherit
- * @version 2.2.2
+ * @version 2.2.0
  * @author Filatov Dmitry <dfilatov@yandex-team.ru>
- * @description This module provides some syntax sugar for "class" declarations, constructors, mixins, "super" calls and static members.
  */
-
-(function(global) {
 
 var hasIntrospection = (function(){'_';}).toString().indexOf('_') > -1,
     emptyBase = function() {},
@@ -104,14 +101,6 @@ function applyMixins(mixins, res) {
     return res || mixins[0];
 }
 
-/**
-* Creates class
-* @exports
-* @param {Function|Array} [baseClass|baseClassAndMixins] class (or class and mixins) to inherit from
-* @param {Object} prototypeFields
-* @param {Object} [staticFields]
-* @returns {Function} class
-*/
 function inherit() {
     var args = arguments,
         withMixins = isArray(args[0]),
@@ -123,11 +112,7 @@ function inherit() {
             function() {
                 return this.__constructor.apply(this, arguments);
             } :
-            hasBase?
-                function() {
-                    return base.apply(this, arguments);
-                } :
-                function() {};
+            function() {};
 
     if(!hasBase) {
         res.prototype = props;
@@ -163,30 +148,6 @@ inherit.self = function() {
 
     return base;
 };
-
-var defineAsGlobal = true;
-if(typeof exports === 'object') {
-    module.exports = inherit;
-    defineAsGlobal = false;
-}
-
-if(typeof modules === 'object') {
-    modules.define('inherit', function(provide) {
-        provide(inherit);
-    });
-    defineAsGlobal = false;
-}
-
-if(typeof define === 'function') {
-    define(function(require, exports, module) {
-        module.exports = inherit;
-    });
-    defineAsGlobal = false;
-}
-
-defineAsGlobal && (global.inherit = inherit);
-
-})(this);
 
 return inherit;
 })();

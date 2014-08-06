@@ -23,7 +23,7 @@ module.exports = function(grunt) {
             replacement: '<%= grunt.file.read("src/bempriv.js") %>'
           }, {
             match: 'inherit',
-            replacement: '<%= grunt.file.read("node_modules/inherit/lib/inherit.js") %>'
+            replacement: '<%= grunt.file.read("src/inherit.js") %>'
           }]
         },
         files: [{
