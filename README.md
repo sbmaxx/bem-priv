@@ -5,6 +5,24 @@ Basic priv.js replacement. Features:
 * block's methods;
 * fast enough.
 
+## how to install
+
+```bash
+git clone https://github.com/sbmaxx/bem-priv.git
+cd bem-priv
+npm install
+```
+
+## how to build & develop
+* edit `src/bempriv.js`;
+* run `grunt`.
+
+There are two differents version:
+* `build/blocks` for PERL's V8 usage;
+* `build/lib` for node.js usage.
+
+## bempriv vs plain-priv.js
+
 ```js
 BEMPRIV.decl('block', {
     method: function() {
@@ -85,23 +103,7 @@ BEMPRIV.decl('header', {
 })
 ```
 
-## how to isntall
-
-```bash
-git clone https://github.com/sbmaxx/bem-priv.git
-cd bem-priv
-npm install
-```
-
 [Examples](example.js)
-
-## how to build & develop
-* edit `src/bempriv.js`;
-* run `grunt`.
-
-There are two differents version:
-* `build/blocks` for PERL's V8 usage;
-* `build/lib` for node.js usage.
 
 ## benchmark's results
 
