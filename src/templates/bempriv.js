@@ -1,6 +1,7 @@
 var inherit = require('inherit');
 
 (function(global) {
+// include src/bempriv.js
 @@bempriv
 
 var defineAsGlobal = true;

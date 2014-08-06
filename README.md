@@ -95,7 +95,7 @@ npm install
 
 [Examples](example.js)
 
-## how to build
+## how to build & develop
 * edit `src/bempriv.js`;
 * run `grunt`.
 
