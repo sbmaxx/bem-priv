@@ -1,6 +1,7 @@
 var inherit = require('inherit');
 
 (function(global) {
+// include src/bempriv.js
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
 function extend(target, source) {

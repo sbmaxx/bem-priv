@@ -1,4 +1,5 @@
 var inherit = (function() {
+// include src/inherit.js
 /**
  * @module inherit
  * @version 2.2.0
@@ -153,6 +154,7 @@ return inherit;
 })();
 
 var BEMPRIV = (function() {
+// include src/bempriv.js
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
 function extend(target, source) {
@@ -446,6 +448,12 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     }
 
 });
+
+
+// If run within node.js (for testing)
+if (typeof exports !== "undefined") {
+    exports.BEMPRIV = BEMPRIV;
+}
 
 return BEMPRIV;
 })();
