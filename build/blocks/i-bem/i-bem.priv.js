@@ -215,7 +215,15 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             block: this.__self.getName()
         }
 
+        this.init();
+
     },
+
+    /**
+     * Public constructor called arter __constructor
+     * @protected
+     */
+    init : function() {},
 
     /**
      * Returns a block's default parameters
