@@ -74,7 +74,7 @@ blocks['user'] = {
     };
 
     blocks['header'].isBadgeVisible = function() {
-        return false;
+        return true;
     };
 
     blocks['header'].getLogo = function() {

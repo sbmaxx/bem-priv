@@ -77,6 +77,10 @@ blocks['user'] = function() {
         };
     };
 
+    blocks['header__isBadgeVisible'] = function() {
+        return true;
+    };
+
 }(blocks['header']));
 
 blocks['footer'] = function() {

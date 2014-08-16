@@ -53,7 +53,10 @@ BEMPRIV.decl('header', {
         }
     },
     getBadge: function() {
-        return '';
+        return {
+            elem: 'badge',
+            content: 'badge'
+        };
     }
 });
 
@@ -71,12 +74,6 @@ BEMPRIV.decl('header', {
         return {
             hello: 'world'
         }
-    },
-    getBadge: function() {
-        return {
-            elem: 'badge',
-            content: 'badge'
-        };
     },
     getLogo: function() {
         return {
