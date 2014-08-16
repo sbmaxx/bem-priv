@@ -1,6 +1,6 @@
 /**
  * @module inherit
- * @version 2.2.0
+ * @version 2.2.2
  * @author Filatov Dmitry <dfilatov@yandex-team.ru>
  */
 
@@ -100,6 +100,14 @@ function applyMixins(mixins, res) {
     return res || mixins[0];
 }
 
+/**
+* Creates class
+* @exports
+* @param {Function|Array} [baseClass|baseClassAndMixins] class (or class and mixins) to inherit from
+* @param {Object} prototypeFields
+* @param {Object} [staticFields]
+* @returns {Function} class
+*/
 function inherit() {
     var args = arguments,
         withMixins = isArray(args[0]),
@@ -111,7 +119,11 @@ function inherit() {
             function() {
                 return this.__constructor.apply(this, arguments);
             } :
-            function() {};
+            hasBase?
+                function() {
+                    return base.apply(this, arguments);
+                } :
+                function() {};
 
     if(!hasBase) {
         res.prototype = props;

@@ -1,8 +1,7 @@
 bem-priv
 ========
 Basic priv.js replacement. Features:
-* inheritance;
-* block's methods;
+* constructors, mixins, "super" calls and static members via [inherit](https://github.com/dfilatov/inherit);
 * fast enough.
 
 ## how to install

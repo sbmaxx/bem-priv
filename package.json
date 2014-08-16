@@ -16,6 +16,6 @@
     "mocha": "~1.18.0"
   },
   "dependencies": {
-    "inherit": "~2.2.0"
+    "inherit": "~2.2.2"
   }
 }
