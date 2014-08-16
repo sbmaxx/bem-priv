@@ -7,7 +7,7 @@ var BEMPRIV = require('./real__bem');
 var objects = require('./real__object');
 
 suite
-    .add('BEM-priv', function() {
+    .add('BEMPRIV', function() {
         BEMPRIV.json('page');
     })
     .add('Plain Function', function() {
