@@ -195,6 +195,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
 }, /** @lends BEMPRIV */{
 
+    /**
+     * Deprecated. Use BEMPRIV.getBlock('blockName') instead
+     */
     blocks: blocks,
 
     _name : 'bem',
@@ -291,6 +294,15 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     getName : function() {
         return this._name;
+    },
+
+    /**
+     * Returns the static instance of block
+     * @param {String} block name
+     * @returns {BEM}
+     */
+    getBlock : function(name) {
+        return blocks[name];
     }
 
 });
