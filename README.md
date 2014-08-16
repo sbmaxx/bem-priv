@@ -104,6 +104,8 @@ BEMPRIV.decl('header', {
 
 [Examples](example.js)
 
+Also, don't forget to check our [wiki](https://github.com/sbmaxx/bempriv/wiki).
+
 ## benchmark's results
 
 [benchmark/real.js](benchmark/real.js)
