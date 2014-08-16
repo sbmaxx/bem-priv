@@ -4,19 +4,12 @@ var inherit = require('inherit');
 // include src/bempriv.js
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
-function extend(target, source) {
-    typeof target !== 'object' && (target = {});
-
-    for(var i = 1, len = arguments.length; i < len; i++) {
-        var obj = arguments[i];
-        if(obj) {
-            for(var key in obj) {
-                hasOwnProp.call(obj, key) && (target[key] = obj[key]);
-            }
-        }
+function extend(o1, o2) {
+    for(var i in o2) {
+        hasOwnProp.call(o2, i) && (o1[i] = o2[i]);
     }
 
-    return target;
+    return o1;
 }
 
 /**
@@ -60,7 +53,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
          */
         this._bemjson = {
             block: this.__self.getName()
-        }
+        };
 
         this.init();
 
@@ -222,9 +215,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         typeof decl === 'string' && (decl = { block : decl });
 
         // inherit from itself
-        if(arguments.length <= 2 &&
-                typeof decl === 'object' &&
-                (!decl || (typeof decl.block !== 'string'))) {
+        if (arguments.length <= 2 && typeof decl === 'object' && (!decl || (typeof decl.block !== 'string'))) {
 
             staticProps = props;
             props = decl;
@@ -236,13 +227,13 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         var baseBlock;
 
-        if(typeof decl.baseBlock === 'undefined') {
+        if (typeof decl.baseBlock === 'undefined') {
             baseBlock = blocks[decl.block] || this;
-        } else if(typeof decl.baseBlock === 'string') {
+        } else if (typeof decl.baseBlock === 'string') {
 
             baseBlock = blocks[decl.baseBlock];
 
-            if(!baseBlock) {
+            if (!baseBlock) {
                 throw('baseBlock "' + decl.baseBlock + '" for "' + decl.block + '" is undefined');
             }
 
@@ -253,12 +244,12 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         var block,
             baseBlocks = baseBlock;
 
-        if(decl.baseMix) {
+        if (decl.baseMix) {
 
             baseBlocks = [baseBlocks];
 
             decl.baseMix.forEach(function(mixedBlock) {
-                if(!blocks[mixedBlock]) {
+                if (!blocks[mixedBlock]) {
                     throw('mix block "' + mixedBlock + '" for "' + decl.block + '" is undefined');
                 }
                 baseBlocks.push(blocks[mixedBlock]);
@@ -266,9 +257,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         }
 
-        decl.block === baseBlock.getName()?
-            (block = inherit.self(baseBlocks, props, staticProps)) :
-            (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
+        decl.block === baseBlock.getName()
+            ? (block = inherit.self(baseBlocks, props, staticProps))
+            : (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
 
         return block;
 

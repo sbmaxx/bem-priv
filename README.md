@@ -108,15 +108,15 @@ BEMPRIV.decl('header', {
 
 [benchmark/real.js](benchmark/real.js)
 ```bash
-BEMPRIV x 33,345 ops/sec ±0.63% (99 runs sampled)
-Plain Function x 34,075 ops/sec ±0.64% (96 runs sampled)
-Plain Object x 32,235 ops/sec ±0.73% (94 runs sampled)
+BEMPRIV x 33,802 ops/sec ±0.79% (92 runs sampled)
+Plain Function x 34,251 ops/sec ±0.69% (93 runs sampled)
+Plain Object x 33,400 ops/sec ±0.71% (98 runs sampled)
 ```
 [benchmark/simple.js](benchmark/simple.js)
 ```bash
-BEMPRIV.create x 7,859,162 ops/sec ±0.50% (100 runs sampled)
-BEMPRIV.static x 73,412,120 ops/sec ±2.38% (87 runs sampled)
-BEMPRIV.json x 6,897,213 ops/sec ±0.58% (95 runs sampled)
-Plain Object x 47,373,570 ops/sec ±1.30% (96 runs sampled)
-Plain Function x 79,107,181 ops/sec ±2.98% (83 runs sampled)
+BEMPRIV.create x 11,122,496 ops/sec ±0.38% (100 runs sampled)
+BEMPRIV.static x 70,356,474 ops/sec ±2.06% (85 runs sampled)
+BEMPRIV.json x 9,297,611 ops/sec ±0.55% (99 runs sampled)
+Plain Object x 45,624,589 ops/sec ±1.24% (89 runs sampled)
+Plain Function x 73,510,402 ops/sec ±2.97% (85 runs sampled)
 ```
