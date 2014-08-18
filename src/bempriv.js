@@ -45,9 +45,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         /**
          * Block's BEMJSON
-         * @private
+         * @protected
          */
-        this._bemjson = {
+        this.bemjson = {
             block: this.__self.getName()
         };
 
@@ -75,7 +75,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @returns {Object}
      */
     getBEMJSON : function() {
-        return this._bemjson;
+        return this.bemjson;
     },
 
     /**
@@ -85,7 +85,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     mod : function(key, value) {
-        return this._property('mods', key, value);
+        return this.deepProp('mods', key, value);
     },
 
     /**
@@ -94,7 +94,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     mods : function(value) {
-        return this._property('mods', undefined, value);
+        return this.prop('mods', value);
     },
 
     /**
@@ -104,7 +104,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     attr: function(key, value) {
-        return this._property('attrs', key, value);
+        return this.deepProp('attrs', key, value);
     },
 
     /**
@@ -113,7 +113,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     attrs : function(value) {
-        return this._property('attrs', undefined, value);
+        return this.prop('attrs', value);
     },
 
     /**
@@ -122,7 +122,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     js : function(value) {
-        return this._property('js', undefined, value);
+        return this.prop('js', value);
     },
 
     /**
@@ -131,7 +131,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     cls : function(value) {
-        return this._property('cls', undefined, value);
+        return this.prop('cls', value);
     },
 
     /**
@@ -140,7 +140,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     content : function(value) {
-        return this._property('content', undefined, value);
+        return this.prop('content', value);
     },
 
     /**
@@ -149,45 +149,74 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     tag : function(value) {
-        return this._property('tag', undefined, value);
+        return this.prop('tag', value);
     },
 
     /**
      * Sets block's mix
-     * @param {Array} value
+     * @param {Array|Object} value
      * @protected
      */
     mix : function(value) {
-        return this._property('mix', undefined, value);
+
+        if (!this.prop('mix')) {
+            this.prop('mix', []);
+        }
+
+        if (typeof value === 'undefined') {
+            return this.prop('mix');
+        }
+
+        if (Array.isArray(value)) {
+            this.prop('mix', this.prop('mix').concat(value));
+        } else {
+            this.prop('mix').push(value);
+        }
+
+        return this;
+
     },
 
     /**
-     * Sets BEMJSON param
-     * @param {String} property
+     * Set block's custom bemjson property
      * @param {String} key
-     * @param {Mixed}  value
-     * @private
+     * @param {Mixed} value
+     * @protected
      */
-    _property : function(property, key, value) {
-
-        var hasKey = typeof key !== 'undefined';
+    prop : function(key, value) {
 
         if (typeof value !== 'undefined') {
-            if (hasKey) {
-                if (typeof this._bemjson[property] === 'undefined') {
-                    this._bemjson[property] = (property === 'mix') ? [] : {};
-                }
-                this._bemjson[property][key] = value;
-            } else {
-                this._bemjson[property] = value;
-            }
+            this.bemjson[key] = value;
             return this;
         }
 
-        return hasKey ? this._bemjson[property][key] : this._bemjson[property];
+        return this.bemjson[key];
+
+    },
+
+    /**
+     * Set block's custom bemjson property
+     * for example if you want to add href attr { attrs: { href: 'http://w3c.org'} }
+     * prop is "attrs", key is "href" and value is "http://w3c.org"
+     * @param {String} prop
+     * @param {String} key
+     * @param {Mixed} value
+     * @protected
+     */
+    deepProp : function(prop, key, value) {
+
+        if (typeof this.bemjson[prop] === 'undefined') {
+            this.bemjson[prop] = {};
+        }
+
+        if (typeof value === 'undefined') {
+            return this.bemjson[prop][key];
+        }
+
+        this.bemjson[prop][key] = value;
+        return this;
 
     }
-
 
 }, /** @lends BEMPRIV */{
 

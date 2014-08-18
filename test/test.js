@@ -143,6 +143,12 @@ describe('BEMPRIV', function() {
             })
         });
 
+        describe('#prop', function() {
+            it('should be a function', function() {
+                expect(b).to.have.a.property('prop').that.is.a('function');
+            });
+        });
+
     });
 
     describe('#getBEMJSON', function() {
@@ -177,6 +183,7 @@ describe('BEMPRIV', function() {
                     .mod('key', 'value')
                     .js(true)
                     .tag('span')
+                    .prop('prop', 'value')
                     .mix([{ block: 'another-block' }]);
 
                 expect(b.getBEMJSON()).have.to.be.deep.equal({
@@ -189,7 +196,8 @@ describe('BEMPRIV', function() {
                         key: 'value'
                     },
                     js: true,
-                    tag: 'span'
+                    tag: 'span',
+                    prop: 'value'
                 });
 
             })
