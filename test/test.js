@@ -184,11 +184,14 @@ describe('BEMPRIV', function() {
                     .js(true)
                     .tag('span')
                     .prop('prop', 'value')
-                    .mix([{ block: 'another-block' }]);
+                    .mix([{ block: 'foo' }])
+                    .mix({ block: 'bar' });
+
+                b.bemjson.hello = 'world';
 
                 expect(b.getBEMJSON()).have.to.be.deep.equal({
                     block: 'bem',
-                    mix: [{ block: 'another-block' }],
+                    mix: [{ block: 'foo' }, { block: 'bar' }],
                     content: {
                         elem: 'test'
                     },
@@ -197,7 +200,8 @@ describe('BEMPRIV', function() {
                     },
                     js: true,
                     tag: 'span',
-                    prop: 'value'
+                    prop: 'value',
+                    hello: 'world'
                 });
 
             })
