@@ -323,7 +323,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @returns {Object}
     */
     json : function(block, data, params) {
-        return this.create(block, data, params).getBEMJSON();
+        return this.create(block, data, params).bemjson();
     },
 
     /**
