@@ -2,7 +2,7 @@ var data = require('./elements.json');
 var BEMPRIV = require('../');
 
 BEMPRIV.decl('page', {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'page',
             content: [
@@ -23,7 +23,7 @@ BEMPRIV.decl('header', {
             showBadge: false
         };
     },
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'header',
             js: this.getJS(),
@@ -61,7 +61,7 @@ BEMPRIV.decl('header', {
 });
 
 BEMPRIV.decl('user', {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'user',
             content: 'user'
@@ -87,7 +87,7 @@ BEMPRIV.decl('header', {
 });
 
 BEMPRIV.decl('footer', {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'footer',
             content: this.getContent()
@@ -108,7 +108,7 @@ BEMPRIV.decl('footer', {
 });
 
 BEMPRIV.decl('content', {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'content',
             content: BEMPRIV.json('items')
@@ -125,7 +125,7 @@ BEMPRIV.decl('items', {
             showAtomicVolume: false
         }
     },
-    getBEMJSON: function() {
+    bemjson: function() {
 
         var self = this,
             params = this.params;
