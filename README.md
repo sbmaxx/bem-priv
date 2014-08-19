@@ -91,7 +91,7 @@ BEMPRIV.decl('header', {
         return this.data.query;
     }
 });
-// service leve
+// service level
 BEMPRIV.decl('header', {
     _getFormAction: function() {
         return [
