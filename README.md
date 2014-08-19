@@ -93,7 +93,7 @@ var f = BEMPRIV.create('foo', data, { branch: 'master' });
 f.bemjson(); // { block: 'foo', content: { branch: 'master'} }
 
 // this is a shortcut to *.create() && *.bemjson()
-BEMPRIV.json('foo', data, { branch: 'release' });
+BEMPRIV.json('foo', data, { branch: 'release' }); // { block: 'foo', content: { branch: 'release' } }
 ```
 
 
