@@ -53,44 +53,97 @@ blocks['block__method'] = function(data) {
 }(blocks['block__method']));
 ```
 
+### How to use
+
+First of all you have to declare block
+```js
+BEMPRIV.decl('foo');
+```
+And that's enough ;). At that moment you can call:
+```js
+var f = BEMPRIV.create('foo');
+f.bemjson(); // { block: 'foo' }
+f.content('bar');
+f.bemjson(); // { block: 'foo', content: 'bar' }
+```
+
+Or you can add some instances or static methods
+
+```js
+BEMPRIV.decl('foo', {
+    // instance methods
+    // init method is called right after BEMPRIV.create()
+    // it's replacement of i-bem's onSetMod: js callback
+    init: function() {
+        // you can access data & params here
+        this.data;
+        this.content(this.params);
+    },
+    getDefaultParams: function() {
+        return {
+            branch: 'develop'
+        };
+    }
+}, {
+    // static
+    ANSWER: 42
+});
+
+var f = BEMPRIV.create('foo', data, { branch: 'master' });
+f.bemjson(); // { block: 'foo', content: { branch: 'master'} }
+
+// this is a shortcut to *.create() && *.bemjson()
+BEMPRIV.json('foo', data, { branch: 'release' });
+```
+
+
 ## Examples
 ```js
 BEMPRIV.decl('header', {
-    getBEMJSON: function() {
-        return {
-            block: 'header',
-            content: {
-                block: 'search',
-                action: this._getFormAction(),
-                content: [
-                    {
-                        elem: 'input',
-                        mix: [{
-                            block: 'suggest',
-                            js: this._getSuggest()
-                        }]
-                        content: this._getQuery()
-                    },
-                    {
-                        elem: 'button'
-                    }
-                ]
-            }
+
+    init: function() {
+
+        if (!this.params.isMobile) {
+            this.mod('fixed', 'yes');
         }
+
+        this.content({
+            block: 'search',
+            action: this._getFormAction(),
+            content: [
+                {
+                    elem: 'input',
+                    mix: [{
+                        block: 'suggest',
+                        js: this._getSuggest()
+                    }]
+                    content: this._getQuery()
+                },
+                {
+                    elem: 'button'
+                }
+            ]
+        });
+
     },
+
     _getFormAction: function() {
         return this.params.searchPage;
     },
+
     _getSuggest: function() {
         return {
             url: this.params.suggestURL,
             version: 2
         };
     },
+
     _getQuery: function() {
         return this.data.query;
     }
+
 });
+
 // service level
 BEMPRIV.decl('header', {
     _getFormAction: function() {
@@ -101,8 +154,6 @@ BEMPRIV.decl('header', {
     }
 })
 ```
-
-[Examples](example.js)
 
 Also, don't forget to check our [wiki](https://github.com/sbmaxx/bempriv/wiki).
 
