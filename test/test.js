@@ -149,6 +149,12 @@ describe('BEMPRIV', function() {
             });
         });
 
+        describe('#bemjson', function() {
+            it('should be a function', function() {
+                expect(b).to.have.a.property('bemjson').that.is.a('function');
+            });
+        });
+
     });
 
     describe('#getBEMJSON', function() {
@@ -176,20 +182,10 @@ describe('BEMPRIV', function() {
                 b.content({ elem: 'test' });
                 expect(b.getBEMJSON()).have.to.be.deep.equal({ block: 'bem', content: { elem: 'test' } });
             });
+
             it('bemjson integration', function() {
 
-                b
-                    .content({ elem: 'test' })
-                    .mod('key', 'value')
-                    .js(true)
-                    .tag('span')
-                    .prop('prop', 'value')
-                    .mix([{ block: 'foo' }])
-                    .mix({ block: 'bar' });
-
-                b.bemjson.hello = 'world';
-
-                expect(b.getBEMJSON()).have.to.be.deep.equal({
+                var baseline = {
                     block: 'bem',
                     mix: [{ block: 'foo' }, { block: 'bar' }],
                     content: {
@@ -200,9 +196,20 @@ describe('BEMPRIV', function() {
                     },
                     js: true,
                     tag: 'span',
-                    prop: 'value',
-                    hello: 'world'
-                });
+                    prop: 'value'
+                };
+
+                b
+                    .content({ elem: 'test' })
+                    .mod('key', 'value')
+                    .js(true)
+                    .tag('span')
+                    .prop('prop', 'value')
+                    .mix([{ block: 'foo' }])
+                    .mix({ block: 'bar' });
+
+                expect(b.getBEMJSON()).have.to.be.deep.equal(baseline);
+                expect(b.bemjson()).have.to.be.deep.equal(baseline);
 
             })
         });

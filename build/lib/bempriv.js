@@ -49,9 +49,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         /**
          * Block's BEMJSON
-         * @protected
+         * @private
          */
-        this.bemjson = {
+        this._bemjson = {
             block: this.__self.getName()
         };
 
@@ -76,10 +76,19 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Returns block's BEMJSON
+     * @deprecated please use bemjson method
      * @returns {Object}
      */
     getBEMJSON : function() {
-        return this.bemjson;
+        return this.bemjson();
+    },
+
+    /**
+     * Return's block's BEMJSON
+     * @returns {OBJECT}
+     */
+    bemjson : function() {
+        return this._bemjson;
     },
 
     /**
@@ -190,11 +199,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     prop : function(key, value) {
 
         if (typeof value !== 'undefined') {
-            this.bemjson[key] = value;
+            this._bemjson[key] = value;
             return this;
         }
 
-        return this.bemjson[key];
+        return this._bemjson[key];
 
     },
 
@@ -209,15 +218,15 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     deepProp : function(prop, key, value) {
 
-        if (typeof this.bemjson[prop] === 'undefined') {
-            this.bemjson[prop] = {};
+        if (typeof this._bemjson[prop] === 'undefined') {
+            this._bemjson[prop] = {};
         }
 
         if (typeof value === 'undefined') {
-            return this.bemjson[prop][key];
+            return this._bemjson[prop][key];
         }
 
-        this.bemjson[prop][key] = value;
+        this._bemjson[prop][key] = value;
         return this;
 
     }
