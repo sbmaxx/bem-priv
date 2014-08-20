@@ -1,6 +1,6 @@
 {
   "name": "bem-priv",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "BEMPRIV",
   "main": "index.js",
   "scripts": {
