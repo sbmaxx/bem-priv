@@ -1,6 +1,11 @@
 var expect = require('chai').expect;
 var BEMPRIV = require('../');
 
+var plainBench = require('../benchmark/real__plain');
+var bemprivBench = require('../benchmark/real__bem');
+var objectsBench = require('../benchmark/real__object');
+var baselineBemjson = require('./benchmark.json');
+
 describe('BEMPRIV', function() {
 
     describe('base block', function() {
@@ -221,6 +226,22 @@ describe('BEMPRIV', function() {
         it('shoud have data', function() {
             expect(b).to.have.a.property('data');
         });
+    });
+
+    describe('benchmark tests', function() {
+        var plainBemjson = plainBench['page']();
+        var bemprivBemjson = bemprivBench.json('page');
+        var objectsBemjson = objectsBench.page.getBEMJSON();
+        it('BEMPRIV\'s bemjson should be equal to baseline', function() {
+            expect(bemprivBemjson).have.to.be.deep.equal(baselineBemjson);
+        });
+        it('object\'s bemjson should be equal to baseline', function() {
+            expect(objectsBemjson).have.to.be.deep.equal(baselineBemjson);
+        });
+        it('plains\'s bemjson should be equal to baseline', function() {
+            expect(plainBemjson).have.to.be.deep.equal(baselineBemjson);
+        });
+
     });
 
 });
