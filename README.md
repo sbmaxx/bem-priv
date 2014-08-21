@@ -94,6 +94,9 @@ f.bemjson(); // { block: 'foo', content: { branch: 'master'} }
 
 // this is a shortcut to *.create() && *.bemjson()
 BEMPRIV.json('foo', data, { branch: 'release' }); // { block: 'foo', content: { branch: 'release' } }
+
+// access to static props outside of block
+BEMPRIV.getBlock('foo').ANSWER
 ```
 
 
