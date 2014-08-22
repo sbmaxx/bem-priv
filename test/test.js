@@ -229,15 +229,19 @@ describe('BEMPRIV', function() {
     });
 
     describe('benchmark tests', function() {
+
         var plainBemjson = plainBench['page']();
         var bemprivBemjson = bemprivBench.json('page');
         var objectsBemjson = objectsBench.page.getBEMJSON();
+
         it('BEMPRIV\'s bemjson should be equal to baseline', function() {
             expect(bemprivBemjson).have.to.be.deep.equal(baselineBemjson);
         });
+
         it('object\'s bemjson should be equal to baseline', function() {
             expect(objectsBemjson).have.to.be.deep.equal(baselineBemjson);
         });
+
         it('plains\'s bemjson should be equal to baseline', function() {
             expect(plainBemjson).have.to.be.deep.equal(baselineBemjson);
         });
