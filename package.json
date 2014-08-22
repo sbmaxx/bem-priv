@@ -4,7 +4,6 @@
   "description": "BEMPRIV",
   "main": "index.js",
   "scripts": {
-    "test": "grunt && ./node_modules/mocha/bin/mocha",
     "postinstall": "grunt"
   },
   "author": "Roman <sbmaxx> Rozhdestvenskiy <sbmaxx@gmail.com",
@@ -17,7 +16,10 @@
     "mocha": "~1.18.0",
     "jshint": "^2.5.4",
     "jscs": "^1.5.9",
-    "grunt-jscs": "^0.6.2"
+    "grunt-jscs": "^0.6.2",
+    "grunt-contrib-jshint": "^0.10.0",
+    "jshint-stylish": "^0.4.0",
+    "grunt-mocha-test": "^0.11.0"
   },
   "dependencies": {
     "inherit": "~2.2.2"

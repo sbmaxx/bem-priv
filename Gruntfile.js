@@ -47,13 +47,29 @@ module.exports = function(grunt) {
           src: 'Gruntfile.js'
         }
       }
+    },
+    jshint: {
+      all: ['Gruntfile.js', 'src/bempriv.js', 'test/test.js'],
+      options: {
+        reporter: require('jshint-stylish')
+      }
+    },
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'dot'
+        },
+        src: ['test/test.js']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-replace');
   grunt.loadNpmTasks("grunt-jscs");
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.registerTask('default', ['replace']);
-  grunt.registerTask('test', ['jscs']);
+  grunt.registerTask('test', ['mochaTest', 'jshint', 'jscs']);
 
 };

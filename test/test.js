@@ -34,7 +34,7 @@ describe('BEMPRIV', function() {
         describe('#getName', function() {
 
             it('should exist', function() {
-                expect(BEMPRIV.getName).to.exist;
+                expect(BEMPRIV).to.have.a.property('getName').that.is.a('function');
             });
 
             it('should return string', function() {
@@ -69,7 +69,7 @@ describe('BEMPRIV', function() {
             });
 
             it('default params should be an empty object', function() {
-                expect(b.getDefaultParams()).to.be.empty;
+                expect(b.getDefaultParams()).to.be.deep.equal({});
             });
 
         });
@@ -121,31 +121,31 @@ describe('BEMPRIV', function() {
         describe('#cls', function() {
             it('should be a function', function() {
                 expect(b).to.have.a.property('cls').that.is.a('function');
-            })
+            });
         });
 
         describe('#mix', function() {
             it('should be a function', function() {
                 expect(b).to.have.a.property('mix').that.is.a('function');
-            })
+            });
         });
 
         describe('#js', function() {
             it('should be a function', function() {
                 expect(b).to.have.a.property('js').that.is.a('function');
-            })
+            });
         });
 
         describe('#tag', function() {
             it('should be a function', function() {
                 expect(b).to.have.a.property('tag').that.is.a('function');
-            })
+            });
         });
 
         describe('#content', function() {
             it('should be a function', function() {
                 expect(b).to.have.a.property('content').that.is.a('function');
-            })
+            });
         });
 
         describe('#prop', function() {
@@ -215,7 +215,7 @@ describe('BEMPRIV', function() {
                 expect(b.getBEMJSON()).have.to.be.deep.equal(baseline);
                 expect(b.bemjson()).have.to.be.deep.equal(baseline);
 
-            })
+            });
         });
 
     });
@@ -229,7 +229,7 @@ describe('BEMPRIV', function() {
 
     describe('benchmark tests', function() {
 
-        var plainBemjson = plainBench['page']();
+        var plainBemjson = plainBench.page();
         var bemprivBemjson = bemprivBench.json('page');
         var objectsBemjson = objectsBench.page.getBEMJSON();
 

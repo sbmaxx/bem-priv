@@ -2,7 +2,9 @@ var hasOwnProp = Object.prototype.hasOwnProperty;
 
 function extend(o1, o2) {
     for (var i in o2) {
-        hasOwnProp.call(o2, i) && (o1[i] = o2[i]);
+        if (hasOwnProp.call(o2, i)) {
+            o1[i] = o2[i];
+        }
     }
 
     return o1;
@@ -249,7 +251,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     decl : function(decl, props, staticProps) {
 
         // string as block
-        typeof decl === 'string' && (decl = { block : decl });
+        if (typeof decl === 'string') {
+            decl = { block : decl };
+        }
 
         // inherit from itself
         if (arguments.length <= 2 && typeof decl === 'object' && (!decl || (typeof decl.block !== 'string'))) {
@@ -260,7 +264,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         }
 
-        typeof decl.block === 'undefined' && (decl.block = this.getName());
+        if (typeof decl.block === 'undefined') {
+            decl.block = this.getName();
+        }
 
         var baseBlock;
 
@@ -294,9 +300,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         }
 
-        decl.block === baseBlock.getName() ?
-            (block = inherit.self(baseBlocks, props, staticProps)) :
+        if (decl.block === baseBlock.getName()) {
+            block = inherit.self(baseBlocks, props, staticProps);
+        } else {
             (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
+        }
 
         return block;
 
