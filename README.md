@@ -14,7 +14,7 @@ npm install
 
 ## how to build & develop
 * edit `src/bempriv.js`;
-* run `grunt`.
+* run `grunt` & `grunt test`.
 
 There are two differents version:
 * `build/blocks` for PERL's V8 usage;

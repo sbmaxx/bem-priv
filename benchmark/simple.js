@@ -4,29 +4,22 @@ var suite = new Benchmark.Suite;
 
 var BEMPRIV = require('../');
 
-BEMPRIV.decl('testCreate', {
-    getBEMJSON: function() {
-        return {
-            block: 'test'
-        }
-    }
-});
+BEMPRIV.decl('testCreate');
 
 BEMPRIV.decl('testStatic', {}, {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'test'
         }
     }
 });
 
-
-BEMPRIV.decl('testHelper', {}, {});
+BEMPRIV.decl('testHelper');
 
 var blocks = {};
 
 blocks['object'] = {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'test'
         }
@@ -42,16 +35,16 @@ blocks['plain'] = function() {
 // add tests
 suite
     .add('BEMPRIV.create', function() {
-        BEMPRIV.create('testCreate').getBEMJSON();
+        BEMPRIV.create('testCreate').bemjson();
     })
     .add('BEMPRIV.static', function() {
-        BEMPRIV.blocks['testStatic'].getBEMJSON();
+        BEMPRIV.blocks['testStatic'].bemjson();
     })
     .add('BEMPRIV.json', function() {
         BEMPRIV.json('testHelper');
     })
     .add('Plain Object', function() {
-        blocks['object'].getBEMJSON();
+        blocks['object'].bemjson();
     })
     .add('Plain Function', function() {
         blocks['plain']();
