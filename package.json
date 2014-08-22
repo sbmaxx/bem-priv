@@ -4,7 +4,8 @@
   "description": "BEMPRIV",
   "main": "index.js",
   "scripts": {
-    "test": "grunt && ./node_modules/mocha/bin/mocha"
+    "test": "grunt && ./node_modules/mocha/bin/mocha",
+    "postinstall": "grunt"
   },
   "author": "Roman <sbmaxx> Rozhdestvenskiy <sbmaxx@gmail.com",
   "license": "MIT",
