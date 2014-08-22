@@ -1,7 +1,7 @@
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
 function extend(o1, o2) {
-    for(var i in o2) {
+    for (var i in o2) {
         hasOwnProp.call(o2, i) && (o1[i] = o2[i]);
     }
 
@@ -127,7 +127,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Sets block's JS
-     * @param {Object | Boolean} js
+     * @param {Object|Boolean} value
      * @protected
      */
     js : function(value) {
@@ -294,9 +294,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         }
 
-        decl.block === baseBlock.getName()
-            ? (block = inherit.self(baseBlocks, props, staticProps))
-            : (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
+        decl.block === baseBlock.getName() ?
+            (block = inherit.self(baseBlocks, props, staticProps)) :
+            (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
 
         return block;
 
@@ -305,7 +305,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     /**
      * Factory method for creating an instance of the block named
      * @param {String|Object} block Block name or description
-     * @param {Object} [params] Block parameters
+     * @param {Object} data per-request data
+     * @param {Object} [params] block parameters
      * @returns {BEM}
      */
     create : function(block, data, params) {
@@ -315,6 +316,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     /**
      * Factory method for getting block's BEMJSON
      * @param {String|Object} block Block name or description
+     * @param {Object} data per-request data
      * @param {Object} [params] Block parameters
      * @returns {Object}
     */
@@ -332,7 +334,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Returns the static instance of block
-     * @param {String} block name
+     * @param {String} name
      * @returns {BEM}
      */
     getBlock : function(name) {

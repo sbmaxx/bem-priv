@@ -171,7 +171,6 @@ describe('BEMPRIV', function() {
             done();
         });
 
-
         it('should be an object', function() {
             expect(b.getBEMJSON()).to.be.a('object');
         });

@@ -33,11 +33,27 @@ module.exports = function(grunt) {
           dest: 'build/blocks/i-bem/'
         }]
       }
+    },
+    jscs: {
+      main: [
+        'src/bempriv.js',
+        'test/test.js'
+      ],
+      grunt: {
+        options: {
+          validateIndentation: 2
+        },
+        files: {
+          src: 'Gruntfile.js'
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-replace');
+  grunt.loadNpmTasks("grunt-jscs");
 
   grunt.registerTask('default', ['replace']);
+  grunt.registerTask('test', ['jscs']);
 
 };
