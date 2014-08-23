@@ -1,9 +1,9 @@
 var expect = require('chai').expect;
 var BEMPRIV = require('../');
 
-var plainBench = require('../benchmark/real__plain');
-var bemprivBench = require('../benchmark/real__bem');
-var objectsBench = require('../benchmark/real__object');
+var plainBench = require('../benchmark/real/real__plain');
+var bemprivBench = require('../benchmark/real/real__bem');
+var objectsBench = require('../benchmark/real/real__object');
 var baselineBemjson = require('./benchmark.json');
 
 describe('BEMPRIV', function() {

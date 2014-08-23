@@ -2,9 +2,9 @@ var Benchmark = require('benchmark');
 
 var suite = new Benchmark.Suite;
 
-var blocks = require('./real__plain');
-var BEMPRIV = require('./real__bem');
-var objects = require('./real__object');
+var blocks = require('./real/real__plain');
+var BEMPRIV = require('./real/real__bem');
+var objects = require('./real/real__object');
 
 suite
     .add('BEMPRIV', function() {

@@ -1,4 +1,4 @@
-var data = require('./elements.json');
+var data = require('../data/elements.json');
 
 var blocks = {};
 
