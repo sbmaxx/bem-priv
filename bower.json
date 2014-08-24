@@ -14,6 +14,9 @@
   "keywords": [
     "BEM"
   ],
+  "scripts": {
+    "postinstall": "grunt"
+  },
   "license": "MIT",
   "ignore": [
     "**/.*",
