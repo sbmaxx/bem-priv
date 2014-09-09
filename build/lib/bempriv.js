@@ -210,6 +210,21 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     },
 
     /**
+     * Set block's custom bemjson properties
+     * @param {Object} props
+     * @protected
+     */
+    props : function(props) {
+
+        Object.keys(props).forEach(function(prop) {
+            this._bemjson[prop] = props[prop];
+        }.bind(this));
+
+        return this;
+
+    },
+
+    /**
      * Set block's custom bemjson property
      * for example if you want to add href attr { attrs: { href: 'http://w3c.org'} }
      * prop is "attrs", key is "href" and value is "http://w3c.org"

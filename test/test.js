@@ -154,9 +154,27 @@ describe('BEMPRIV', function() {
             });
         });
 
+        describe('#props', function() {
+            it('should be a function', function() {
+                expect(b).to.have.a.property('props').that.is.a('function');
+            });
+            it('should set a property', function() {
+                b.prop('prop', 'prop');
+                expect(b.bemjson().prop).have.to.be.equal('prop');
+            });
+        });
+
         describe('#bemjson', function() {
             it('should be a function', function() {
-                expect(b).to.have.a.property('bemjson').that.is.a('function');
+                expect(b).to.have.a.property('props').that.is.a('function');
+            });
+            it('should set a properties', function() {
+                b.props({
+                    foo: 'bar',
+                    bar: 'baz'
+                });
+                expect(b.bemjson().foo).have.to.be.equal('bar');
+                expect(b.bemjson().bar).have.to.be.equal('baz');
             });
         });
 
