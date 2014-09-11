@@ -29,6 +29,24 @@ describe('BEMPRIV', function() {
         });
     });
 
+    describe('mods decl via base', function() {
+        BEMPRIV.decl('aa', {
+            method: function() {
+                return 'a';
+            }
+        });
+        BEMPRIV.decl({ block: 'aa_transform_upper', baseBlock: 'aa' }, {
+            method: function() {
+                return this.__base().toUpperCase();
+            }
+        });
+
+        it('should be upppercase', function() {
+            var a = BEMPRIV.create('aa_transform_upper');
+            expect(a.method()).to.be.equal('A');
+        });
+    });
+
     describe('static methods', function() {
 
         describe('#getName', function() {
