@@ -102,6 +102,24 @@ BEMPRIV.getBlock('foo').ANSWER
 
 ## Examples
 ```js
+BEMPRIV.decl('gallery', {
+    init: function() {
+        this.content({
+            elem: 'wrapper',
+            content: this.getContent()
+        });
+    }
+});
+
+BEMPRIV.decl({ block: 'specific-gallery', baseBlock: 'gallery' }, {
+    getContent: function() {
+        return {
+            elem: 'project-elem'
+        }
+    }
+});
+BEMPRIV.json('specific-gallery'); // { block: 'specific-gallery', content: { elem: 'wrapper', content: { elem: 'project-elem' } } }
+
 BEMPRIV.decl('header', {
 
     init: function() {
