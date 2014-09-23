@@ -97,6 +97,24 @@ BEMPRIV.json('foo', data, { branch: 'release' }); // { block: 'foo', content: { 
 
 // access to static props outside of block
 BEMPRIV.getBlock('foo').ANSWER
+
+
+// Mixins
+BEMPRIV.decl('html', {
+    getHTML: function() {
+        return BEMHTML.apply(this.bemjson());
+    }
+});
+BEMPRIV.decl('xml', {
+    toXML: function() {
+        return '...';
+    }
+});
+BEMPRIV.decl({ block: 'foo', baseMix: ['html', 'xml'] });
+
+var b = BEMPRIV.create('foo');
+b.toHTML();
+b.toXML();
 ```
 
 

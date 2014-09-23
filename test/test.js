@@ -67,6 +67,31 @@ describe('BEMPRIV', function() {
 
     });
 
+    describe('mixins', function() {
+        BEMPRIV.decl('foo', {
+            foo: function() {
+                return 'foo';
+            }
+        });
+        BEMPRIV.decl('baz', {
+            baz: function() {
+                return 'baz';
+            }
+        });
+        BEMPRIV.decl({ block: 'foobaz', baseMix: ['foo', 'baz'] }, {
+            foobaz: function() {
+                return this.foo() + this.baz();
+            }
+        });
+        it('should have mix', function() {
+            var b = BEMPRIV.create('foobaz');
+            expect(b).to.have.a.property('foo').that.is.a('function');
+            expect(b).to.have.a.property('baz').that.is.a('function');
+            expect(b).to.have.a.property('foobaz').that.is.a('function');
+            expect(b.foobaz()).to.have.be.equal('foobaz');
+        });
+    });
+
     describe('instance methods', function() {
 
         var b;
