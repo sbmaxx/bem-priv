@@ -10,6 +10,30 @@ function extend(o1, o2) {
     return o1;
 }
 
+function buildCheckMod(modName, modVal) {
+    return modVal ?
+        Array.isArray(modVal) ?
+            function(block) {
+                var i = 0, len = modVal.length;
+                while (i < len) {
+                    if (block.hasMod(modName, modVal[i++])) {
+                        return true;
+                    }
+                }
+                return false;
+            } :
+            function(block) {
+                return block.hasMod(modName, modVal);
+            } :
+        function(block) {
+            return block.hasMod(modName);
+        };
+}
+var toStr = Object.prototype.toString;
+function isFunction(obj) {
+    return toStr.call(obj) === '[object Function]';
+}
+
 /**
  * Storage for block declarations (hash by block name)
  * @private
@@ -29,9 +53,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @constructor
      * @private
      * @param {Object} data Per-Request data, shoud be provided to every block
+     * @param {Object} mods Block modifiers
      * @param {Object} params Block parameters
      */
-    __constructor : function(data, params) {
+    __constructor : function(data, mods, params) {
 
         /**
          * Per-Request data
@@ -52,6 +77,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         this._bemjson = {
             block: this.__self.getName()
         };
+
+        if (typeof mods !== 'undefined') {
+            this.mods(mods);
+        }
 
         this.init();
 
@@ -97,6 +126,15 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     mod : function(key, value) {
         return this.deepProp('mods', key, value);
+    },
+
+    /**
+     * Check if block has mod
+     * @protected
+     * @returns {Boolean}
+     */
+    hasMod : function(modName, modValue) {
+        return this.deepProp('mods', modName) === modValue;
     },
 
     /**
@@ -299,6 +337,30 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             baseBlock = decl.baseBlock;
         }
 
+        if (decl.modName) {
+            var checkMod = buildCheckMod(decl.modName, decl.modVal);
+            var prop;
+            Object.keys(props).forEach(function(name) {
+                prop = props[name];
+                if (isFunction(prop)) {
+                    props[name] = function() {
+                        var method;
+                        if (checkMod(this)) {
+                            method = prop;
+                        } else {
+                            var baseMethod = baseBlock.prototype[name];
+                            if (baseMethod && baseMethod !== prop) {
+                                method = this.__base;
+                            }
+                        }
+                        return method ?
+                            method.apply(this, arguments) :
+                            undefined;
+                    };
+                }
+            });
+        }
+
         var block,
             baseBlocks = baseBlock;
 
@@ -333,7 +395,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @returns {BEM}
      */
     create : function(block, data, params) {
-        return new blocks[block](data, params);
+        if (typeof block === 'string') {
+            block = { block : block };
+        }
+        return new blocks[block.block](data, block.mods, params);
     },
 
     /**

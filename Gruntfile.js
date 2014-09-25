@@ -70,6 +70,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.registerTask('default', ['replace']);
-  grunt.registerTask('test', ['mochaTest', 'jshint', 'jscs']);
+  grunt.registerTask('test', ['replace', 'mochaTest', 'jshint', 'jscs']);
 
 };
