@@ -222,10 +222,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @constructor
      * @private
      * @param {Object} data Per-Request data, shoud be provided to every block
-     * @param {Object} mods Block modifiers
      * @param {Object} params Block parameters
      */
-    __constructor : function(data, mods, params) {
+    __constructor : function(data, params) {
 
         /**
          * Per-Request data
@@ -247,8 +246,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             block: this.__self.getName()
         };
 
-        if (typeof mods !== 'undefined') {
-            this.mods(mods);
+        if (typeof this.params.mods !== 'undefined') {
+            this.mods(this.params.mods);
         }
 
         this.init();
@@ -558,16 +557,13 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Factory method for creating an instance of the block named
-     * @param {String|Object} block Block name or description
+     * @param {String} block Block name
      * @param {Object} data per-request data
      * @param {Object} [params] block parameters
      * @returns {BEM}
      */
     create : function(block, data, params) {
-        if (typeof block === 'string') {
-            block = { block : block };
-        }
-        return new blocks[block.block](data, block.mods, params);
+        return new blocks[block](data, params);
     },
 
     /**

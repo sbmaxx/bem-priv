@@ -58,7 +58,7 @@ describe('BEMPRIV', function() {
                 return this.__base() + '!';
             }
         });
-        var b = BEMPRIV.create({ block: 'base', mods: { foo: 'baz' }});
+        var b = BEMPRIV.create('base', null, { mods: { foo: 'baz' }});
         it('mods decl should inherit', function() {
             expect(b.method()).to.be.equal('method!');
         });
