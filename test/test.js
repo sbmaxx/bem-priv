@@ -29,7 +29,7 @@ describe('BEMPRIV', function() {
         });
     });
 
-    describe('mods decl via base', function() {
+    describe('base block', function() {
         BEMPRIV.decl('aa', {
             method: function() {
                 return 'a';
@@ -47,24 +47,47 @@ describe('BEMPRIV', function() {
         });
     });
 
-    describe('mods decl', function() {
+    describe('mods', function() {
+
         BEMPRIV.decl('base', {
             method: function() {
                 return 'method';
             }
         });
+
         BEMPRIV.decl({ block: 'base', modName: 'foo', modVal: 'baz' }, {
             method: function() {
                 return this.__base() + '!';
             }
         });
-        var b = BEMPRIV.create('base', null, { mods: { foo: 'baz' }});
+
+        BEMPRIV.decl({ block: 'base', modName: 'bar', modVal: 'baz' }, {
+            method: function() {
+                return this.__base() + '?';
+            }
+        });
+
+        var b = BEMPRIV.create('base', null, {
+            mods: {
+                foo: 'baz',
+                bar: 'baz'
+            }
+        });
+
         it('mods decl should inherit', function() {
-            expect(b.method()).to.be.equal('method!');
+            expect(b.method()).to.be.equal('method!?');
         });
+
         it('mods decl should modify bemjson', function() {
-            expect(b.bemjson()).to.be.deep.equal({ block: 'base', mods: { foo: 'baz' } });
+            expect(b.bemjson()).to.be.deep.equal({
+                block: 'base',
+                mods: {
+                    foo: 'baz',
+                    bar: 'baz'
+                }
+            });
         });
+
     });
 
     describe('static methods', function() {
