@@ -63,13 +63,6 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         this.data = data;
 
         /**
-         * Block parameters, taking into account the defaults
-         * @member {Object}
-         * @readonly
-         */
-        this.params = extend(this.getDefaultParams(), params);
-
-        /**
          * Block's BEMJSON
          * @private
          */
@@ -77,9 +70,17 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             block: this.__self.getName()
         };
 
-        if (typeof this.params.mods !== 'undefined') {
-            this.mods(this.params.mods);
+        if (params && params.mods) {
+            this.mods(params.mods);
+            delete params.mods;
         }
+
+        /**
+         * Block parameters, taking into account the defaults
+         * @member {Object}
+         * @readonly
+         */
+        this.params = extend(this.getDefaultParams(), params);
 
         this.init();
 
@@ -394,7 +395,15 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @returns {BEM}
      */
     create : function(block, data, params) {
-        return new blocks[block](data, params);
+        params = params || {};
+        if (typeof block === 'string') {
+            block = {
+                block: block
+            };
+        } else if (block.mods) {
+            params.mods = block.mods;
+        }
+        return new blocks[block.block](data, params);
     },
 
     /**

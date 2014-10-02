@@ -74,18 +74,29 @@ describe('BEMPRIV', function() {
             }
         });
 
+        var c = BEMPRIV.create({
+            block: 'base',
+            mods: {
+                foo: 'baz',
+                bar: 'baz'
+            }
+        });
+
         it('mods decl should inherit', function() {
             expect(b.method()).to.be.equal('method!?');
+            expect(c.method()).to.be.equal('method!?');
         });
 
         it('mods decl should modify bemjson', function() {
-            expect(b.bemjson()).to.be.deep.equal({
+            var reference = {
                 block: 'base',
                 mods: {
                     foo: 'baz',
                     bar: 'baz'
                 }
-            });
+            };
+            expect(b.bemjson()).to.be.deep.equal(reference);
+            expect(c.bemjson()).to.be.deep.equal(reference);
         });
 
     });
