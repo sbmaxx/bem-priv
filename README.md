@@ -115,6 +115,23 @@ BEMPRIV.decl({ block: 'foo', baseMix: ['html', 'xml'] });
 var b = BEMPRIV.create('foo');
 b.toHTML();
 b.toXML();
+
+// Mods
+BEMPRIV.decl('car', {
+    init: function() {
+        this.content('Color: ' + this.getColor());
+    },
+    getColor: function() {
+        return 'black';
+    }
+});
+BEMPRIV.decl({ block: 'car', modName: 'use', modVal: 'taxi' }, {
+    getColor: function() {
+        return 'yellow';
+    }
+})
+(BEMPRIV.create({ block: 'car', mods: { use: 'taxi' } })).bemjson();
+// { block: 'car', content: 'Color: yellow' }
 ```
 
 
