@@ -54,10 +54,8 @@ blocks['user'] = function() {
         });
 
         // удаляем лого
-        block.content.shift();
-
         // вставляем новое лого
-        block.content.unshift(blocks['header__logo']());
+        block.content.splice(0, 1, blocks['header__logo']());
 
         return block;
 
