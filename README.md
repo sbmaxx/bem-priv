@@ -229,5 +229,11 @@ BEMPRIV.json x 9,297,611 ops/sec ±0.55% (99 runs sampled)
 Plain Object x 45,624,589 ops/sec ±1.24% (89 runs sampled)
 Plain Function x 73,510,402 ops/sec ±2.97% (85 runs sampled)
 ```
+[benchmark/time2.js](benchmark/time2.js)
+```bash
+blocks: 172 µs
+bempriv: 862 µs
+```
+Where `µs` — microsecond.
 
 To run benchmark on your own machine — `node benchmark/simple`, `node benchmark/real`.
