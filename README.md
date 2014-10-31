@@ -96,7 +96,7 @@ f.bemjson(); // { block: 'foo', content: { branch: 'master'} }
 BEMPRIV.json('foo', data, { branch: 'release' }); // { block: 'foo', content: { branch: 'release' } }
 
 // access to static props outside of block
-BEMPRIV.getBlock('foo').ANSWER
+BEMPRIV.block('foo').ANSWER
 
 
 // Mixins

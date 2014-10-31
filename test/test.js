@@ -101,7 +101,7 @@ describe('BEMPRIV', function() {
 
     });
 
-    describe('static methods', function() {
+    describe('BEMPRIV`s static methods', function() {
 
         describe('#getName', function() {
 
@@ -117,6 +117,21 @@ describe('BEMPRIV', function() {
                 expect(BEMPRIV.getName()).to.be.equal('bem');
             });
 
+        });
+
+    });
+
+    describe('blocks` static methods', function() {
+
+        BEMPRIV.decl('SomeStaticBlock', {}, {
+            customStaticMethod: function(val) {
+                return val + 1;
+            }
+        });
+
+        it('should execute static method', function() {
+            expect(BEMPRIV.block('SomeStaticBlock').customStaticMethod(1))
+                .to.be.equal(2);
         });
 
     });
