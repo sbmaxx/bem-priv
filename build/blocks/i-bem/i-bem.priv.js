@@ -504,23 +504,26 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         if (decl.modName) {
             var checkMod = buildCheckMod(decl.modName, decl.modVal);
             var prop;
+            var self = this;
             Object.keys(props).forEach(function(name) {
                 prop = props[name];
                 if (isFunction(prop)) {
-                    props[name] = function() {
-                        var method;
-                        if (checkMod(this)) {
-                            method = prop;
-                        } else {
-                            var baseMethod = baseBlock.prototype[name];
-                            if (baseMethod && baseMethod !== prop) {
-                                method = this.__base;
+                    props[name] = (function(name, prop) {
+                        return function() {
+                            var method;
+                            if (checkMod(this)) {
+                                method = prop;
+                            } else {
+                                var baseMethod = baseBlock.prototype[name];
+                                if (baseMethod && baseMethod !== prop) {
+                                    method = this.__base;
+                                }
                             }
-                        }
-                        return method ?
-                            method.apply(this, arguments) :
-                            undefined;
-                    };
+                            return method ?
+                                method.apply(this, arguments) :
+                                undefined;
+                        };
+                    }(name, prop));
                 }
             });
         }

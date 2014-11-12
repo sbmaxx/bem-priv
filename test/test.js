@@ -50,18 +50,31 @@ describe('BEMPRIV', function() {
     describe('mods', function() {
 
         BEMPRIV.decl('base', {
+            init: function() {
+                console.log('init base');
+                this.__base();
+                this.content('test');
+            },
             method: function() {
                 return 'method';
             }
         });
 
         BEMPRIV.decl({ block: 'base', modName: 'foo', modVal: 'baz' }, {
+            init: function() {
+                console.log('!!!!!!!!!!foo-baz!');
+                this.__base();
+                this.content('foo-baz');
+            },
             method: function() {
                 return this.__base() + '!';
             }
         });
 
         BEMPRIV.decl({ block: 'base', modName: 'bar', modVal: 'baz' }, {
+            init: function() {
+                this.content('bar-baz');
+            },
             method: function() {
                 return this.__base() + '?';
             }
@@ -69,34 +82,39 @@ describe('BEMPRIV', function() {
 
         var b = BEMPRIV.create('base', null, {
             mods: {
-                foo: 'baz',
-                bar: 'baz'
+                foo: 'baz'
             }
         });
 
         var c = BEMPRIV.create({
             block: 'base',
             mods: {
-                foo: 'baz',
                 bar: 'baz'
             }
         });
 
         it('mods decl should inherit', function() {
-            expect(b.method()).to.be.equal('method!?');
-            expect(c.method()).to.be.equal('method!?');
+            expect(b.method()).to.be.equal('method!');
+            expect(c.method()).to.be.equal('method?');
         });
 
         it('mods decl should modify bemjson', function() {
-            var reference = {
+            var ref1 = {
                 block: 'base',
                 mods: {
-                    foo: 'baz',
-                    bar: 'baz'
-                }
+                    foo: 'baz'
+                },
+                content: 'foo-baz'
             };
-            expect(b.bemjson()).to.be.deep.equal(reference);
-            expect(c.bemjson()).to.be.deep.equal(reference);
+            var ref2 = {
+                block: 'base',
+                mods: {
+                    bar: 'baz'
+                },
+                content: 'bar-baz'
+            };
+            expect(b.bemjson()).to.be.deep.equal(ref1);
+            expect(c.bemjson()).to.be.deep.equal(ref2);
         });
 
     });
