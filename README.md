@@ -101,7 +101,7 @@ BEMPRIV.block('foo').ANSWER
 
 // Mixins
 BEMPRIV.decl('html', {
-    getHTML: function() {
+    toHTML: function() {
         return BEMHTML.apply(this.bemjson());
     }
 });
