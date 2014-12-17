@@ -15,24 +15,20 @@ function extend(o1, o2) {
 }
 
 function buildCheckMod(modName, modVal) {
-    return modVal ?
-        Array.isArray(modVal) ?
-            function(block) {
-                var i = 0, len = modVal.length;
-                while (i < len) {
-                    if (block.hasMod(modName, modVal[i++])) {
-                        return true;
-                    }
-                }
-                return false;
-            } :
-            function(block) {
-                return block.hasMod(modName, modVal);
-            } :
-        function(block) {
-            return block.hasMod(modName);
-        };
+
+    if (!modVal) {
+        return function(block) { return block.hasMod(modName); };
+    }
+
+    if (!Array.isArray(modVal)) {
+        return function(block) { return block.hasMod(modName, modVal); };
+    }
+
+    return function(block) {
+        return modVal.some(block.hasMod.bind(block, modName));
+    };
 }
+
 var toStr = Object.prototype.toString;
 function isFunction(obj) {
     return toStr.call(obj) === '[object Function]';
@@ -86,7 +82,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
          */
         this.params = extend(this.getDefaultParams(), params);
 
-        this.init();
+        var retVal = this.init();
+
+        if (typeof retVal !== 'undefined') {
+            this._bemjson = retVal;
+        }
 
     },
 
@@ -291,10 +291,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     _name : 'bem',
 
     /**
-     * Declares blocks and creates a block class
+     * Declares blocks and elements, and creates a block class
      * @param {String} decl Block name (simple syntax) or description
      * @param {String} decl.block|decl.name Block name
      * @param {String} [decl.baseBlock] Name of the parent block
+     * @param {String} [decl.elem] Name of the declared elements
      * @param {Array} [decl.baseMix] Mixed block names
      * @param {Object} [props] Methods
      * @param {Object} [staticProps] Static methods

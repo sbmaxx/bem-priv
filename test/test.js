@@ -62,7 +62,6 @@ describe('BEMPRIV', function() {
 
         BEMPRIV.decl({ block: 'base', modName: 'foo', modVal: 'baz' }, {
             init: function() {
-                console.log('!!!!!!!!!!foo-baz!');
                 this.__base();
                 this.content('foo-baz');
             },
@@ -363,6 +362,19 @@ describe('BEMPRIV', function() {
                 expect(b.getBEMJSON()).have.to.be.deep.equal(baseline);
                 expect(b.bemjson()).have.to.be.deep.equal(baseline);
 
+            });
+
+            it('should return empty block', function() {
+                BEMPRIV.decl('empty', {
+                    init: function() {
+                        if (!this.data.smth) {
+                            return '';
+                        }
+                    }
+                });
+                expect(BEMPRIV.json('empty', {
+                    smth: false
+                })).have.to.be.equal('');
             });
         });
 
