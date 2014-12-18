@@ -78,7 +78,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
          */
         this.params = extend(this.getDefaultParams(), params);
 
-        this.init();
+        var retVal = this.init();
+
+        if (typeof retVal !== 'undefined') {
+            this._bemjson = retVal;
+        }
 
     },
 
