@@ -78,10 +78,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
          */
         this.params = extend(this.getDefaultParams(), params);
 
-        var retVal = this.init();
+        var initReturn = this.init();
 
-        if (typeof retVal !== 'undefined') {
-            this._bemjson = retVal;
+        if (typeof initReturn !== 'undefined') {
+            this._initReturn = initReturn;
         }
 
     },
@@ -111,11 +111,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     },
 
     /**
-     * Return's block's BEMJSON
+     * Return's block's BEMJSON or init() return
      * @returns {OBJECT}
      */
     bemjson : function() {
-        return this._bemjson;
+        return typeof this._initReturn === 'undefined' ? this._bemjson : this._initReturn;
     },
 
     /**

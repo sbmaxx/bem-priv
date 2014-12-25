@@ -376,6 +376,31 @@ describe('BEMPRIV', function() {
                     smth: false
                 })).have.to.be.equal('');
             });
+
+            it('empty block & modifiers', function() {
+
+                BEMPRIV.decl({
+
+                    block: 'direct',
+                    modName: 'serp-list',
+                    modVal: 'yes'
+
+                }, {
+
+                    init: function() {
+                        return '';
+                    },
+
+                    test: function() {
+                        return 'hello';
+                    }
+
+                });
+
+                var priv = BEMPRIV.create({ block: 'direct', mods: { 'serp-list': 'yes' } });
+                expect(priv.test()).have.to.be.equal('hello');
+
+            });
         });
 
     });
