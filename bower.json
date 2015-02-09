@@ -1,10 +1,10 @@
 {
   "name": "bem-priv",
   "main": "index.js",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "homepage": "https://github.com/sbmaxx/bem-priv",
   "authors": [
-    "Roman <sbmaxx> Rozhdestvenskiy <sbmaxx@gmail.com"
+    "sbmaxx <sbmaxx@gmail.com>"
   ],
   "description": "BEMPRIV",
   "moduleType": [
