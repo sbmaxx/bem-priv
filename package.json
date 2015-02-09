@@ -1,11 +1,8 @@
 {
   "name": "bem-priv",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "BEMPRIV",
   "main": "index.js",
-  "scripts": {
-    "postinstall": "grunt"
-  },
   "author": "Roman <sbmaxx> Rozhdestvenskiy <sbmaxx@gmail.com",
   "license": "MIT",
   "devDependencies": {
@@ -20,9 +17,9 @@
     "grunt-contrib-jshint": "^0.10.0",
     "jshint-stylish": "^0.4.0",
     "grunt-mocha-test": "^0.11.0"
+    "microtime": "^1.0.1"
   },
   "dependencies": {
-    "inherit": "~2.2.2",
-    "microtime": "^1.0.1"
+    "inherit": "~2.2.2"
   }
 }
