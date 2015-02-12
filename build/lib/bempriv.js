@@ -8,18 +8,6 @@ var inherit = (function() {
 
 var emptyBase = function() {},
     hasOwnProperty = Object.prototype.hasOwnProperty,
-    objCreate = Object.create || function(ptp) {
-        var inheritance = function() {};
-        inheritance.prototype = ptp;
-        return new inheritance();
-    },
-    objKeys = Object.keys || function(obj) {
-        var res = [];
-        for(var i in obj) {
-            hasOwnProperty.call(obj, i) && res.push(i);
-        }
-        return res;
-    },
     extend = function(o1, o2) {
         for(var i in o2) {
             hasOwnProperty.call(o2, i) && (o1[i] = o2[i]);
@@ -28,40 +16,18 @@ var emptyBase = function() {},
         return o1;
     },
     toStr = Object.prototype.toString,
-    isArray = Array.isArray || function(obj) {
-        return toStr.call(obj) === '[object Array]';
-    },
+    isArray = Array.isArray,
     isFunction = function(obj) {
         return toStr.call(obj) === '[object Function]';
     },
-    noOp = function() {},
-    needCheckProps = true,
-    testPropObj = { toString : '' };
-
-for(var i in testPropObj) { // fucking ie hasn't toString, valueOf in for
-    testPropObj.hasOwnProperty(i) && (needCheckProps = false);
-}
-
-var specProps = needCheckProps? ['toString', 'valueOf'] : null;
-
-function getPropList(obj) {
-    var res = objKeys(obj);
-    if(needCheckProps) {
-        var specProp, i = 0;
-        while(specProp = specProps[i++]) {
-            obj.hasOwnProperty(specProp) && res.push(specProp);
-        }
-    }
-
-    return res;
-}
+    noOp = function() {};
 
 function isFinalMethod(method) {
     return method.toString().indexOf("'final'") > -1;
 }
 
 function override(base, res, add) {
-    var addList = getPropList(add),
+    var addList = Object.keys(add),
         j = 0, len = addList.length,
         name, prop;
 
@@ -70,7 +36,6 @@ function override(base, res, add) {
             continue;
         }
         prop = add[name];
-
 
         var baseMethod = base[name]
             ? base[name]
@@ -149,7 +114,7 @@ function inherit() {
     res.__parent = base;
 
     var basePtp = base.prototype,
-        resPtp = res.prototype = objCreate(basePtp);
+        resPtp = res.prototype = Object.create(basePtp);
 
     resPtp.__self = resPtp.constructor = res;
 
