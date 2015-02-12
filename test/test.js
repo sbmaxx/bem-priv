@@ -51,7 +51,6 @@ describe('BEMPRIV', function() {
 
         BEMPRIV.decl('base', {
             init: function() {
-                console.log('init base');
                 this.__base();
                 this.content('test');
             },
@@ -421,6 +420,35 @@ describe('BEMPRIV', function() {
         it('should not be extended', function() {
             expect(b.method()).to.be.equal('hello');
         });
+    });
+
+    describe('try/catch', function() {
+        BEMPRIV.decl('BlockWithWrongConstructor', {
+            __constructor: function() {
+                asdf; // jshint ignore:line
+            }
+        });
+        it('should catch errors', function() {
+            var error = false;
+            try {
+                BEMPRIV.create('BlockWithWrongConstructor');
+            } catch (e) {
+                error = true;
+            }
+            expect(error).to.be.equal(true);
+        });
+
+        it('should not catch errors', function() {
+            BEMPRIV.wrapTryCatch();
+            var error = false;
+            try {
+                BEMPRIV.create('BlockWithWrongConstructor');
+            } catch (e) {
+                error = true;
+            }
+            expect(error).to.be.equal(false);
+        });
+
     });
 
     describe('data checks', function() {

@@ -26,10 +26,30 @@ function buildCheckMod(modName, modVal) {
 }
 
 var toStr = Object.prototype.toString;
+
 function isFunction(obj) {
     return toStr.call(obj) === '[object Function]';
 }
 
+function wrapTryCatchObj(obj) {
+
+    Object.keys(obj).filter(function(prop) {
+        return isFunction(obj[prop]);
+    }).forEach(function(prop) {
+        obj[prop] = wrapTryCatchMethod(obj[prop]);
+    });
+
+}
+
+function wrapTryCatchMethod(method) {
+    return function() {
+        try {
+            return method.apply(this, arguments);
+        } catch (e) {
+            return '';
+        }
+    };
+}
 /**
  * Storage for block declarations (hash by block name)
  * @private
@@ -431,6 +451,38 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     block : function(name) {
         return blocks[name];
+    },
+
+    /**
+     * Wrap methods in try/catch to safety use in production
+     * @param {String} block wrap only some blocks
+     * @param {Boolean} onlyFactory wrap only factory method
+     */
+    wrapTryCatch : function(block, onlyFactory) {
+
+        if (block && !onlyFactory) {
+            wrapTryCatchObj(block);
+            wrapTryCatchObj(block.prototype);
+            return;
+        }
+
+        if (block && onlyFactory) {
+            block.create = wrapTryCatchMethod(block.create);
+            return;
+        }
+
+        if (onlyFactory) {
+            Object.keys(blocks).forEach(function(name) {
+                blocks[name].create = wrapTryCatchMethod(blocks[name].create);
+            });
+            return;
+        }
+
+        Object.keys(blocks).forEach(function(name) {
+            wrapTryCatchObj(blocks[name]);
+            wrapTryCatchObj(blocks[name].prototype);
+        });
+
     }
 
 });
