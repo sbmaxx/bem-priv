@@ -18,8 +18,5 @@
     "jshint-stylish": "^0.4.0",
     "grunt-mocha-test": "^0.11.0",
     "microtime": "^1.0.1"
-  },
-  "dependencies": {
-    "inherit": "~2.2.2"
   }
 }

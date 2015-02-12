@@ -1,4 +1,8 @@
-var inherit = require('inherit');
+var inherit = (function() {
+// include src/inherit.js
+@@inherit
+return inherit;
+})();
 
 (function(global) {
 // include src/bempriv.js

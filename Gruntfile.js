@@ -7,6 +7,9 @@ module.exports = function(grunt) {
           patterns: [{
             match: 'bempriv',
             replacement: '<%= grunt.file.read("src/bempriv.js") %>'
+          }, {
+            match: 'inherit',
+            replacement: '<%= grunt.file.read("src/inherit.js") %>'
           }]
         },
         files: [{

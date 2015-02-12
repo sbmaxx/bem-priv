@@ -405,6 +405,24 @@ describe('BEMPRIV', function() {
 
     });
 
+    describe('final methods', function() {
+        BEMPRIV.decl('BlockWithFinalMethods', {
+            method: function() {
+                'final';
+                return 'hello';
+            }
+        });
+        BEMPRIV.decl('BlockWithFinalMethods', {
+            method: function() {
+                return this.__base() + ', World!';
+            }
+        });
+        var b = BEMPRIV.create('BlockWithFinalMethods');
+        it('should not be extended', function() {
+            expect(b.method()).to.be.equal('hello');
+        });
+    });
+
     describe('data checks', function() {
         var b = new BEMPRIV({});
         it('shoud have data', function() {

@@ -4,8 +4,7 @@
  * @author Filatov Dmitry <dfilatov@yandex-team.ru>
  */
 
-var hasIntrospection = (function(){'_';}).toString().indexOf('_') > -1,
-    emptyBase = function() {},
+var emptyBase = function() {},
     hasOwnProperty = Object.prototype.hasOwnProperty,
     objCreate = Object.create || function(ptp) {
         var inheritance = function() {};
@@ -55,23 +54,35 @@ function getPropList(obj) {
     return res;
 }
 
+function isFinalMethod(method) {
+    return method.toString().indexOf("'final'") > -1;
+}
+
 function override(base, res, add) {
     var addList = getPropList(add),
         j = 0, len = addList.length,
         name, prop;
+
     while(j < len) {
         if((name = addList[j++]) === '__self') {
             continue;
         }
         prop = add[name];
-        if(isFunction(prop) &&
-                (!hasIntrospection || prop.toString().indexOf('.__base') > -1)) {
-            res[name] = (function(name, prop) {
-                var baseMethod = base[name]?
-                        base[name] :
-                        name === '__constructor'? // case of inheritance from plane function
-                            res.__self.__parent :
-                            noOp;
+
+
+        var baseMethod = base[name]
+            ? base[name]
+            : name === '__constructor'
+                // case of inheritance from plane function
+                ? res.__self.__parent
+                : noOp
+
+        if (isFunction(baseMethod) && isFinalMethod(baseMethod)) {
+            continue;
+        }
+
+        if(isFunction(prop) && (prop.toString().indexOf('.__base') > -1)) {
+            res[name] = (function(name, prop, baseMethod) {
                 return function() {
                     var baseSaved = this.__base;
                     this.__base = baseMethod;
@@ -79,7 +90,7 @@ function override(base, res, add) {
                     this.__base = baseSaved;
                     return res;
                 };
-            })(name, prop);
+            })(name, prop, baseMethod);
         } else {
             res[name] = prop;
         }
