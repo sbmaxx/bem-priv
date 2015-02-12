@@ -605,21 +605,18 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     wrapTryCatch : function(block, onlyFactory) {
 
-        if (block && !onlyFactory) {
+        if (typeof onlyFactory === 'undefined') {
+            onlyFactory = true;
+        }
+
+        if (block) {
             wrapTryCatchObj(block);
             wrapTryCatchObj(block.prototype);
             return;
         }
 
-        if (block && onlyFactory) {
-            block.create = wrapTryCatchMethod(block.create);
-            return;
-        }
-
         if (onlyFactory) {
-            Object.keys(blocks).forEach(function(name) {
-                blocks[name].create = wrapTryCatchMethod(blocks[name].create);
-            });
+            this.create = wrapTryCatchMethod(this.create);
             return;
         }
 
