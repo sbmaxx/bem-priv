@@ -29,7 +29,8 @@ describe('BEMPRIV', function() {
         });
     });
 
-    describe('base block', function() {
+    describe('base && parent block', function() {
+        // parent #2
         BEMPRIV.decl('aa', {
             method: function() {
                 return 'a';
@@ -40,10 +41,34 @@ describe('BEMPRIV', function() {
                 return this.__base().toUpperCase();
             }
         });
-
+        // parent #1
+        BEMPRIV.decl('aa', {
+            method: function() {
+                return 'aa';
+            }
+        });
+        BEMPRIV.decl('aa', {
+            method: function() {
+                return this.__base() + 'aaa';
+            },
+            parentMethod: function() {
+                return this.getParent().method();
+            }
+        });
         it('should be upppercase', function() {
             var a = BEMPRIV.create('aa_transform_upper');
             expect(a.method()).to.be.equal('A');
+        });
+        it('parent block', function() {
+            var aaa = BEMPRIV.create('aa');
+            expect(aaa.method()).to.be.equal('aaaaa');
+            expect(aaa.parentMethod()).to.be.equal('aa');
+            expect(aaa.getParent().getParent().method()).to.be.equal('a');
+        });
+        it('parent tree', function() {
+            var aaa = BEMPRIV.create('aa');
+            // 3 — 2 parents + 1 BEMPRIV parent
+            expect(aaa.getParents().length).to.be.equal(3);
         });
     });
 
@@ -458,7 +483,7 @@ describe('BEMPRIV', function() {
                 return this.data.ts;
             },
             createAnotherBlock: function() {
-                return this.createBlock('AnotherBlock');
+                return this.getBlock('AnotherBlock');
             }
         });
 

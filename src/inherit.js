@@ -115,6 +115,7 @@ function inherit() {
         resPtp = res.prototype = Object.create(basePtp);
 
     resPtp.__self = resPtp.constructor = res;
+    resPtp.__parent = basePtp;
 
     props && override(basePtp, resPtp, props);
     staticProps && override(base, res, staticProps);
@@ -132,6 +133,5 @@ inherit.self = function() {
 
     props && override(basePtp, basePtp, props);
     staticProps && override(base, base, staticProps);
-
     return base;
 };

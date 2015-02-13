@@ -117,6 +117,7 @@ function inherit() {
         resPtp = res.prototype = Object.create(basePtp);
 
     resPtp.__self = resPtp.constructor = res;
+    resPtp.__parent = basePtp;
 
     props && override(basePtp, resPtp, props);
     staticProps && override(base, res, staticProps);
@@ -134,7 +135,6 @@ inherit.self = function() {
 
     props && override(basePtp, basePtp, props);
     staticProps && override(base, base, staticProps);
-
     return base;
 };
 
@@ -446,12 +446,29 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     },
 
-    createBlock : function(block, params) {
+    getBlock : function(block, params) {
         return this.__self.create(block, this.data, params);
     },
 
     getBlockJSON : function(block, params) {
         return this.__self.json(block, this.data, params);
+    },
+
+    getParent : function(instance) {
+        return (instance || this).__parent;
+    },
+
+    getParents : function() {
+
+        var parents = [],
+            parent = this;
+
+        while ((parent = this.getParent(parent))) {
+            parents.push(parent);
+        }
+
+        return parents;
+
     }
 
 }, /** @lends BEMPRIV */{
@@ -548,11 +565,13 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         }
 
-        if (decl.block === baseBlock.getName()) {
-            block = inherit.self(baseBlocks, props, staticProps);
-        } else {
-            (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
-        }
+        // always inherit with this.__parent
+        (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
+        // if (decl.block === baseBlock.getName()) {
+        //     block = inherit.self(baseBlocks, props, staticProps);
+        // } else {
+        //     (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
+        // }
 
         return block;
 
