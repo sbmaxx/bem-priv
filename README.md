@@ -217,9 +217,12 @@ Also, don't forget to check our [wiki](https://github.com/sbmaxx/bempriv/wiki).
 
 [benchmark/real.js](benchmark/real.js)
 ```bash
-BEMPRIV x 31,125 ops/sec ±1.49% (94 runs sampled)
-Plain Function x 31,525 ops/sec ±1.58% (95 runs sampled)
-Plain Object x 30,531 ops/sec ±1.26% (97 runs sampled)
+BEMPRIV x 32,668 ops/sec ±1.10% (88 runs sampled)
+BEMPRIV runtime x 32,537 ops/sec ±0.94% (95 runs sampled)
+BEMPRIV light runtime x 32,352 ops/sec ±0.95% (98 runs sampled)
+BEMPRIV heavy runtime x 32,454 ops/sec ±1.07% (96 runs sampled)
+Plain Function x 33,645 ops/sec ±0.98% (97 runs sampled)
+Plain Object x 32,589 ops/sec ±0.98% (98 runs sampled)
 ```
 [benchmark/simple.js](benchmark/simple.js)
 ```bash

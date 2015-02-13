@@ -56,7 +56,6 @@ function wrapTryCatchMethod(method) {
  * @type Object
  */
 var blocks = {};
-
 /**
  * @class BEMPRIV
  * @description Base block for creating BEMPRIV blocks
@@ -300,6 +299,14 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         this._bemjson[prop][key] = value;
         return this;
 
+    },
+
+    createBlock : function(block, params) {
+        return this.__self.create(block, this.data, params);
+    },
+
+    getBlockJSON : function(block, params) {
+        return this.__self.json(block, this.data, params);
     }
 
 }, /** @lends BEMPRIV */{
@@ -480,6 +487,26 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             wrapTryCatchObj(blocks[name].prototype);
         });
 
+    },
+
+    createRuntime : function(data) {
+        return {
+            create : function(block, params) {
+                return BEMPRIV.create(block, data, params);
+            },
+            json : function(block, params) {
+                return BEMPRIV.json(block, data, params);
+            }
+        };
+        // // this is more fair, but heaviear too
+        // return inherit(BEMPRIV, undefined, {
+        //     create : function(block, params) {
+        //         return this.__base(block, data, params);
+        //     },
+        //     json : function(block, params) {
+        //         return this.__base(block, data, params);
+        //     }
+        // });
     }
 
 });

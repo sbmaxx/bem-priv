@@ -5,13 +5,23 @@ var suite = new Benchmark.Suite;
 var blocks = require('./real/real__plain');
 var BEMPRIV = require('./real/real__bem');
 var objects = require('./real/real__object');
+var data = require('./data/elements.json');
 
 suite
     .add('BEMPRIV', function() {
         BEMPRIV.json('page');
     })
+    .add('BEMPRIV runtime', function() {
+        BEMPRIV.createRuntime({}).json('page');
+    })
+    .add('BEMPRIV light runtime', function() {
+        BEMPRIV.createRuntime().json('page');
+    })
+    .add('BEMPRIV heavy runtime', function() {
+        BEMPRIV.createRuntime(data).json('page');
+    })
     .add('Plain Function', function() {
-        blocks['page']();
+        blocks['page'](data);
     })
     .add('Plain Object', function() {
         objects['page'].getBEMJSON();

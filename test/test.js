@@ -451,11 +451,48 @@ describe('BEMPRIV', function() {
 
     });
 
-    describe('data checks', function() {
-        var b = new BEMPRIV({});
-        it('shoud have data', function() {
-            expect(b).to.have.a.property('data');
+    describe('runtime', function() {
+
+        BEMPRIV.decl('BlockData', {
+            method: function() {
+                return this.data.ts;
+            },
+            createAnotherBlock: function() {
+                return this.createBlock('AnotherBlock');
+            }
         });
+
+        BEMPRIV.decl('AnotherBlock', {
+            method: function() {
+                return this.data.ts + '!';
+            }
+        });
+
+        it('runtime should be separated', function() {
+            var runtime1 = BEMPRIV.createRuntime({ ts: 'a' });
+            var runtime2 = BEMPRIV.createRuntime({ ts: 'b'});
+            var a = runtime1.create('BlockData');
+            var aa = runtime1.create('BlockData');
+            var b = runtime2.create('BlockData');
+            expect(a.method()).to.be.equal('a');
+            expect(b.method()).to.be.equal('b');
+            expect(a.data).to.be.not.equal(b.data);
+        });
+
+        it('should share data inside runtime', function() {
+            var runtime = BEMPRIV.createRuntime({ ts: 'a' });
+            var a = runtime.create('BlockData');
+            var aa = runtime.create('BlockData');
+            expect(a.data).to.be.equal(aa.data);
+        });
+
+        it('should create block insidte runtime', function() {
+            var runtime = BEMPRIV.createRuntime({ ts: 'a' });
+            var a = runtime.create('BlockData');
+            var b = a.createAnotherBlock();
+            expect(b.method()).to.be.equal('a!');
+        });
+
     });
 
     describe('benchmark tests', function() {
