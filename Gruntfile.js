@@ -64,6 +64,11 @@ module.exports = function(grunt) {
         },
         src: ['test/test.js']
       }
+    },
+    release: {
+      options: {
+        additionalFiles: ['bower.json']
+      }
     }
   });
 
@@ -71,6 +76,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-jscs");
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-release');
 
   grunt.registerTask('default', ['replace']);
   grunt.registerTask('test', ['replace', 'mochaTest', 'jshint', 'jscs']);
