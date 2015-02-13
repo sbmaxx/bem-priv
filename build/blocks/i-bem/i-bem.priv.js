@@ -458,12 +458,33 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         return (instance || this).__parent;
     },
 
-    getParents : function() {
+    getOriginalParent : function(instance) {
+
+        var parents = this.getParents(instance),
+            original;
+
+        parents.reverse();
+
+        parents.some(function(parent) {
+            // we may have BEMPRIV override
+            if (parent.constructor._name !== 'bem') {
+                original = parent;
+                return true;
+            }
+        });
+
+        console.log('length: ', parents.length);
+
+        return original;
+
+    },
+
+    getParents : function(instance) {
 
         var parents = [],
             parent = this;
 
-        while ((parent = this.getParent(parent))) {
+        while ((parent = (instance || this).getParent(parent))) {
             parents.push(parent);
         }
 

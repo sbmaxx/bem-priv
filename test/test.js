@@ -70,6 +70,10 @@ describe('BEMPRIV', function() {
             // 3 — 2 parents + 1 BEMPRIV parent
             expect(aaa.getParents().length).to.be.equal(3);
         });
+        it('original parent', function() {
+            var aaa = BEMPRIV.create('aa');
+            expect(aaa.getOriginalParent().method()).to.be.equal('a');
+        });
     });
 
     describe('mods', function() {
@@ -511,7 +515,7 @@ describe('BEMPRIV', function() {
             expect(a.data).to.be.equal(aa.data);
         });
 
-        it('should create block insidte runtime', function() {
+        it('should create block inside runtime', function() {
             var runtime = BEMPRIV.createRuntime({ ts: 'a' });
             var a = runtime.create('BlockData');
             var b = a.createAnotherBlock();
