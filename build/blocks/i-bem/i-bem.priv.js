@@ -473,8 +473,6 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             }
         });
 
-        console.log('length: ', parents.length);
-
         return original;
 
     },
