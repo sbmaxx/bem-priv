@@ -78,6 +78,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-release');
 
+  grunt.registerTask('buildRelease', ['replace', 'release']);
   grunt.registerTask('default', ['replace']);
   grunt.registerTask('test', ['replace', 'mochaTest', 'jshint', 'jscs']);
 
