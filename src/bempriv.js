@@ -545,6 +545,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         //         return this.__base(block, data, params);
         //     }
         // });
-    }
+    },
+
+    inherit : inherit
 
 });
