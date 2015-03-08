@@ -81,6 +81,7 @@ describe('BEMPRIV', function() {
         BEMPRIV.decl('base', {
             init: function() {
                 this.__base();
+                this.mods({ 'key1': 'value1' });
                 this.content('test');
             },
             method: function() {
@@ -91,6 +92,7 @@ describe('BEMPRIV', function() {
         BEMPRIV.decl({ block: 'base', modName: 'foo', modVal: 'baz' }, {
             init: function() {
                 this.__base();
+                this.mods({ 'key2': 'value2' });
                 this.content('foo-baz');
             },
             method: function() {
@@ -125,11 +127,21 @@ describe('BEMPRIV', function() {
             expect(c.method()).to.be.equal('method?');
         });
 
+        it('mods should be extended', function() {
+            expect(b.mods()).to.be.deep.equal({
+                'foo': 'baz',
+                'key1': 'value1',
+                'key2': 'value2'
+            });
+        });
+
         it('mods decl should modify bemjson', function() {
             var ref1 = {
                 block: 'base',
                 mods: {
-                    foo: 'baz'
+                    foo: 'baz',
+                    key1: 'value1',
+                    key2: 'value2'
                 },
                 content: 'foo-baz'
             };

@@ -176,6 +176,10 @@ function isFunction(obj) {
     return toStr.call(obj) === '[object Function]';
 }
 
+function isObject(obj) {
+    return toStr.call(obj) === '[object Object]';
+}
+
 function wrapTryCatchObj(obj) {
 
     Object.keys(obj).filter(function(prop) {
@@ -307,7 +311,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     mods : function(value) {
-        return this.prop('mods', value);
+        return this.extendProp('mods', value);
     },
 
     /**
@@ -335,7 +339,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      */
     js : function(value) {
-        return this.prop('js', value);
+        return this.extendProp('js', value);
     },
 
     /**
@@ -404,6 +408,24 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         }
 
         return this._bemjson[key];
+
+    },
+
+    /**
+     * Extend block's property if it was an object, or just assign new value if not
+     * @param {String} key
+     * @param {Mixed} value
+     * @protected
+     */
+    extendProp : function(key, value) {
+
+        var oldValue = this.prop(key);
+
+        if (isObject(oldValue) && isObject(value)) {
+            return this.prop(key, extend(oldValue, value));
+        }
+
+        return this.prop(key, value);
 
     },
 
@@ -690,7 +712,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         //         return this.__base(block, data, params);
         //     }
         // });
-    }
+    },
+
+    inherit : inherit
 
 });
 
