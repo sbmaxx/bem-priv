@@ -29,53 +29,6 @@ describe('BEMPRIV', function() {
         });
     });
 
-    describe('base && parent block', function() {
-        // parent #2
-        BEMPRIV.decl('aa', {
-            method: function() {
-                return 'a';
-            }
-        });
-        BEMPRIV.decl({ block: 'aa_transform_upper', baseBlock: 'aa' }, {
-            method: function() {
-                return this.__base().toUpperCase();
-            }
-        });
-        // parent #1
-        BEMPRIV.decl('aa', {
-            method: function() {
-                return 'aa';
-            }
-        });
-        BEMPRIV.decl('aa', {
-            method: function() {
-                return this.__base() + 'aaa';
-            },
-            parentMethod: function() {
-                return this.getParent().method();
-            }
-        });
-        it('should be upppercase', function() {
-            var a = BEMPRIV.create('aa_transform_upper');
-            expect(a.method()).to.be.equal('A');
-        });
-        it('parent block', function() {
-            var aaa = BEMPRIV.create('aa');
-            expect(aaa.method()).to.be.equal('aaaaa');
-            expect(aaa.parentMethod()).to.be.equal('aa');
-            expect(aaa.getParent().getParent().method()).to.be.equal('a');
-        });
-        it('parent tree', function() {
-            var aaa = BEMPRIV.create('aa');
-            // 3 — 2 parents + 1 BEMPRIV parent
-            expect(aaa.getParents().length).to.be.equal(3);
-        });
-        it('original parent', function() {
-            var aaa = BEMPRIV.create('aa');
-            expect(aaa.getOriginalParent().method()).to.be.equal('a');
-        });
-    });
-
     describe('mods', function() {
 
         BEMPRIV.decl('base', {
@@ -488,50 +441,6 @@ describe('BEMPRIV', function() {
                 error = true;
             }
             expect(error).to.be.equal(false);
-        });
-
-    });
-
-    describe('runtime', function() {
-
-        BEMPRIV.decl('BlockData', {
-            method: function() {
-                return this.data.ts;
-            },
-            createAnotherBlock: function() {
-                return this.getBlock('AnotherBlock');
-            }
-        });
-
-        BEMPRIV.decl('AnotherBlock', {
-            method: function() {
-                return this.data.ts + '!';
-            }
-        });
-
-        it('runtime should be separated', function() {
-            var runtime1 = BEMPRIV.createRuntime({ ts: 'a' });
-            var runtime2 = BEMPRIV.createRuntime({ ts: 'b'});
-            var a = runtime1.create('BlockData');
-            var aa = runtime1.create('BlockData');
-            var b = runtime2.create('BlockData');
-            expect(a.method()).to.be.equal('a');
-            expect(b.method()).to.be.equal('b');
-            expect(a.data).to.be.not.equal(b.data);
-        });
-
-        it('should share data inside runtime', function() {
-            var runtime = BEMPRIV.createRuntime({ ts: 'a' });
-            var a = runtime.create('BlockData');
-            var aa = runtime.create('BlockData');
-            expect(a.data).to.be.equal(aa.data);
-        });
-
-        it('should create block inside runtime', function() {
-            var runtime = BEMPRIV.createRuntime({ ts: 'a' });
-            var a = runtime.create('BlockData');
-            var b = a.createAnotherBlock();
-            expect(b.method()).to.be.equal('a!');
         });
 
     });

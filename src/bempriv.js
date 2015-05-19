@@ -329,42 +329,6 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     getBlockJSON : function(block, params) {
         return this.__self.json(block, this.data, params);
-    },
-
-    getParent : function(instance) {
-        return (instance || this).__parent;
-    },
-
-    getOriginalParent : function(instance) {
-
-        var parents = this.getParents(instance),
-            original;
-
-        parents.reverse();
-
-        parents.some(function(parent) {
-            // we may have BEMPRIV override
-            if (parent.constructor._name !== 'bem') {
-                original = parent;
-                return true;
-            }
-        });
-
-        return original;
-
-    },
-
-    getParents : function(instance) {
-
-        var parents = [],
-            parent = this;
-
-        while ((parent = (instance || this).getParent(parent))) {
-            parents.push(parent);
-        }
-
-        return parents;
-
     }
 
 }, /** @lends BEMPRIV */{
@@ -461,13 +425,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         }
 
-        // always inherit with this.__parent
-        (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
-        // if (decl.block === baseBlock.getName()) {
-        //     block = inherit.self(baseBlocks, props, staticProps);
-        // } else {
-        //     (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
-        // }
+        if (decl.block === baseBlock.getName()) {
+            block = inherit.self(baseBlocks, props, staticProps);
+        } else {
+            (block = blocks[decl.block] = inherit(baseBlocks, props, staticProps))._name = decl.block;
+        }
 
         return block;
 
@@ -547,26 +509,6 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             wrapTryCatchObj(blocks[name].prototype);
         });
 
-    },
-
-    createRuntime : function(data) {
-        return {
-            create : function(block, params) {
-                return BEMPRIV.create(block, data, params);
-            },
-            json : function(block, params) {
-                return BEMPRIV.json(block, data, params);
-            }
-        };
-        // // this is more fair, but heaviear too
-        // return inherit(BEMPRIV, undefined, {
-        //     create : function(block, params) {
-        //         return this.__base(block, data, params);
-        //     },
-        //     json : function(block, params) {
-        //         return this.__base(block, data, params);
-        //     }
-        // });
     },
 
     inherit : inherit
