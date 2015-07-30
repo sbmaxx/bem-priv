@@ -302,7 +302,7 @@ describe('BEMPRIV', function() {
 
     });
 
-    describe('#getBEMJSON', function() {
+    describe('#bemjson', function() {
 
         var b;
 
@@ -312,11 +312,11 @@ describe('BEMPRIV', function() {
         });
 
         it('should be an object', function() {
-            expect(b.getBEMJSON()).to.be.a('object');
+            expect(b.bemjson()).to.be.a('object');
         });
 
         it('should have block property', function() {
-            var bemjson = b.getBEMJSON();
+            var bemjson = b.bemjson();
             expect(bemjson).to.have.a.property('block').that.is.a('string');
             expect(bemjson.block).to.be.equal('bem');
         });
@@ -324,7 +324,7 @@ describe('BEMPRIV', function() {
         describe('content', function() {
             it('content should be modifieble', function() {
                 b.content({ elem: 'test' });
-                expect(b.getBEMJSON()).have.to.be.deep.equal({ block: 'bem', content: { elem: 'test' } });
+                expect(b.bemjson()).have.to.be.deep.equal({ block: 'bem', content: { elem: 'test' } });
             });
 
             it('bemjson integration', function() {
@@ -352,7 +352,7 @@ describe('BEMPRIV', function() {
                     .mix([{ block: 'foo' }])
                     .mix({ block: 'bar' });
 
-                expect(b.getBEMJSON()).have.to.be.deep.equal(baseline);
+                expect(b.bemjson()).have.to.be.deep.equal(baseline);
                 expect(b.bemjson()).have.to.be.deep.equal(baseline);
 
             });
@@ -449,7 +449,7 @@ describe('BEMPRIV', function() {
 
         var plainBemjson = plainBench.page();
         var bemprivBemjson = bemprivBench.json('page');
-        var objectsBemjson = objectsBench.page.getBEMJSON();
+        var objectsBemjson = objectsBench.page.bemjson();
 
         it('BEMPRIV\'s bemjson should be equal to baseline', function() {
             expect(bemprivBemjson).have.to.be.deep.equal(baselineBemjson);

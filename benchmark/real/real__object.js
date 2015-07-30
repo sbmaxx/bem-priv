@@ -3,20 +3,20 @@ var data = require('../data/elements.json');
 var blocks = {};
 
 blocks['page'] = {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'page',
             content: [
-                blocks['header'].getBEMJSON(),
-                blocks['content'].getBEMJSON(),
-                blocks['footer'].getBEMJSON()
+                blocks['header'].bemjson(),
+                blocks['content'].bemjson(),
+                blocks['footer'].bemjson()
             ]
         }
     }
 };
 
 blocks['header'] = {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'header',
             content: [
@@ -26,7 +26,7 @@ blocks['header'] = {
                 },
                 {
                     elem: 'user',
-                    content: blocks['user'].getBEMJSON()
+                    content: blocks['user'].bemjson()
                 }
             ]
         };
@@ -34,7 +34,7 @@ blocks['header'] = {
 };
 
 blocks['user'] = {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'user',
             content: 'user'
@@ -44,7 +44,7 @@ blocks['user'] = {
 
 (function(base) {
 
-    blocks['header'].getBEMJSON = function() {
+    blocks['header'].bemjson = function() {
 
         var block = base();
 
@@ -87,10 +87,10 @@ blocks['user'] = {
         };
     };
 
-}(blocks['header'].getBEMJSON));
+}(blocks['header'].bemjson));
 
 blocks['footer'] = {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'footer',
             content: 'footer'
@@ -100,7 +100,7 @@ blocks['footer'] = {
 
 (function(base) {
 
-    blocks['footer'].getBEMJSON = function() {
+    blocks['footer'].bemjson = function() {
 
         var block = base();
 
@@ -113,20 +113,20 @@ blocks['footer'] = {
 
     };
 
-}(blocks['footer'].getBEMJSON));
+}(blocks['footer'].bemjson));
 
 
 blocks['content'] = {
-    getBEMJSON: function() {
+    bemjson: function() {
         return {
             block: 'content',
-            content: blocks['items'].getBEMJSON()
+            content: blocks['items'].bemjson()
         };
     }
 };
 
 blocks['items'] = {
-    getBEMJSON: function() {
+    bemjson: function() {
 
         return {
             block: 'items',

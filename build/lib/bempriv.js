@@ -269,15 +269,6 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     },
 
     /**
-     * Returns block's BEMJSON
-     * @deprecated please use bemjson method
-     * @returns {Object}
-     */
-    getBEMJSON : function() {
-        return this.bemjson();
-    },
-
-    /**
      * Return's block's BEMJSON or init() return
      * @returns {OBJECT}
      */
@@ -467,11 +458,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     },
 
-    getBlock : function(block, params) {
+    block : function(block, params) {
         return this.__self.create(block, this.data, params);
     },
 
-    getBlockJSON : function(block, params) {
+    json : function(block, params) {
         return this.__self.json(block, this.data, params);
     }
 
