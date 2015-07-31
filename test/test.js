@@ -256,6 +256,14 @@ describe('BEMPRIV', function() {
             it('should be a function', function() {
                 expect(b).to.have.a.property('js').that.is.a('function');
             });
+            it('should be empty with no params', function() {
+                expect(b.js()).have.to.be.equal(undefined);
+            });
+            var params = { key: 'value' };
+            var c = new BEMPRIV(null, params);
+            it('should be filled with params', function() {
+                expect(c.js()).have.to.be.deep.equal(params);
+            });
         });
 
         describe('#tag', function() {

@@ -101,6 +101,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
          */
         this.params = extend(this.getDefaultParams(), params);
 
+        if (Object.keys(this.params).length) {
+            this.js(this.params);
+        }
+
         var initReturn = this.init();
 
         if (typeof initReturn !== 'undefined') {
