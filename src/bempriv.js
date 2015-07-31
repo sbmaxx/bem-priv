@@ -130,7 +130,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} params
      * @returns {OBJECT}
      */
-    bemjson : function(block, params) {
+    json : function(block, params) {
         if (block) {
             return this.__self.json(block, this.data, params);
         }
@@ -332,9 +332,19 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @returns {Object}
      */
     getBEMJSON : function() {
-        console.info('DEPRECATED. Please use this.bemjson()');
-        return this.bemjson();
+        console.info('DEPRECATED. Please use this.json()');
+        return this.json();
     },
+
+    /**
+     * Returns block's BEMJSON
+     * @deprecated please use bemjson method
+     * @returns {Object}
+     */
+    bemjson : function() {
+        console.info('DEPRECATED. Please use this.json()');
+        return this.json();
+    }
 
 }, /** @lends BEMPRIV */{
 
@@ -467,7 +477,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @returns {Object}
     */
     json : function(block, data, params) {
-        return this.create(block, data, params).bemjson();
+        return this.create(block, data, params).json();
     },
 
     /**
