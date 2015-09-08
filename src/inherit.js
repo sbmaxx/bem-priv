@@ -48,13 +48,18 @@ function override(base, res, add) {
 
         if(isFunction(prop) && (prop.toString().indexOf('.__base') > -1)) {
             res[name] = (function(name, prop, baseMethod) {
-                return function() {
+                var result = function() {
                     var baseSaved = this.__base;
-                    this.__base = baseMethod;
+
+                    this.__base = result.__base;
                     var res = prop.apply(this, arguments);
                     this.__base = baseSaved;
+
                     return res;
                 };
+                result.__base = baseMethod;
+
+                return result;
             })(name, prop, baseMethod);
         } else {
             res[name] = prop;

@@ -419,6 +419,26 @@ describe('BEMPRIV', function() {
         });
     });
 
+    describe('mock base', function() {
+        BEMPRIV.decl('mock-base', {
+            method: function() {
+                return 'hello';
+            }
+        });
+        BEMPRIV.decl('mock-base', {
+            method: function() {
+                return this.__base() + ', World!';
+            }
+        });
+        var a = BEMPRIV.create('mock-base');
+        a.method.__base = function() {
+            return 'Hey';
+        };
+        it('should be mocked', function() {
+            expect(a.method()).to.be.equal('Hey, World!');
+        });
+    });
+
     describe('try/catch', function() {
         BEMPRIV.decl('BlockWithWrongConstructor', {
             __constructor: function() {
