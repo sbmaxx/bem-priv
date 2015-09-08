@@ -35,7 +35,7 @@ blocks['plain'] = function() {
 // add tests
 suite
     .add('BEMPRIV.create', function() {
-        BEMPRIV.create('testCreate').bemjson();
+        BEMPRIV.create('testCreate').json();
     })
     .add('BEMPRIV.static', function() {
         BEMPRIV.blocks['testStatic'].bemjson();

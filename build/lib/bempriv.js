@@ -481,7 +481,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @returns {Object}
      */
     getBEMJSON : function() {
-        console.info('DEPRECATED. Please use this.json()');
+        console.trace();
+        console.info('!DEPRECATED. Please use this.json()');
         return this.json();
     },
 
@@ -492,6 +493,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     bemjson : function() {
         console.info('DEPRECATED. Please use this.json()');
+        console.trace();
         return this.json();
     }
 

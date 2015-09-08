@@ -24,7 +24,7 @@ suite
         blocks['page'](data);
     })
     .add('Plain Object', function() {
-        objects['page'].getBEMJSON();
+        objects['page'].json();
     });
 
 // add listeners

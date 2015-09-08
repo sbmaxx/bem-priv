@@ -105,8 +105,8 @@ describe('BEMPRIV', function() {
                 },
                 content: 'bar-baz'
             };
-            expect(b.bemjson()).to.be.deep.equal(ref1);
-            expect(c.bemjson()).to.be.deep.equal(ref2);
+            expect(b.json()).to.be.deep.equal(ref1);
+            expect(c.json()).to.be.deep.equal(ref2);
         });
 
     });
@@ -285,7 +285,7 @@ describe('BEMPRIV', function() {
             });
             it('should set a property', function() {
                 b.prop('prop', 'prop');
-                expect(b.bemjson().prop).have.to.be.equal('prop');
+                expect(b.json().prop).have.to.be.equal('prop');
             });
         });
 
@@ -298,8 +298,8 @@ describe('BEMPRIV', function() {
                     foo: 'bar',
                     bar: 'baz'
                 });
-                expect(b.bemjson().foo).have.to.be.equal('bar');
-                expect(b.bemjson().bar).have.to.be.equal('baz');
+                expect(b.json().foo).have.to.be.equal('bar');
+                expect(b.json().bar).have.to.be.equal('baz');
             });
         });
 
@@ -315,11 +315,11 @@ describe('BEMPRIV', function() {
         });
 
         it('should be an object', function() {
-            expect(b.bemjson()).to.be.a('object');
+            expect(b.json()).to.be.a('object');
         });
 
         it('should have block property', function() {
-            var bemjson = b.bemjson();
+            var bemjson = b.json();
             expect(bemjson).to.have.a.property('block').that.is.a('string');
             expect(bemjson.block).to.be.equal('bem');
         });
@@ -327,7 +327,7 @@ describe('BEMPRIV', function() {
         describe('content', function() {
             it('content should be modifieble', function() {
                 b.content({ elem: 'test' });
-                expect(b.bemjson()).have.to.be.deep.equal({ block: 'bem', content: { elem: 'test' } });
+                expect(b.json()).have.to.be.deep.equal({ block: 'bem', content: { elem: 'test' } });
             });
 
             it('bemjson integration', function() {
@@ -355,8 +355,8 @@ describe('BEMPRIV', function() {
                     .mix([{ block: 'foo' }])
                     .mix({ block: 'bar' });
 
-                expect(b.bemjson()).have.to.be.deep.equal(baseline);
-                expect(b.bemjson()).have.to.be.deep.equal(baseline);
+                expect(b.json()).have.to.be.deep.equal(baseline);
+                expect(b.json()).have.to.be.deep.equal(baseline);
 
             });
 
