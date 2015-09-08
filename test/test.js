@@ -437,6 +437,13 @@ describe('BEMPRIV', function() {
         it('should be mocked', function() {
             expect(a.method()).to.be.equal('Hey, World!');
         });
+        var b = BEMPRIV.create('mock-base');
+        BEMPRIV.block('mock-base').prototype.method.__base = function() {
+            return 'Hey';
+        };
+        it('should be mocked via prototype', function() {
+            expect(b.method()).to.be.equal('Hey, World!');
+        });
     });
 
     describe('try/catch', function() {
