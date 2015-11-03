@@ -74,7 +74,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} data Per-Request data, shoud be provided to every block
      * @param {Object} params Block parameters
      */
-    __constructor : function(data, params) {
+    __constructor: function(data, params) {
 
         /**
          * Per-Request data
@@ -113,14 +113,14 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * Public constructor called arter __constructor
      * @protected
      */
-    init : function() {},
+    init: function() {},
 
     /**
      * Returns a block's default parameters
      * @protected
      * @returns {Object}
      */
-    getDefaultParams : function() {
+    getDefaultParams: function() {
         return {};
     },
 
@@ -130,20 +130,20 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} params
      * @returns {OBJECT}
      */
-    json : function(block, params) {
+    json: function(block, params) {
         if (block) {
             return this.__self.json(block, this.data, params);
         }
-        return typeof this._initReturn === 'undefined' ? this._bemjson : this._initReturn;
+        return typeof this._initReturn === 'undefined' ? this._bemjson: this._initReturn;
     },
 
     /**
-     * Sets block's mod
+     * Set/Get block's mod
      * @param {String} key
      * @param {Mixed} value
      * @protected
      */
-    mod : function(key, value) {
+    mod: function(key, value) {
         return this.deepProp('mods', key, value);
     },
 
@@ -152,7 +152,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @protected
      * @returns {Boolean}
      */
-    hasMod : function(modName, modValue) {
+    hasMod: function(modName, modValue) {
         return this.deepProp('mods', modName) === modValue;
     },
 
@@ -161,12 +161,12 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Mixed} value
      * @protected
      */
-    mods : function(value) {
+    mods: function(value) {
         return this.extendProp('mods', value);
     },
 
     /**
-     * Sets block's attr
+     * Set/Get block's attr
      * @param {String} key
      * @param {Mixed} value
      * @protected
@@ -176,56 +176,56 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     },
 
     /**
-     * Sets block's attrs
+     * Set/Get block's attrs
      * @param {Object} value
      * @protected
      */
-    attrs : function(value) {
+    attrs: function(value) {
         return this.prop('attrs', value);
     },
 
     /**
-     * Sets block's JS
+     * Set/Get block's JS
      * @param {Object|Boolean} value
      * @protected
      */
-    js : function(value) {
+    js: function(value) {
         return this.extendProp('js', value);
     },
 
     /**
-     * Sets block's csl
+     * Set/Get block's csl
      * @param {String} value
      * @protected
      */
-    cls : function(value) {
+    cls: function(value) {
         return this.prop('cls', value);
     },
 
     /**
-     * Sets block's content
+     * Set/Get block's content
      * @param {Mixed} value
      * @protected
      */
-    content : function(value) {
+    content: function(value) {
         return this.prop('content', value);
     },
 
     /**
-     * Sets block's tag
+     * Set/Get block's tag
      * @param {Mixed} value
      * @protected
      */
-    tag : function(value) {
+    tag: function(value) {
         return this.prop('tag', value);
     },
 
     /**
-     * Sets block's mix
+     * Set/Get block's mix
      * @param {Array|Object} value
      * @protected
      */
-    mix : function(value) {
+    mix: function(value) {
 
         if (!this.prop('mix')) {
             this.prop('mix', []);
@@ -246,12 +246,12 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     },
 
     /**
-     * Set block's custom bemjson property
+     * Set/Get block's custom bemjson property
      * @param {String} key
      * @param {Mixed} value
      * @protected
      */
-    prop : function(key, value) {
+    prop: function(key, value) {
 
         if (typeof value !== 'undefined') {
             this._bemjson[key] = value;
@@ -268,7 +268,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Mixed} value
      * @protected
      */
-    extendProp : function(key, value) {
+    extendProp: function(key, value) {
 
         var oldValue = this.prop(key);
 
@@ -285,7 +285,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} props
      * @protected
      */
-    props : function(props) {
+    props: function(props) {
 
         Object.keys(props).forEach(function(prop) {
             this._bemjson[prop] = props[prop];
@@ -296,7 +296,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     },
 
     /**
-     * Set block's custom bemjson property
+     * Set/Get block's custom bemjson property
      * for example if you want to add href attr { attrs: { href: 'http://w3c.org'} }
      * prop is "attrs", key is "href" and value is "http://w3c.org"
      * @param {String} prop
@@ -304,7 +304,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Mixed} value
      * @protected
      */
-    deepProp : function(prop, key, value) {
+    deepProp: function(prop, key, value) {
 
         if (typeof this._bemjson[prop] === 'undefined') {
             this._bemjson[prop] = {};
@@ -322,7 +322,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     /**
      * Create new BEMPRIV block with current data
      */
-    block : function(block, params) {
+    block: function(block, params) {
         return this.__self.create(block, this.data, params);
     },
 
@@ -331,7 +331,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @deprecated please use bemjson method
      * @returns {Object}
      */
-    getBEMJSON : function() {
+    getBEMJSON: function() {
         console.info('DEPRECATED. Please use this.json()');
         return this.json();
     },
@@ -341,14 +341,14 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @deprecated please use bemjson method
      * @returns {Object}
      */
-    bemjson : function() {
+    bemjson: function() {
         console.info('DEPRECATED. Please use this.json()');
         return this.json();
     }
 
 }, /** @lends BEMPRIV */{
 
-    _name : 'bem',
+    _name: 'bem',
 
     /**
      * Declares blocks and elements, and creates a block class
@@ -361,11 +361,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} [staticProps] Static methods
      * @returns {Function}
      */
-    decl : function(decl, props, staticProps) {
+    decl: function(decl, props, staticProps) {
 
         // string as block
         if (typeof decl === 'string') {
-            decl = { block : decl };
+            decl = { block: decl };
         }
 
         // inherit from itself
@@ -416,7 +416,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
                                 }
                             }
                             return method ?
-                                method.apply(this, arguments) :
+                                method.apply(this, arguments):
                                 undefined;
                         };
                     }(name, prop));
@@ -457,7 +457,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} [params] block parameters
      * @returns {BEM}
      */
-    create : function(block, data, params) {
+    create: function(block, data, params) {
         params = params || {};
         if (typeof block === 'string') {
             block = {
@@ -476,7 +476,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {Object} [params] Block parameters
      * @returns {Object}
     */
-    json : function(block, data, params) {
+    json: function(block, data, params) {
         return this.create(block, data, params).json();
     },
 
@@ -484,7 +484,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * Returns the name of the current block
      * @returns {String}
      */
-    getName : function() {
+    getName: function() {
         return this._name;
     },
 
@@ -493,7 +493,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {String} name
      * @returns {BEM}
      */
-    block : function(name) {
+    block: function(name) {
         return blocks[name];
     },
 
@@ -502,7 +502,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @param {String} block wrap only some blocks
      * @param {Boolean} onlyFactory wrap only factory method
      */
-    wrapTryCatch : function(block, onlyFactory) {
+    wrapTryCatch: function(block, onlyFactory) {
 
         if (typeof onlyFactory === 'undefined') {
             onlyFactory = true;
@@ -526,6 +526,6 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     },
 
-    inherit : inherit
+    inherit: inherit
 
 });
