@@ -1,12 +1,12 @@
 {
   "name": "bem-priv",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "BEMPRIV",
   "main": "index.js",
   "author": "sbmaxx <sbmaxx@gmail.com>",
   "license": "MIT",
   "scripts": {
-      "test": "grunt test"
+    "test": "grunt test"
   },
   "devDependencies": {
     "benchmark": "~1.0.0",
