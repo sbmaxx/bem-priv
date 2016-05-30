@@ -115,7 +115,7 @@ describe('BEMPRIV', function() {
 
         describe('#getName', function() {
 
-            it('should exist', function() {
+            it('should be a function', function() {
                 expect(BEMPRIV).to.have.a.property('getName').that.is.a('function');
             });
 
@@ -127,6 +127,20 @@ describe('BEMPRIV', function() {
                 expect(BEMPRIV.getName()).to.be.equal('bem');
             });
 
+        });
+
+        describe('#blocks', function() {
+            it('should be a functin', function() {
+                expect(BEMPRIV).to.have.a.property('blocks').that.is.a('function');
+            });
+
+            it('should return object', function() {
+                expect(BEMPRIV.blocks()).to.be.a('object');
+            });
+
+            it('should contains "a&b" blocks', function() {
+                expect(BEMPRIV.blocks()).to.include.keys('a', 'b');
+            });
         });
 
     });

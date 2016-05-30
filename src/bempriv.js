@@ -134,7 +134,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         if (block) {
             return this.__self.json(block, this.data, params);
         }
-        return typeof this._initReturn === 'undefined' ? this._bemjson: this._initReturn;
+        return typeof this._initReturn === 'undefined' ? this._bemjson : this._initReturn;
     },
 
     /**
@@ -416,7 +416,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
                                 }
                             }
                             return method ?
-                                method.apply(this, arguments):
+                                method.apply(this, arguments) :
                                 undefined;
                         };
                     }(name, prop));
@@ -498,6 +498,14 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     },
 
     /**
+     * Returns decls of all blocks
+     * @returns {Object}
+     */
+    blocks: function() {
+        return blocks;
+    },
+
+    /**
      * Wrap methods in try/catch to safety use in production
      * @param {String} block wrap only some blocks
      * @param {Boolean} onlyFactory wrap only factory method
@@ -508,7 +516,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             onlyFactory = true;
         }
 
-        if (block) {
+        if (block && blocks[block]) {
+            block = blocks[block];
+
             wrapTryCatchObj(block);
             wrapTryCatchObj(block.prototype);
             return;

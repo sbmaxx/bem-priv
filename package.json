@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "sbmaxx <sbmaxx@gmail.com>",
   "license": "MIT",
+  "scripts": {
+      "test": "grunt test"
+  },
   "devDependencies": {
     "benchmark": "~1.0.0",
     "chai": "~1.9.0",
