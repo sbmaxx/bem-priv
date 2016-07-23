@@ -614,6 +614,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         } else if (block.mods) {
             params.mods = block.mods;
         }
+
+        if (typeof blocks[block.block] === 'undefined') {
+            throw new Error(block.block + ' declaration doesn\'t exists.');
+        }
+
         return new blocks[block.block](data, params);
     },
 

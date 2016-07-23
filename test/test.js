@@ -143,6 +143,18 @@ describe('BEMPRIV', function() {
             });
         });
 
+        describe('#create', function() {
+            it('should throw human-readable error if constructor doesn\'t exists', function() {
+                var msg = '';
+                try {
+                    BEMPRIV.create('this-block-not-exists');
+                } catch (e) {
+                    msg = e.message;
+                }
+                expect(msg).to.be.equal('this-block-not-exists declaration doesn\'t exists.');
+            });
+        });
+
     });
 
     describe('blocks` static methods', function() {
