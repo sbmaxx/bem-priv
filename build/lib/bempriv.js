@@ -196,12 +196,14 @@ function wrapTryCatchObj(obj, onError) {
 
 function wrapTryCatchMethod(method, onError) {
     return function() {
+        var ret;
         try {
-            return method.apply(this, arguments);
+            ret = method.apply(this, arguments);
         } catch (e) {
-            onError(e);
-            return '';
+            ret = onError(e);
+            return typeof ret !== 'undefined' ? ret : '';
         }
+        return ret;
     };
 }
 /**

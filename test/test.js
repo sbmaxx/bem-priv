@@ -478,6 +478,13 @@ describe('BEMPRIV', function() {
                 asdf; // jshint ignore:line
             }
         });
+
+        BEMPRIV.decl('BlockWithHelloConstructor', {
+            __constructor: function() {
+                hello; // jshint ignore:line
+            }
+        });
+
         it('should catch errors', function() {
             var error = false;
             try {
@@ -493,6 +500,9 @@ describe('BEMPRIV', function() {
 
             var onError = function(e) {
                 error = e;
+                if (e.message === 'hello is not defined') {
+                    return 'hello :(';
+                }
             };
 
             before(function() {
@@ -510,7 +520,6 @@ describe('BEMPRIV', function() {
             });
 
             it('should wrap only once', function() {
-                BEMPRIV.wrapTryCatch();
                 var wrapped = BEMPRIV.create.toString();
                 BEMPRIV.wrapTryCatch();
                 expect(wrapped).to.be.equal(BEMPRIV.create.toString());
@@ -524,6 +533,10 @@ describe('BEMPRIV', function() {
             it('should call custom onError handler', function() {
                 BEMPRIV.json('BlockWithWrongConstructor');
                 expect(error.message).to.be.equal('asdf is not defined');
+            });
+
+            it('onError can return smth in case of error', function() {
+                expect(BEMPRIV.json('BlockWithHelloConstructor')).to.be.equal('hello :(');
             });
         });
 
