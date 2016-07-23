@@ -549,7 +549,6 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         if (decl.modName) {
             var checkMod = buildCheckMod(decl.modName, decl.modVal);
             var prop;
-            var self = this;
             Object.keys(props).forEach(function(name) {
                 prop = props[name];
                 if (isFunction(prop)) {
