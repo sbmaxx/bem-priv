@@ -35,21 +35,22 @@ function isObject(obj) {
     return toStr.call(obj) === '[object Object]';
 }
 
-function wrapTryCatchObj(obj) {
+function wrapTryCatchObj(obj, onError) {
 
     Object.keys(obj).filter(function(prop) {
         return isFunction(obj[prop]);
     }).forEach(function(prop) {
-        obj[prop] = wrapTryCatchMethod(obj[prop]);
+        obj[prop] = wrapTryCatchMethod(obj[prop], onError);
     });
 
 }
 
-function wrapTryCatchMethod(method) {
+function wrapTryCatchMethod(method, onError) {
     return function() {
         try {
             return method.apply(this, arguments);
         } catch (e) {
+            onError(e);
             return '';
         }
     };
@@ -518,10 +519,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Wrap methods in try/catch to safety use in production
-     * @param {String} block wrap only some blocks
+     * @param {Function} onError custom error callback
      * @param {Boolean} onlyFactory wrap only factory method
      */
-    wrapTryCatch: function(block, onlyFactory) {
+    wrapTryCatch: function(onError, onlyFactory) {
 
         if (this._wrapped) {
             return;
@@ -529,26 +530,27 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         this._wrapped = true;
 
+        if (typeof onError === 'boolean') {
+            onlyFactory = onError;
+            onError = undefined;
+        }
+
         if (typeof onlyFactory === 'undefined') {
             onlyFactory = true;
         }
 
-        if (block && blocks[block]) {
-            block = blocks[block];
-
-            wrapTryCatchObj(block);
-            wrapTryCatchObj(block.prototype);
-            return;
+        if (typeof onError === 'undefined') {
+            onError = function() {};
         }
 
         if (onlyFactory) {
-            this.create = wrapTryCatchMethod(this.create);
+            this.create = wrapTryCatchMethod(this.create, onError);
             return;
         }
 
         Object.keys(blocks).forEach(function(name) {
-            wrapTryCatchObj(blocks[name]);
-            wrapTryCatchObj(blocks[name].prototype);
+            wrapTryCatchObj(blocks[name], onError);
+            wrapTryCatchObj(blocks[name].prototype, onError);
         });
 
     },

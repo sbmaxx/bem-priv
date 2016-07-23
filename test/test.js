@@ -488,27 +488,43 @@ describe('BEMPRIV', function() {
             expect(error).to.be.equal(true);
         });
 
-        it('should not catch errors', function() {
-            BEMPRIV.wrapTryCatch();
-            var error = false;
-            try {
-                BEMPRIV.create('BlockWithWrongConstructor');
-            } catch (e) {
-                error = true;
-            }
-            expect(error).to.be.equal(false);
-        });
+        describe('wrapped', function() {
+            var error;
 
-        it('should wrap only once', function() {
-            BEMPRIV.wrapTryCatch();
-            var wrapped = BEMPRIV.create.toString();
-            BEMPRIV.wrapTryCatch();
-            expect(wrapped).to.be.equal(BEMPRIV.create.toString());
-        });
+            var onError = function(e) {
+                error = e;
+            };
 
-        it('#json of wrappedBlock should return empty string', function() {
-            // blocks are already wrapped
-            expect(BEMPRIV.json('BlockWithWrongConstructor')).to.be.equal('');
+            before(function() {
+                BEMPRIV.wrapTryCatch(onError);
+            });
+
+            it('should not catch errors', function() {
+                var error = false;
+                try {
+                    BEMPRIV.create('BlockWithWrongConstructor');
+                } catch (e) {
+                    error = true;
+                }
+                expect(error).to.be.equal(false);
+            });
+
+            it('should wrap only once', function() {
+                BEMPRIV.wrapTryCatch();
+                var wrapped = BEMPRIV.create.toString();
+                BEMPRIV.wrapTryCatch();
+                expect(wrapped).to.be.equal(BEMPRIV.create.toString());
+            });
+
+            it('#json of wrappedBlock should return empty string', function() {
+                // blocks are already wrapped
+                expect(BEMPRIV.json('BlockWithWrongConstructor')).to.be.equal('');
+            });
+
+            it('should call custom onError handler', function() {
+                BEMPRIV.json('BlockWithWrongConstructor');
+                expect(error.message).to.be.equal('asdf is not defined');
+            });
         });
 
     });
