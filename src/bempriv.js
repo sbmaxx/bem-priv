@@ -481,7 +481,14 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * @returns {Object}
     */
     json: function(block, data, params) {
-        return this.create(block, data, params).json();
+        var instance = this.create(block, data, params);
+
+        // if we used tryCatch
+        if (typeof instance === 'string') {
+            return instance;
+        }
+
+        return instance.json();
     },
 
     /**

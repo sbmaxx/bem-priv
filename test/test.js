@@ -506,6 +506,11 @@ describe('BEMPRIV', function() {
             expect(wrapped).to.be.equal(BEMPRIV.create.toString());
         });
 
+        it('#json of wrappedBlock should return empty string', function() {
+            // blocks are already wrapped
+            expect(BEMPRIV.json('BlockWithWrongConstructor')).to.be.equal('');
+        });
+
     });
 
     describe('benchmark tests', function() {
