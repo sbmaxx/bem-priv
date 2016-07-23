@@ -487,6 +487,13 @@ describe('BEMPRIV', function() {
             expect(error).to.be.equal(false);
         });
 
+        it('should wrap only once', function() {
+            BEMPRIV.wrapTryCatch();
+            var wrapped = BEMPRIV.create.toString();
+            BEMPRIV.wrapTryCatch();
+            expect(wrapped).to.be.equal(BEMPRIV.create.toString());
+        });
+
     });
 
     describe('benchmark tests', function() {

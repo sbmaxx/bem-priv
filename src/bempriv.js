@@ -512,6 +512,12 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      */
     wrapTryCatch: function(block, onlyFactory) {
 
+        if (this._wrapped) {
+            return;
+        }
+
+        this._wrapped = true;
+
         if (typeof onlyFactory === 'undefined') {
             onlyFactory = true;
         }
