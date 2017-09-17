@@ -1,10 +1,10 @@
 var expect = require('chai').expect;
 var BEMPRIV = require('../');
 
-var plainBench = require('../benchmark/real/real__plain');
-var bemprivBench = require('../benchmark/real/real__bem');
-var objectsBench = require('../benchmark/real/real__object');
-var baselineBemjson = require('./benchmark.json');
+var plainBench = require('../../../benchmark/real/real__plain');
+var bemprivBench = require('../../../benchmark/real/real__bem');
+var objectsBench = require('../../../benchmark/real/real__object');
+var baselineBemjson = require('../../../benchmark/baseline/benchmark.json');
 
 describe('BEMPRIV', function() {
 
@@ -539,11 +539,9 @@ describe('BEMPRIV', function() {
                 expect(BEMPRIV.json('BlockWithHelloConstructor')).to.be.equal('hello :(');
             });
         });
-
     });
 
     describe('benchmark tests', function() {
-
         var plainBemjson = plainBench.page();
         var bemprivBemjson = bemprivBench.json('page');
         var objectsBemjson = objectsBench.page.bemjson();
@@ -559,7 +557,5 @@ describe('BEMPRIV', function() {
         it('plains\'s bemjson should be equal to baseline', function() {
             expect(plainBemjson).have.to.be.deep.equal(baselineBemjson);
         });
-
     });
-
 });
