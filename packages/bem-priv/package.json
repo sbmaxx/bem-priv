@@ -1,0 +1,21 @@
+{
+  "name": "bem-priv",
+  "version": "2.1.0",
+  "description": "BEMPRIV",
+  "main": "index.js",
+  "author": "sbmaxx <sbmaxx@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-jscs": "^3.0.1",
+    "grunt-mocha-test": "^0.13.2",
+    "grunt-release": "^0.14.0",
+    "grunt-replace": "^1.0.1"
+  },
+  "scripts": {
+    "build": "grunt",
+    "test": "grunt test",
+    "release": "grunt buildRelease"
+  }
+}

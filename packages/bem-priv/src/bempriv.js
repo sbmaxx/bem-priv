@@ -1,152 +1,3 @@
-var inherit = (function() {
-// include src/inherit.js
-/**
- * @module inherit
- * @version 2.2.2
- * @author Filatov Dmitry <dfilatov@yandex-team.ru>
- */
-
-var emptyBase = function() {},
-    hasOwnProperty = Object.prototype.hasOwnProperty,
-    extend = function(o1, o2) {
-        for(var i in o2) {
-            hasOwnProperty.call(o2, i) && (o1[i] = o2[i]);
-        }
-
-        return o1;
-    },
-    toStr = Object.prototype.toString,
-    isArray = Array.isArray,
-    isFunction = function(obj) {
-        return toStr.call(obj) === '[object Function]';
-    },
-    noOp = function() {};
-
-function isFinalMethod(method) {
-    return method.toString().indexOf("'final'") > -1;
-}
-
-function override(base, res, add) {
-    var addList = Object.keys(add),
-        j = 0, len = addList.length,
-        name, prop;
-
-    while(j < len) {
-        if((name = addList[j++]) === '__self') {
-            continue;
-        }
-        prop = add[name];
-
-        var baseMethod = base[name]
-            ? base[name]
-            : name === '__constructor'
-                // case of inheritance from plane function
-                ? res.__self.__parent
-                : noOp
-
-        if (isFunction(baseMethod) && isFinalMethod(baseMethod)) {
-            continue;
-        }
-
-        if(isFunction(prop) && (prop.toString().indexOf('.__base') > -1)) {
-            res[name] = (function(name, prop, baseMethod) {
-                var result = function() {
-                    var baseSaved = this.__base;
-
-                    this.__base = result.__base;
-                    var res = prop.apply(this, arguments);
-                    this.__base = baseSaved;
-
-                    return res;
-                };
-                result.__base = baseMethod;
-
-                return result;
-            })(name, prop, baseMethod);
-        } else {
-            res[name] = prop;
-        }
-    }
-}
-
-function applyMixins(mixins, res) {
-    var i = 1, mixin;
-    while(mixin = mixins[i++]) {
-        res?
-            isFunction(mixin)?
-                inherit.self(res, mixin.prototype, mixin) :
-                inherit.self(res, mixin) :
-            res = isFunction(mixin)?
-                inherit(mixins[0], mixin.prototype, mixin) :
-                inherit(mixins[0], mixin);
-    }
-    return res || mixins[0];
-}
-
-/**
-* Creates class
-* @exports
-* @param {Function|Array} [baseClass|baseClassAndMixins] class (or class and mixins) to inherit from
-* @param {Object} prototypeFields
-* @param {Object} [staticFields]
-* @returns {Function} class
-*/
-function inherit() {
-    var args = arguments,
-        withMixins = isArray(args[0]),
-        hasBase = withMixins || isFunction(args[0]),
-        base = hasBase? withMixins? applyMixins(args[0]) : args[0] : emptyBase,
-        props = args[hasBase? 1 : 0] || {},
-        staticProps = args[hasBase? 2 : 1],
-        res = props.__constructor || (hasBase && base.prototype.__constructor)?
-            function() {
-                return this.__constructor.apply(this, arguments);
-            } :
-            hasBase?
-                function() {
-                    return base.apply(this, arguments);
-                } :
-                function() {};
-
-    if(!hasBase) {
-        res.prototype = props;
-        res.prototype.__self = res.prototype.constructor = res;
-        return extend(res, staticProps);
-    }
-
-    extend(res, base);
-
-    res.__parent = base;
-
-    var basePtp = base.prototype,
-        resPtp = res.prototype = Object.create(basePtp);
-
-    resPtp.__self = resPtp.constructor = res;
-
-    props && override(basePtp, resPtp, props);
-    staticProps && override(base, res, staticProps);
-
-    return res;
-}
-
-inherit.self = function() {
-    var args = arguments,
-        withMixins = isArray(args[0]),
-        base = withMixins? applyMixins(args[0], args[0][0]) : args[0],
-        props = args[1],
-        staticProps = args[2],
-        basePtp = base.prototype;
-
-    props && override(basePtp, basePtp, props);
-    staticProps && override(base, base, staticProps);
-    return base;
-};
-
-return inherit;
-})();
-
-var BEMPRIV = (function() {
-// include src/bempriv.js
 var hasOwnProp = Object.prototype.hasOwnProperty;
 
 function extend(o1, o2) {
@@ -212,11 +63,13 @@ function wrapTryCatchMethod(method, onError) {
  * @type Object
  */
 var blocks = {};
+
 /**
- * @class BEMPRIV
+ * BEMPRIV
+ *
+ * @class
  * @description Base block for creating BEMPRIV blocks
  * @augments events:Emitter
- * @exports
  */
 var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
@@ -248,8 +101,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
         /**
          * Block parameters, taking into account the defaults
-         * @member {Object}
-         * @readonly
+         *
+         * @type {Object}
+         * @const
          */
         this.params = extend(this.getDefaultParams(), params);
 
@@ -262,13 +116,15 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     },
 
     /**
-     * Public constructor called arter __constructor
+     * Public constructor called after __constructor
+     *
      * @protected
      */
     init: function() {},
 
     /**
      * Returns a block's default parameters
+     *
      * @protected
      * @returns {Object}
      */
@@ -278,9 +134,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Return's block's BEMJSON or init() return
-     * @param {Mixed} block
+     *
+     * @param {Object} block
      * @param {Object} params
-     * @returns {OBJECT}
+     * @returns {Object}
      */
     json: function(block, params) {
         if (block) {
@@ -291,8 +148,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's mod
+     *
      * @param {String} key
-     * @param {Mixed} value
+     * @param {Object} value
      * @protected
      */
     mod: function(key, value) {
@@ -301,6 +159,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Check if block has mod
+     *
      * @protected
      * @returns {Boolean}
      */
@@ -310,7 +169,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Sets block's mods
-     * @param {Mixed} value
+     *
+     * @param {Object} value
      * @protected
      */
     mods: function(value) {
@@ -319,8 +179,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's attr
+     *
      * @param {String} key
-     * @param {Mixed} value
+     * @param {Object} value
      * @protected
      */
     attr: function(key, value) {
@@ -329,6 +190,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's attrs
+     *
      * @param {Object} value
      * @protected
      */
@@ -338,6 +200,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's JS
+     *
      * @param {Object|Boolean} value
      * @protected
      */
@@ -347,6 +210,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's csl
+     *
      * @param {String} value
      * @protected
      */
@@ -356,7 +220,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's content
-     * @param {Mixed} value
+     *
+     * @param {Object} value
      * @protected
      */
     content: function(value) {
@@ -365,7 +230,8 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's tag
-     * @param {Mixed} value
+     *
+     * @param {Object} value
      * @protected
      */
     tag: function(value) {
@@ -374,6 +240,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's mix
+     *
      * @param {Array|Object} value
      * @protected
      */
@@ -399,8 +266,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set/Get block's custom bemjson property
+     *
      * @param {String} key
-     * @param {Mixed} value
+     * @param {Object} value
      * @protected
      */
     prop: function(key, value) {
@@ -416,8 +284,9 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Extend block's property if it was an object, or just assign new value if not
+     *
      * @param {String} key
-     * @param {Mixed} value
+     * @param {Object} value
      * @protected
      */
     extendProp: function(key, value) {
@@ -434,6 +303,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Set block's custom bemjson properties
+     *
      * @param {Object} props
      * @protected
      */
@@ -451,9 +321,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
      * Set/Get block's custom bemjson property
      * for example if you want to add href attr { attrs: { href: 'http://w3c.org'} }
      * prop is "attrs", key is "href" and value is "http://w3c.org"
+     *
      * @param {String} prop
      * @param {String} key
-     * @param {Mixed} value
+     * @param {Object} value
      * @protected
      */
     deepProp: function(prop, key, value) {
@@ -480,6 +351,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Returns block's BEMJSON
+     *
      * @deprecated please use bemjson method
      * @returns {Object}
      */
@@ -490,6 +362,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Returns block's BEMJSON
+     *
      * @deprecated please use bemjson method
      * @returns {Object}
      */
@@ -504,6 +377,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Declares blocks and elements, and creates a block class
+     *
      * @param {String} decl Block name (simple syntax) or description
      * @param {String} decl.block|decl.name Block name
      * @param {String} [decl.baseBlock] Name of the parent block
@@ -534,6 +408,10 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         }
 
         var baseBlock;
+        var baseBlocks;
+        var block;
+        var checkMod;
+        var prop;
 
         if (typeof decl.baseBlock === 'undefined') {
             baseBlock = blocks[decl.block] || this;
@@ -550,8 +428,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
         }
 
         if (decl.modName) {
-            var checkMod = buildCheckMod(decl.modName, decl.modVal);
-            var prop;
+            checkMod = buildCheckMod(decl.modName, decl.modVal);
             Object.keys(props).forEach(function(name) {
                 prop = props[name];
                 if (isFunction(prop)) {
@@ -575,8 +452,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
             });
         }
 
-        var block,
-            baseBlocks = baseBlock;
+        baseBlocks = baseBlock;
 
         if (decl.baseMix) {
 
@@ -603,10 +479,11 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Factory method for creating an instance of the block named
+     *
      * @param {String} block Block name
      * @param {Object} data per-request data
      * @param {Object} [params] block parameters
-     * @returns {BEM}
+     * @returns {Object}
      */
     create: function(block, data, params) {
         params = params || {};
@@ -627,6 +504,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Factory method for getting block's BEMJSON
+     *
      * @param {String|Object} block Block name or description
      * @param {Object} data per-request data
      * @param {Object} [params] Block parameters
@@ -645,6 +523,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Returns the name of the current block
+     *
      * @returns {String}
      */
     getName: function() {
@@ -653,6 +532,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Returns the static instance of block
+     *
      * @param {String} name
      * @returns {BEM}
      */
@@ -662,6 +542,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Returns decls of all blocks
+     *
      * @returns {Object}
      */
     blocks: function() {
@@ -670,6 +551,7 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
 
     /**
      * Wrap methods in try/catch to safety use in production
+     *
      * @param {Function} onError custom error callback
      * @param {Boolean} onlyFactory wrap only factory method
      */
@@ -709,12 +591,3 @@ var BEMPRIV = inherit(/** @lends BEMPRIV.prototype */ {
     inherit: inherit
 
 });
-
-
-// If run within node.js (for testing)
-if (typeof exports !== "undefined") {
-    exports.BEMPRIV = BEMPRIV;
-}
-
-return BEMPRIV;
-})();

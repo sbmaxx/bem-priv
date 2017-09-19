@@ -73,7 +73,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-replace');
-  grunt.loadNpmTasks("grunt-jscs");
+  grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-release');
@@ -81,5 +81,4 @@ module.exports = function(grunt) {
   grunt.registerTask('buildRelease', ['replace', 'release']);
   grunt.registerTask('default', ['replace']);
   grunt.registerTask('test', ['replace', 'mochaTest', 'jshint', 'jscs']);
-
 };

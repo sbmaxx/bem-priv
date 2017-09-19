@@ -11,10 +11,10 @@
     "disallowImplicitTypeConversion": ["string"],
 
     "excludeFiles": [
-      "test/benchmark.json",
+      "package/bem-priv/test/benchmark.json",
       "benchmark/**",
       "node_modules/**",
-      "src/templates/**",
-      "src/inherit.js"
+      "package/bem-priv/src/templates/**",
+      "package/bem-priv/src/inherit.js"
     ]
 }
