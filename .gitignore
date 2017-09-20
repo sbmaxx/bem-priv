@@ -1,5 +1,9 @@
 node_modules
+lerna-debug.log
 benchmark/bemjson
 packages/*/node_modules
-packages/*/package-lock.json
-lerna-debug.log
+
+packages/bem-priv-class/**/*.js
+packages/bem-priv-class/**/*.d.ts
+packages/bem-priv-class/test/dist/*
+!packages/bem-priv-class/index.js
