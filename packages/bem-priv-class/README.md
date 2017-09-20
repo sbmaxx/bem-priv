@@ -120,9 +120,92 @@ result:
     prop2: 2,
     prop3: 3
 }
-
 ```
 
+### Composition of Blocks
+You can create a blocks composition using the `addComposition` method of `ComplexBlock` class.
+Also you can build tree of block using static method `createBlock` of `ComplexBlock` class.
+
+```js
+
+class Block1 extends ComplexBlock {}
+class Block2 extends ComplexBlock {}
+class Block3 extends ComplexBlock {}
+class Block11 extends ComplexBlock {}
+
+class BaseBlock extends ComplexBlock{
+
+  public json() {
+    super.json();
+    this.js = this.params;
+
+    return this._bemjson;
+  }
+}
+
+
+class Behavior1 extends Block {
+  public json(): object {
+    this.mods['behavior1Mods'] = 'yes';
+    this.content.push({
+      block: this.block
+    });
+    return this._bemjson;
+  }
+}
+
+const json = ComplexBlock.createBlock(
+  BaseBlock,
+  {},
+    ComplexBlock.createBlock(
+        Block2,
+        {
+          behaviors: [
+            new Behavior1()
+          ]
+        }
+    ),
+    ComplexBlock.createBlock(
+        Block1,
+        {},
+        ComplexBlock.createBlock(
+            Block11,
+            {}
+        )
+    ),
+    ComplexBlock.createBlock(
+        Block3,
+        {}
+    )
+).json();
+
+result: {
+    block: 'baseblock',
+    content:[
+        {
+            block: 'block2',
+            content: [{
+                  block: 'behavior1'
+            }],
+            mods: {
+              behavior1Mods: 'yes'
+            }
+        },
+        {
+            block: 'block1',
+            content:[
+                {
+                    block: 'block11'
+                }
+            ]},
+        {
+            block: 'block3'
+        }
+    ],
+    js:{}
+}
+
+```
 
 ### Mixin
 
