@@ -1,0 +1,20 @@
+{
+  "name": "bem-priv-class",
+  "version": "1.0.0",
+  "author": "notary <nkviz40k@gmail.com>",
+  "description": "BEM-PRIV with ES6 classes and Typescript",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:test": "tsc -p test",
+    "test": "npm run build:test && mocha test/*.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.0.4",
+    "@types/mocha": "^2.2.42",
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0",
+    "typescript": "^2.4.2"
+  }
+}
