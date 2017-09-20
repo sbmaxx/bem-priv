@@ -7,5 +7,3 @@ packages/*/package-lock.json
 packages/bem-priv-class/**/*.js
 packages/bem-priv-class/**/*.d.ts
 !packages/bem-priv-class/index.js
-!packages/bem-priv-class/dist/*.js
-!packages/bem-priv-class/dist/*.d.ts
