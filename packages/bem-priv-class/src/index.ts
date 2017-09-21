@@ -112,7 +112,7 @@ export abstract class ComplexBlock extends Block {
 
     super.json();
 
-    return this._bemjson;
+    return  this.bemjson;
   }
 
   addComposition<T extends IBemJson>(block: T): this {

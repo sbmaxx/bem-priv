@@ -250,7 +250,7 @@ describe('bem-priv-class', () => {
             super.json();
             this.js = this.params;
 
-            return this._bemjson;
+            return this.bemjson;
           }
         }
 
@@ -261,7 +261,7 @@ describe('bem-priv-class', () => {
             this.content.push({
               block: this.block
             });
-            return this._bemjson;
+            return this.bemjson;
           }
         }
 
@@ -350,7 +350,7 @@ describe('bem-priv-class', () => {
                   ).json()
                 ];
 
-                return this._bemjson;
+                return this.bemjson;
             }
         }
 

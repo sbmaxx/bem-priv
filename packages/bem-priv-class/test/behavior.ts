@@ -11,7 +11,7 @@ describe('Behavior', () => {
                 this.content.push({
                     block: this.block
                 });
-                return this._bemjson;
+                return this.bemjson;
             }
         }
 
@@ -22,7 +22,7 @@ describe('Behavior', () => {
                     block: this.block
                 });
 
-                return this._bemjson;
+                return this.bemjson;
             }
         }
 
@@ -40,7 +40,7 @@ describe('Behavior', () => {
 
                 this.mods['test'] = true;
 
-                return this._bemjson;
+                return this.bemjson;
             }
         }
 

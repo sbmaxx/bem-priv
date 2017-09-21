@@ -1,8 +1,6 @@
 var data = require('../data/elements.json');
 var Block = require('../../packages/bem-priv-class').Block;
 var ComplexBlock = require('../../packages/bem-priv-class').ComplexBlock;
-var mixin = require('../../packages/bem-priv-class').mixin;
-var blockName = require('../../packages/bem-priv-class').blockName;
 
 class Page extends Block {
     json() {

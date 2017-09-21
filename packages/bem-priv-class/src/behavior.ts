@@ -20,11 +20,15 @@ export abstract class Behavior implements IBehavior, IBemJson {
             });
         }
 
-        return this._bemjson;
+        return this.bemjson;
     }
 
     public set bemjson(bemjson: object) {
         this._bemjson = bemjson;
+    }
+
+    public get bemjson() {
+        return this._bemjson;
     }
 
     addBehavior<T extends BehaviorBlock>(block: T): this {
