@@ -1,5 +1,5 @@
-import { Block, ComplexBlock } from '../src/index';
-import { assert } from 'chai';
+import {Block, ComplexBlock} from '../src/index';
+import {assert} from 'chai';
 
 describe('bem-priv-class', () => {
     it('mods get and set must work correctly', () => {
@@ -144,8 +144,8 @@ describe('bem-priv-class', () => {
 
     it('addMix must work correctly', () => {
         const mix = [{block: 'a'}, {block: 'b'}];
-        const addedMix = {test: 50};
-        const addedMix2 = {test2: 60};
+        const addedMix = { block: '50'};
+        const addedMix2 = { block: '60' };
 
         class MyComp extends Block {
             protected get defaultParams(): object {
@@ -164,7 +164,7 @@ describe('bem-priv-class', () => {
         myComp.mix.push(addedMix);
         myComp.mix.push(addedMix2);
 
-        assert.deepEqual(myComp.mix, [{block: 'a'}, {block: 'b'}, {test: 50}, {test2: 60}]);
+        assert.deepEqual(myComp.mix, [{block: 'a'}, {block: 'b'}, {block: '50'}, {block: '60'}]);
     });
 
     it('js must work correctly', () => {
@@ -240,40 +240,43 @@ describe('bem-priv-class', () => {
         class Block1 extends ComplexBlock {
 
         }
-        class Block2 extends ComplexBlock {}
-        class Block3 extends ComplexBlock {}
-        class Block11 extends ComplexBlock {}
+        class Block2 extends ComplexBlock {
+        }
+        class Block3 extends ComplexBlock {
+        }
+        class Block11 extends ComplexBlock {
+        }
 
-        class BaseBlock extends ComplexBlock{
+        class BaseBlock extends ComplexBlock {
 
-          public json() {
-            super.json();
-            this.js = this.params;
+            public json() {
+                super.json();
+                this.js = this.params;
 
-            return this.bemjson;
-          }
+                return this.bemjson;
+            }
         }
 
 
         class Behavior1 extends Block {
-          public json(): object {
-            this.mods['behavior1Mods'] = 'yes';
-            this.content.push({
-              block: this.block
-            });
-            return this.bemjson;
-          }
+            public json(): object {
+                this.mods['behavior1Mods'] = 'yes';
+                this.content.push({
+                    block: this.block
+                });
+                return this.bemjson;
+            }
         }
 
         const json = ComplexBlock.createBlock(
-          BaseBlock,
-          {},
+            BaseBlock,
+            {},
             ComplexBlock.createBlock(
                 Block2,
                 {
-                  behaviors: [
-                    new Behavior1()
-                  ]
+                    behaviors: [
+                        new Behavior1()
+                    ]
                 }
             ),
             ComplexBlock.createBlock(
@@ -292,28 +295,29 @@ describe('bem-priv-class', () => {
 
         assert.deepEqual(json, {
             block: 'baseblock',
-            content:[
+            content: [
                 {
                     block: 'block2',
                     content: [{
-                          block: 'behavior1'
+                        block: 'behavior1'
                     }],
                     mods: {
-                      behavior1Mods: 'yes'
+                        behavior1Mods: 'yes'
                     }
                 },
                 {
                     block: 'block1',
-                    content:[
+                    content: [
                         {
                             block: 'block11'
                         }
-                    ]},
+                    ]
+                },
                 {
                     block: 'block3'
                 }
             ],
-            js:{}
+            js: {}
         });
     });
 
@@ -321,33 +325,36 @@ describe('bem-priv-class', () => {
         class Block1 extends ComplexBlock {
 
         }
-        class Block2 extends ComplexBlock {}
-        class Block3 extends ComplexBlock {}
-        class Block11 extends ComplexBlock {}
+        class Block2 extends ComplexBlock {
+        }
+        class Block3 extends ComplexBlock {
+        }
+        class Block11 extends ComplexBlock {
+        }
 
-        class BaseBlock extends ComplexBlock{
+        class BaseBlock extends ComplexBlock {
 
             public json() {
                 super.json();
                 this.js = this.params;
 
                 this.content = [
-                  ComplexBlock.createBlock(
-                      Block2,
-                      {}
-                  ).json(),
-                  ComplexBlock.createBlock(
-                      Block1,
-                      {},
-                      ComplexBlock.createBlock(
-                          Block11,
-                          {}
-                      )
-                  ).json(),
-                  ComplexBlock.createBlock(
-                      Block3,
-                      {}
-                  ).json()
+                    ComplexBlock.createBlock(
+                        Block2,
+                        {}
+                    ).json(),
+                    ComplexBlock.createBlock(
+                        Block1,
+                        {},
+                        ComplexBlock.createBlock(
+                            Block11,
+                            {}
+                        )
+                    ).json(),
+                    ComplexBlock.createBlock(
+                        Block3,
+                        {}
+                    ).json()
                 ];
 
                 return this.bemjson;
@@ -356,22 +363,23 @@ describe('bem-priv-class', () => {
 
         assert.deepEqual(new BaseBlock({}).json(), {
             block: 'baseblock',
-            content:[
+            content: [
                 {
                     block: 'block2'
                 },
                 {
                     block: 'block1',
-                    content:[
+                    content: [
                         {
                             block: 'block11'
                         }
-                    ]},
+                    ]
+                },
                 {
                     block: 'block3'
                 }
             ],
-            js:{}
+            js: {}
         });
     });
 });

@@ -10,15 +10,13 @@ export interface IBehavior {
 export type BehaviorBlock = IBehavior & IBemJson;
 
 export abstract class Behavior implements IBehavior, IBemJson {
-    private behaviors: BehaviorBlock[] = [];
+    private _behaviors: BehaviorBlock[] = [];
     protected _bemjson: object = {};
 
-    public json() : object {
-        if (this.behaviors.length) {
-            this.behaviors.forEach((behavior) => {
-                return behavior.json();
-            });
-        }
+    public json(): object {
+        this._behaviors.forEach((behavior) => {
+            return behavior.json();
+        });
 
         return this.bemjson;
     }
@@ -33,7 +31,7 @@ export abstract class Behavior implements IBehavior, IBemJson {
 
     addBehavior<T extends BehaviorBlock>(block: T): this {
         block.bemjson = this._bemjson;
-        this.behaviors.push(block);
+        this._behaviors.push(block);
         return this;
     }
 }
