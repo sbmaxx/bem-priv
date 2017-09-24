@@ -136,10 +136,13 @@ export abstract class ComplexBlock extends Block {
         return this;
     }
 
-    static createBlock<T extends IComposition & IBehavior>(BlockImpl: new (args?: object) => T, props: IProps = {}, ...compositions: IComposition[]) {
+    static createBlock<T extends IComposition & IBehavior>(props: IProps = {}, ...compositions: IComposition[])  {
+
+        const Constructor = <any>this;
+
         let {behaviors, ...params} = props;
 
-        const block = new BlockImpl(params);
+        const block = new Constructor(params);
 
         if (behaviors) {
             behaviors.forEach((behavior: BehaviorBlock) => {

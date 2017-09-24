@@ -268,29 +268,18 @@ describe('bem-priv-class', () => {
             }
         }
 
-        const json = ComplexBlock.createBlock(
-            BaseBlock,
-            {},
-            ComplexBlock.createBlock(
-                Block2,
+        const json = BaseBlock.createBlock({},
+            Block2.createBlock(
                 {
                     behaviors: [
                         new Behavior1()
                     ]
                 }
             ),
-            ComplexBlock.createBlock(
-                Block1,
-                {},
-                ComplexBlock.createBlock(
-                    Block11,
-                    {}
-                )
+            Block1.createBlock({},
+                Block11.createBlock()
             ),
-            ComplexBlock.createBlock(
-                Block3,
-                {}
-            )
+            Block3.createBlock()
         ).json();
 
         assert.deepEqual(json, {
@@ -339,22 +328,11 @@ describe('bem-priv-class', () => {
                 this.js = this.params;
 
                 this.content = [
-                    ComplexBlock.createBlock(
-                        Block2,
-                        {}
+                    Block2.createBlock().json(),
+                    Block1.createBlock({},
+                        Block11.createBlock()
                     ).json(),
-                    ComplexBlock.createBlock(
-                        Block1,
-                        {},
-                        ComplexBlock.createBlock(
-                            Block11,
-                            {}
-                        )
-                    ).json(),
-                    ComplexBlock.createBlock(
-                        Block3,
-                        {}
-                    ).json()
+                    Block3.createBlock().json()
                 ];
 
                 return this.bemjson;
