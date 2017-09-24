@@ -7,18 +7,11 @@ class Page extends Block {
         return {
             block: 'page',
             content: [
-                ComplexBlock.createBlock(
-                    Header,
+                Header.createBlock(
                     { showBadge: true }
                 ).json(),
-                ComplexBlock.createBlock(
-                    Content,
-                    {}
-                ).json(),
-                ComplexBlock.createBlock(
-                    Footer,
-                    {}
-                ).json()
+                Content.createBlock().json(),
+                Footer.createBlock().json()
             ]
         }
     }
