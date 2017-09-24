@@ -137,7 +137,6 @@ export abstract class ComplexBlock extends Block {
     }
 
     static createBlock<T extends IComposition & IBehavior>(props: IProps = {}, ...compositions: IComposition[])  {
-
         const Constructor = <any>this;
 
         let {behaviors, ...params} = props;
@@ -151,7 +150,9 @@ export abstract class ComplexBlock extends Block {
         }
 
         compositions.forEach((composition) => {
-            block.addComposition(composition);
+            if (composition) {
+                block.addComposition(composition);
+            }
         });
 
         return block;
