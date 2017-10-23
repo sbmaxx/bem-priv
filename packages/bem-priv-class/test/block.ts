@@ -1,59 +1,72 @@
-import { Block } from '../src/index';
+import { Block } from '../src/block';
 import { assert } from 'chai';
-import { IBemjson } from '../src/block';
+import { IBemjson } from '../src/bem';
 
 describe('bem-priv-class', () => {
     describe('content()', () => {
         it('should return set content', () => {
-            class MyComp extends Block<{}> {
-                constructor() {
-                    super();
-
+            class MyComp extends Block<{}, { test: string }> {
+                public json() {
                     this.content = [{
-                        props: { test: 2 }
+                        props: { foo: 'bar' }
                     }];
+
+                    return super.json();
                 }
             }
 
             const myComp = new MyComp();
 
-            assert.deepEqual(myComp.content[0], { props: { test: 2 } });
+            assert.deepEqual(myComp.json(), {
+                    block: 'mycomp',
+                    content: [{ props: { foo: 'bar' } }],
+                    props: {}
+                }
+            );
         });
     });
 
     describe('mods()', () => {
         it('should return set mods', () => {
-            class MyComp extends Block<{}> {
-                constructor() {
-                    super();
-
+            class MyComp extends Block<{}, {}> {
+                public json() {
                     this.mods = {
                         test: 2
                     };
+
+                    return super.json();
                 }
             }
 
             const myComp = new MyComp();
 
-            assert.deepEqual(myComp.mods, { test: 2 });
+            assert.deepEqual(myComp.json(), {
+                block: 'mycomp',
+                mods: { test: 2 },
+                props: {}
+            });
         });
     });
 
     describe('attrs()', () => {
         it('should return set attrs', () => {
-            class MyComp extends Block<{}> {
-                constructor() {
-                    super();
-
+            class MyComp extends Block<{}, {}> {
+                public json() {
                     this.attrs = {
                         test: 2
                     };
+
+                    return super.json();
                 }
             }
 
             const myComp = new MyComp();
 
-            assert.deepEqual(myComp.attrs, {test: 2});
+            assert.deepEqual(myComp.json(), {
+                block: 'mycomp',
+                attrs: {test: 2},
+                props: {}
+            });
         });
     });
 
@@ -63,20 +76,25 @@ describe('bem-priv-class', () => {
             const addedMix = { block: '50'};
             const addedMix2 = { block: '60' };
 
-            class MyComp extends Block<{}> {
-                constructor() {
-                    super();
-
+            class MyComp extends Block<{}, {}> {
+                public json() {
                     this.mix = mix;
+
+                    this.mix.push(addedMix);
+                    this.mix.push(addedMix2);
+
+                    return super.json();
                 }
             }
 
             const myComp = new MyComp();
 
-            myComp.mix.push(addedMix);
-            myComp.mix.push(addedMix2);
-
-            assert.deepEqual(myComp.mix, [{block: 'a'}, {block: 'b'}, {block: '50'}, {block: '60'}]);
+            assert.deepEqual(myComp.json(), {
+                    block: 'mycomp',
+                    mix: [{block: 'a'}, {block: 'b'}, {block: '50'}, {block: '60'}],
+                    props: {}
+                }
+            );
         });
     });
 
@@ -89,17 +107,21 @@ describe('bem-priv-class', () => {
                 }
             };
 
-            class MyComp extends Block<{}> {
-                constructor() {
-                    super();
-
+            class MyComp extends Block<{}, {}> {
+                public json() {
                     this.js = js;
+
+                    return super.json();
                 }
             }
 
             const myComp = new MyComp();
 
-            assert.deepEqual(myComp.js, js);
+            assert.deepEqual(myComp.json(), {
+                block: 'mycomp',
+                js,
+                props: {}
+            });
         });
     });
 
@@ -109,7 +131,7 @@ describe('bem-priv-class', () => {
                 prop1: number;
             };
 
-            class MyComp extends Block<Props> {
+            class MyComp extends Block<{}, Props> {
                 public json() {
                     this.mix = [{block: 'test'}, {block: 'test2'}];
                     this.js = {
@@ -122,15 +144,15 @@ describe('bem-priv-class', () => {
                         test: true
                     };
 
+                    this.props = {
+                        prop1: 1
+                    };
+
                     return super.json();
                 }
             }
 
             const myComp = new MyComp();
-
-            myComp.addProps({
-                prop1: 1
-            });
 
             const json = myComp.json();
 

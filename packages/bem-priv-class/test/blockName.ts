@@ -5,9 +5,8 @@ import { assert } from 'chai';
 describe('blockName()', () => {
     it('should set block to json', () => {
         @blockName('component')
-        class MyComp extends Block<{}> {
-            constructor() {
-                super();
+        class MyComp extends Block<{}, {}> {
+            public json() {
 
                 this.mix = [{block: 'test'}, {block: 'test2'}];
                 this.js = {
@@ -19,16 +18,18 @@ describe('blockName()', () => {
                 this.mods = {
                     test: true
                 };
+
+                myComp.props = {
+                    prop1: 1,
+                    prop2: 2,
+                    prop3: 3
+                };
+
+                return super.json();
             }
         }
 
         const myComp = new MyComp();
-
-        myComp.addProps({
-            prop1: 1,
-            prop2: 2,
-            prop3: 3
-        });
 
         assert.deepEqual(myComp.json(), {
             block: 'component',
