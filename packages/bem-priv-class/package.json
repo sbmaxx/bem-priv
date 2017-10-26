@@ -1,6 +1,6 @@
 {
   "name": "bem-priv-class",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "notary <nkviz40k@gmail.com>",
   "description": "BEM-PRIV with ES6 classes and Typescript",
   "repository": {
@@ -8,13 +8,14 @@
     "url": "https://github.com/sbmaxx/bem-priv.git"
   },
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "build:test": "tsc -p test",
     "test": "npm run build:test && mocha test/*.js",
     "prepublish": "npm run build"
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.42",
