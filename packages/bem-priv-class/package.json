@@ -1,6 +1,6 @@
 {
   "name": "bem-priv-class",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "notary <nkviz40k@gmail.com>",
   "description": "BEM-PRIV with ES6 classes and Typescript",
   "repository": {
