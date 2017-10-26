@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "author": "notary <nkviz40k@gmail.com>",
   "description": "BEM-PRIV with ES6 classes and Typescript",
-  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sbmaxx/bem-priv.git"
+  },
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "build:test": "tsc -p test",
