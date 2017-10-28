@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc",
     "build:test": "tsc -p test",
-    "test": "npm run build:test && mocha test/*.js",
+    "test": "npm run build:test && mocha test/dist/test/**/*.js",
     "prepublish": "npm run build"
   },
   "license": "MIT",

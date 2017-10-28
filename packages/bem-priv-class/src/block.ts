@@ -7,7 +7,7 @@ export interface IMix {
     mods?: IMods;
     elem?: string;
     elemMods?: IMods;
-    js?: object;
+    js?: Record<string, any>;
 }
 
 export type Content = IBemjson | string | number;
@@ -28,11 +28,11 @@ export abstract class Block {
     private static readonly PARAMS_KEY: string = 'js';
     private static readonly CONTENT_KEY: string = 'content';
 
-    protected params: object;
+    protected params: Record<string, any>;
 
     private _bemjson: IBemjson;
 
-    constructor(params?: object) {
+    constructor(params?: Record<string, any>) {
         this.params = Object.assign(this.defaultParams, params);
 
         this._bemjson = {
@@ -40,7 +40,7 @@ export abstract class Block {
         };
     }
 
-    protected get defaultParams(): object {
+    protected get defaultParams(): Record<string, any> {
         return {};
     }
 
@@ -76,11 +76,11 @@ export abstract class Block {
         this._bemjson[Block.ATTRS_KEY] = attrs;
     }
 
-    public get js(): object {
+    public get js(): Record<string, any> {
         return this._getProp(Block.PARAMS_KEY);
     }
 
-    public set js(params: object) {
+    public set js(params: Record<string, any>) {
         this._bemjson[Block.PARAMS_KEY] = params;
     }
 
@@ -92,7 +92,7 @@ export abstract class Block {
         this._bemjson[Block.CONTENT_KEY] = content;
     }
 
-    public addProps(props: object): void {
+    public addProps(props: Record<string, any>): void {
         Object.assign(this._bemjson, props);
     }
 
