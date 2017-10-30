@@ -1,0 +1,9 @@
+#!/bin/sh
+
+NPM_BIN="./packages/bem-priv-class/node_modules/.bin"
+
+git_cached_files=$( git diff --relative --cached --name-only --diff-filter=ACMR -- '*.ts' | xargs echo)
+if [ "$git_cached_files" ]; then
+    echo "$NPM_BIN/tslint $git_cached_files"
+    $NPM_BIN/tslint $git_cached_files || exit 1
+fi

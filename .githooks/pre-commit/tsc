@@ -1,0 +1,6 @@
+#!/bin/sh
+
+NPM_BIN="./packages/bem-priv-class/node_modules/.bin"
+
+echo "$NPM_BIN/tsc"
+$NPM_BIN/tsc -p packages/bem-priv-class/ || exit 1
