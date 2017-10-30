@@ -2,6 +2,9 @@
   "name": "bem-priv-class",
   "version": "0.1.3",
   "author": "notary <nkviz40k@gmail.com>",
+  "repository": {
+    "url": "https://github.com/sbmaxx/bem-priv/tree/develop/packages/bem-priv-class"
+  },
   "description": "BEM-PRIV with ES6 classes and Typescript",
   "repository": {
     "type": "git",

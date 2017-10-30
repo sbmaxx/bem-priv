@@ -7,9 +7,9 @@
   "rules": {
     "quotemark": [true, "single"],
     "object-literal-sort-keys": false,
-    "interface-name": [true, "always-prefix"],
+    "interface-name": [ true, "always-prefix" ],
     "no-empty-interface": false,
-    "max-line-length": [true, 120],
+    "max-line-length": [ true, 120 ],
     "ordered-imports": false,
     "member-access": true,
     "no-magic-numbers": true,
