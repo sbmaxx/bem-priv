@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "npm run test"
+npm run test || exit 1
