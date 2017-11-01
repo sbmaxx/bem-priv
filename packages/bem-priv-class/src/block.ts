@@ -7,7 +7,7 @@ export interface IMix {
     mods?: IMods;
     elem?: string;
     elemMods?: IMods;
-    js?: Record<string, any>;
+    js?: boolean | Record<string, any>;
 }
 
 export type Content = IBemjson | string | number;
