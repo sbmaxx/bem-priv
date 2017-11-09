@@ -1,5 +1,6 @@
 import { Block } from '../src/index';
 import { assert } from 'chai';
+import { IBemjson } from '../src/block';
 
 describe('bem-priv-class', () => {
     describe('content()', () => {
@@ -104,7 +105,11 @@ describe('bem-priv-class', () => {
 
     describe('json()', () => {
         it('should return correct bemjson', () => {
-            class MyComp extends Block {
+            type Props = {
+                prop1: number;
+            };
+
+            class MyComp extends Block<Props> {
                 public json() {
                     this.mix = [{block: 'test'}, {block: 'test2'}];
                     this.js = {
@@ -124,10 +129,10 @@ describe('bem-priv-class', () => {
             const myComp = new MyComp();
 
             myComp.addProps({
-                prop1: 1,
-                prop2: 2,
-                prop3: 3
+                prop1: 1
             });
+
+            const json = myComp.json();
 
             assert.deepEqual(myComp.json(), {
                 block: 'mycomp',
@@ -141,9 +146,9 @@ describe('bem-priv-class', () => {
                 mods: {
                     test: true
                 },
-                prop1: 1,
-                prop2: 2,
-                prop3: 3
+                props: {
+                    prop1: 1
+                }
             });
         });
     });
