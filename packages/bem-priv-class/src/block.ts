@@ -11,7 +11,6 @@ export interface IMix {
 }
 
 export interface IBemjson<T> extends IMix {
-    block: string;
     attrs?: IAttrs;
     mix?: IMix[];
     content?: Array<IBemjson<T> | string | number>;
@@ -21,7 +20,7 @@ export interface IBemjson<T> extends IMix {
     props: T;
 }
 
-export abstract class Block<T = any> {
+export abstract class Block<T = {}> {
     private static readonly MODS_KEY: string = 'mods';
     private static readonly MIX_KEY: string = 'mix';
     private static readonly ATTRS_KEY: string = 'attrs';
@@ -97,7 +96,7 @@ export abstract class Block<T = any> {
         return this._bemjson.props;
     }
 
-    public addProps(props: Record<keyof T, any>): void {
+    public addProps(props: Record<keyof T, T[keyof T]>): void {
         Object.assign(this._bemjson.props, props);
     }
 

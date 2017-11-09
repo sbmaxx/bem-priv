@@ -10,14 +10,14 @@ describe('bem-priv-class', () => {
                     super();
 
                     this.content = [{
-                        test: 2
+                        props: { test: 2 }
                     }];
                 }
             }
 
             const myComp = new MyComp();
 
-            assert.deepEqual(myComp.content[0], { test: 2 });
+            assert.deepEqual(myComp.content[0], { props: { test: 2 } });
         });
     });
 
