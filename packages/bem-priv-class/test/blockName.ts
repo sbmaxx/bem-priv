@@ -42,9 +42,11 @@ describe('blockName()', () => {
             mods: {
                 test: true
             },
-            prop1: 1,
-            prop2: 2,
-            prop3: 3
+            props: {
+                prop1: 1,
+                prop2: 2,
+                prop3: 3
+            }
         });
 
         assert.strictEqual(myComp.json().block, 'component');

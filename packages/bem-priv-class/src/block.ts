@@ -10,18 +10,17 @@ export interface IMix {
     js?: Record<string, any>;
 }
 
-export type Content = IBemjson | string | number;
-
-export interface IBemjson extends IMix, Record<string, any> {
+export interface IBemjson<T> extends IMix {
     attrs?: IAttrs;
     mix?: IMix[];
-    content?: Content[];
+    content?: Array<IBemjson<T> | string | number>;
     bem?: boolean;
     cls?: string;
     tag?: string;
+    props: T;
 }
 
-export abstract class Block {
+export abstract class Block<T = {}> {
     private static readonly MODS_KEY: string = 'mods';
     private static readonly MIX_KEY: string = 'mix';
     private static readonly ATTRS_KEY: string = 'attrs';
@@ -30,13 +29,14 @@ export abstract class Block {
 
     protected params: Record<string, any>;
 
-    private _bemjson: IBemjson;
+    private _bemjson: IBemjson<T>;
 
     constructor(params?: Record<string, any>) {
         this.params = Object.assign(this.defaultParams, params);
 
         this._bemjson = {
-            block: this.block
+            block: this.block,
+            props: {} as T
         };
     }
 
@@ -48,7 +48,7 @@ export abstract class Block {
         return (this as any).constructor.name.toLowerCase();
     }
 
-    public json(): IBemjson {
+    public json(): IBemjson<T> {
         return this.bemjson;
     }
 
@@ -84,19 +84,23 @@ export abstract class Block {
         this._bemjson[Block.PARAMS_KEY] = params;
     }
 
-    public get content(): Content[] {
-        return this._getProp(Block.CONTENT_KEY) as Content[];
+    public get content(): Array<IBemjson<T> | string | number> {
+        return this._getProp(Block.CONTENT_KEY) as Array<IBemjson<T> | string | number>;
     }
 
-    public set content(content: Content[]) {
+    public set content(content: Array<IBemjson<T> | string | number>) {
         this._bemjson[Block.CONTENT_KEY] = content;
     }
 
-    public addProps(props: Record<string, any>): void {
-        Object.assign(this._bemjson, props);
+    public get props(): T {
+        return this._bemjson.props;
     }
 
-    protected get bemjson(): IBemjson {
+    public addProps(props: Record<keyof T, T[keyof T]>): void {
+        Object.assign(this._bemjson.props, props);
+    }
+
+    protected get bemjson(): IBemjson<T> {
         return this._bemjson;
     }
 
