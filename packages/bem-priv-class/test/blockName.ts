@@ -1,11 +1,11 @@
-import { BlockName } from '../src/blockName';
+import { blockName } from '../src/blockName';
 import { Block } from '../src/index';
 import { assert } from 'chai';
 
 describe('blockName()', () => {
     it('should set block to json', () => {
-        @BlockName('component')
-        class MyComp extends Block {
+        @blockName('component')
+        class MyComp extends Block<{}> {
             constructor() {
                 super();
 
