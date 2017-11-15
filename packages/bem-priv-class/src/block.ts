@@ -20,7 +20,7 @@ export interface IBemjson<T> extends IMix {
     props: T;
 }
 
-export abstract class Block<T = {}> {
+export abstract class Block<T extends Object> {
     private static readonly MODS_KEY: string = 'mods';
     private static readonly MIX_KEY: string = 'mix';
     private static readonly ATTRS_KEY: string = 'attrs';

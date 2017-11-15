@@ -2,6 +2,7 @@ node_modules
 lerna-debug.log
 benchmark/bemjson
 packages/*/node_modules
+.history
 
 packages/bem-priv-class/**/*.js
 packages/bem-priv-class/**/*.d.ts

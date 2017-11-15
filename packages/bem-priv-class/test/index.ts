@@ -5,7 +5,7 @@ import { IBemjson } from '../src/block';
 describe('bem-priv-class', () => {
     describe('content()', () => {
         it('should return set content', () => {
-            class MyComp extends Block {
+            class MyComp extends Block<{}> {
                 constructor() {
                     super();
 
@@ -23,7 +23,7 @@ describe('bem-priv-class', () => {
 
     describe('mods()', () => {
         it('should return set mods', () => {
-            class MyComp extends Block {
+            class MyComp extends Block<{}> {
                 constructor() {
                     super();
 
@@ -41,7 +41,7 @@ describe('bem-priv-class', () => {
 
     describe('attrs()', () => {
         it('should return set attrs', () => {
-            class MyComp extends Block {
+            class MyComp extends Block<{}> {
                 constructor() {
                     super();
 
@@ -63,7 +63,7 @@ describe('bem-priv-class', () => {
             const addedMix = { block: '50'};
             const addedMix2 = { block: '60' };
 
-            class MyComp extends Block {
+            class MyComp extends Block<{}> {
                 constructor() {
                     super();
 
@@ -89,7 +89,7 @@ describe('bem-priv-class', () => {
                 }
             };
 
-            class MyComp extends Block {
+            class MyComp extends Block<{}> {
                 constructor() {
                     super();
 
