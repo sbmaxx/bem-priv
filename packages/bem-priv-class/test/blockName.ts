@@ -1,4 +1,4 @@
-import { blockName } from '../src/blockName';
+import { blockName } from '../src/decorators/blockName';
 import { Block } from '../src/index';
 import { assert } from 'chai';
 
